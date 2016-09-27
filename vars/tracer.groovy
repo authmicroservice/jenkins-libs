@@ -1,9 +1,5 @@
-{ ->
-
-    hello() {
-        echo "hello"
+def call(Closure body) {
+    node('windows') {
+        body()
     }
-
 }
-
-this

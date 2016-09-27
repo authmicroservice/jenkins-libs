@@ -1,14 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
-class Pipeline implements Serializable {
-
-//    Pipeline(Closure config) {
-//        config.setDelegate(this)
-//        config.setResolveStrategy(Closure.DELEGATE_FIRST)
-//        config.call()
-//    }
-//
-//    String name
+//class Pipeline implements Serializable {
 
     def environments = ['integration', 'qa', 'staging', 'production']
 
@@ -18,8 +10,5 @@ class Pipeline implements Serializable {
         }
     }
 
-//    void name(String name) {
-//        this.name = name
-//    }
 
-}
+//}

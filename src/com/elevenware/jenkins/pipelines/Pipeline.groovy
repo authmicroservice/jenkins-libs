@@ -4,7 +4,7 @@ package com.elevenware.jenkins.pipelines
 
     def environments = ['integration', 'qa', 'staging', 'production']
 
-    void run(object) {
+    void generate() {
         environments.each { env ->
             new SimpleStage().create('test app', env)
         }

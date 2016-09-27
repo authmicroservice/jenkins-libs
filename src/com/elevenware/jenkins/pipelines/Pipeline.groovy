@@ -4,7 +4,7 @@ class Pipeline implements Serializable {
 
     void run(object) {
         println "hello there $object"
-        object.echo("OBJECT ${object.getClass().canonicalName}")
+        object.echo("OBJECT ${object.getClass().synthetic}")
     }
 
 }

@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
-class Pipeline implements Serializable {
+//class Pipeline implements Serializable {
 
     void run(object) {
         println "hello there $object"
@@ -10,4 +10,4 @@ class Pipeline implements Serializable {
         }
     }
 
-}
+//}

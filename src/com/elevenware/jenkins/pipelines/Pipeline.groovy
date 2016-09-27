@@ -17,4 +17,8 @@ class Pipeline implements Serializable {
         }
     }
 
+    void name(String name) {
+        this.name = name
+    }
+
 }

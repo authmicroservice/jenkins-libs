@@ -4,6 +4,7 @@ class Pipeline implements Serializable {
 
     Pipeline(Closure config) {
         config.setDelegate(this)
+        config.setResolveStrategy(Closure.DELEGATE_FIRST)
         config.call()
     }
 

@@ -14,7 +14,7 @@ class Pipeline implements Serializable {
 
     void run(object) {
         environments.each { env ->
-            new SimpleStage().create(name, env)
+            new SimpleStage().create('test app', env)
         }
     }
 

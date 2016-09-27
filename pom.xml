@@ -18,7 +18,7 @@ it is NOT used for actually building anything
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+§
     <dependencies>
         <dependency>
             <groupId>org.yaml</groupId>
@@ -32,18 +32,11 @@ it is NOT used for actually building anything
 
         </dependency>
         <dependency>
-            <groupId>org.codehaus.groovy.modules.http-builder</groupId>
-            <artifactId>http-builder</artifactId>
-            <version>0.7</version>
+            <groupId>org.jenkinsci.plugins</groupId>
+            <artifactId>pipeline-model-defiznition</artifactId>
+            <version>0.3-SNAPSHOT</version>
         </dependency>
-        <!-- provided by jenkins -->
-        <dependency>
-            <groupId>org.jenkins-ci.plugins</groupId>
-            <artifactId>job-dsl-core</artifactId>
-            <version>1.26</version>
-            <classifier>Steve</classifier>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.jenkins-ci.main</groupId>
             <artifactId>jenkins-core</artifactId>

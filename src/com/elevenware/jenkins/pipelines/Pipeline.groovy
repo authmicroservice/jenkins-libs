@@ -8,7 +8,7 @@ package com.elevenware.jenkins.pipelines
 
         def environments = ['integration', 'qa', 'staging', 'production']
 
-        environments.each { env ->
+        for(String env: environments) {
             new SimpleStage().create('test app', 'integration')
             new SimpleStage().create('test app', 'qa')
             new SimpleStage().create('test app', 'staging')

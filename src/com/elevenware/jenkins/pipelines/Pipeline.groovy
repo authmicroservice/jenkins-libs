@@ -2,8 +2,6 @@ package com.elevenware.jenkins.pipelines
 
 class Pipeline implements Serializable {
 
-
-
     void generate() {
 
         def environments = ['integration', 'qa', 'staging', 'production']
@@ -12,6 +10,5 @@ class Pipeline implements Serializable {
             new SimpleStage().create('test app', env)
         }
     }
-
 
 }

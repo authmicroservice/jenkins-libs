@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
-//class Pipeline implements Serializable {
+class Pipeline implements Serializable {
 
 
 
@@ -14,4 +14,4 @@ package com.elevenware.jenkins.pipelines
     }
 
 
-//}
+}

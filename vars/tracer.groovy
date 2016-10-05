@@ -3,6 +3,7 @@ def call(Closure body) {
         body.setDelegate({
             def foo = { str -> println "PASSED $str"}
         })
+        body.setResolveStrategy(Closure.DELEGATE_FIRST)
         body()
     }
 }

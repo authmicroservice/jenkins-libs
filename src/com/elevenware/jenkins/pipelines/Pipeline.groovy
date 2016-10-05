@@ -4,11 +4,11 @@ class Pipeline implements Serializable {
 
     void generate() {
 
-        def environments = ['integration', 'qa', 'staging', 'production']
+        new SimpleStage().create('test app', 'Integration')
+        new SimpleStage().create('test app', 'QA')
+        new SimpleStage().create('test app', 'Staging')
+        new SimpleStage().create('test app', 'Production')
 
-        for(String env: environments) {
-            new SimpleStage().create('test app', env)
-        }
     }
 
 }

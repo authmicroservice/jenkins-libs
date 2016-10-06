@@ -18,6 +18,7 @@ abstract class Pipeline implements Serializable {
 
     abstract List<PipelineElement> getElements()
 
+    @NonCPS
     static Pipeline forType(String type) {
         println "LOOKING YP $type"
 //        Class<? extends Pipeline> pipelineClass = PIPELINES[type]

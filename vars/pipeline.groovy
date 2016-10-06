@@ -10,6 +10,6 @@ def call(Closure body) {
     body()
 
     Pipeline pipeline = builder.pipeline
-    pipeline.generate()
+//    pipeline.generate()
 
 }

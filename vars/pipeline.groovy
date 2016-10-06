@@ -9,7 +9,7 @@ def call(Closure body) {
         stage('Build-test-publish') {
             withMaven(maven: 'M3') {
                 // Run the maven build
-                sh "mvn clean install"
+                sh "echo 'run maven'" //mvn clean install"
             }
         }
         stage('deploy-integration') {

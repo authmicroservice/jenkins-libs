@@ -1,6 +1,10 @@
 package com.elevenware.jenkins.pipelines
 
-class Pipeline implements Serializable {
+abstract class Pipeline implements Serializable {
+
+    private static Map PIPELINES = [
+            'github': GithubPipeline
+    ]
 
     void generate() {
 
@@ -9,6 +13,14 @@ class Pipeline implements Serializable {
         new SimpleStage().create('test app', 'Staging')
         new SimpleStage().create('test app', 'Production')
 
+    }
+
+    static Pipeline forType(String type) {
+        Class<? extends Pipeline> pipelineClass = PIPELINES[type]
+        if(!pipelineClass) {
+            throw new RuntimeException("Unknown pipeline type '${type}'")
+        }
+        pipelineClass.newInstance()
     }
 
 }

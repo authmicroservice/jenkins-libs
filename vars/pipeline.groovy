@@ -3,7 +3,8 @@ def call(Closure body) {
         def mvnHome
         stage('Checkout') { // for display purposes
             // Get some code from a GitHub repository
-            git url: scm.url, credentialsId: '9af674bb-7bea-4eee-9332-17bd93dffb14'
+            checkout scm
+//            git url: scm.url, credentialsId: '9af674bb-7bea-4eee-9332-17bd93dffb14'
         }
         stage('Build-test-publish') {
             withMaven(maven: 'M3') {

@@ -7,6 +7,7 @@ def call(Closure body) {
     body.setResolveStrategy(Closure.DELEGATE_FIRST)
     body()
 
-    println "I GOT ${builder.pipeline}"
+    Pipeline pipeline = builder.pipeline
+    pipeline.generate()
 
 }

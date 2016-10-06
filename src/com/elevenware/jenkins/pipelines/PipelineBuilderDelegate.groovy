@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
-class PipelineBuilderDelegate {
+class PipelineBuilderDelegate implements Serializable {
 
     private PipelineBuilder builder
 

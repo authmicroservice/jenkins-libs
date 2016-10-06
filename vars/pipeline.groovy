@@ -1,6 +1,6 @@
 def call(Closure body) {
     node {
-        def mvnHome
+        def deployScript = libraryResource 'scripts/tracer.sh'
         stage('Checkout') { // for display purposes
             // Get some code from a GitHub repository
             checkout scm
@@ -14,15 +14,19 @@ def call(Closure body) {
         }
         stage('deploy-integration') {
             echo "Deploying to integration"
+            sh deployScript "intgration"
         }
         stage('deploy-qa') {
             echo "Deploying to QA"
+            sh deployScript "QA"
         }
         stage('deploy-staging') {
             echo "Deploying to staging"
+            sh deployScript "staging"
         }
         stage('deploy-production') {
             echo "Deploying to production"
+            sh deployScript "production"
         }
     }
 }

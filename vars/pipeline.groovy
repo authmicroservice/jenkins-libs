@@ -10,6 +10,8 @@ def call(Closure body) {
             withMaven(maven: 'M3') {
                 // Run the maven build
                 sh "env"
+
+                sh 'ls'
                 sh "echo 'run maven'" //mvn clean install"
             }
         }

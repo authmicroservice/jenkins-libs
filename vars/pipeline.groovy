@@ -1,6 +1,6 @@
 def call(Closure body) {
     node {
-        def deployScript = 'libs/commands/resources/scripts/tracer.sh'
+        def deployScript = '${WORKSPACE}/libs/commands/resources/scripts/tracer.sh'
         stage('Checkout') { // for display purposes
             // Get some code from a GitHub repository
             checkout scm

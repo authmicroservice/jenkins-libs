@@ -17,22 +17,22 @@ def call(Closure body) {
         }
         stage('deploy-integration') {
             echo "Deploying to integration"
-            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "integration")
+            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "integration")
             sh "${deployScript}"
         }
         stage('deploy-qa') {
             echo "Deploying to QA"
-            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "QA")
+            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "QA")
             sh "${deployScript}"
         }
         stage('deploy-staging') {
             echo "Deploying to staging"
-            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "staging")
+            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "staging")
             sh "${deployScript}"
         }
         stage('deploy-production') {
             echo "Deploying to production"
-            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "production")
+            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "production")
             sh "${deployScript}"
         }
     }

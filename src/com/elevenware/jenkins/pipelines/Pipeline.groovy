@@ -23,7 +23,7 @@ abstract class Pipeline implements Serializable {
         if(!pipelineClass) {
             throw new RuntimeException("Unknown pipeline type '${type}'")
         }
-        pipelineClass.newInstance()
+//        pipelineClass.newInstance()
     }
 
 }

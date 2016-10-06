@@ -1,5 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
+import com.elevenware.jenkins.pipelines.elements.PipelineElement
+
 abstract class Pipeline implements Serializable {
 
     private static Map PIPELINES = [
@@ -8,12 +10,13 @@ abstract class Pipeline implements Serializable {
 
     void generate() {
 
-        new SimpleStage().create('test app', 'Integration')
-        new SimpleStage().create('test app', 'QA')
-        new SimpleStage().create('test app', 'Staging')
-        new SimpleStage().create('test app', 'Production')
+        getElements().each { PipelineElement element ->
+            element.generate()
+        }
 
     }
+
+    abstract List<PipelineElement> getElements()
 
     static Pipeline forType(String type) {
         Class<? extends Pipeline> pipelineClass = PIPELINES[type]

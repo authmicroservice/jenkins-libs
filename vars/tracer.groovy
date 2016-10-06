@@ -1,9 +1,14 @@
+import com.elevenware.jenkins.pipelines.FooDelegate
+
 def call(Closure body) {
-    node {
-        body.setDelegate({
-            def foo = { str -> println "PASSED $str"}
-        })
+
+        body.setDelegate(new FooDelegate())
         body.setResolveStrategy(Closure.DELEGATE_FIRST)
         body()
+}
+
+static void main(args) {
+    call {
+        foo('bar')
     }
 }

@@ -1,6 +1,6 @@
 def call(Closure body) {
     node {
-        String rootDeployScript = loadResource 'scripts/tracer.sh'
+        String rootDeployScript = libraryResource 'scripts/tracer.sh'
         stage('Checkout') { // for display purposes
             // Get some code from a GitHub repository
             checkout scm

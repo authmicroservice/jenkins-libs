@@ -20,11 +20,11 @@ abstract class Pipeline implements Serializable {
 
     static Pipeline forType(String type) {
         println "LOOKING YP $type"
-        Class<? extends Pipeline> pipelineClass = PIPELINES[type]
-        if(!pipelineClass) {
-            throw new RuntimeException("Unknown pipeline type '${type}'")
-        }
-        pipelineClass.newInstance()
+//        Class<? extends Pipeline> pipelineClass = PIPELINES[type]
+//        if(!pipelineClass) {
+//            throw new RuntimeException("Unknown pipeline type '${type}'")
+//        }
+//        pipelineClass.newInstance()
     }
 
 }

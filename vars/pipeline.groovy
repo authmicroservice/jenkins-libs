@@ -1,6 +1,6 @@
 def call(Closure body) {
     node {
-        def deployScript = '${WORKSPACE}/libs/commands/resources/scripts/tracer.sh'
+        String rootDeployScript = loadResource 'scripts/tracer.sh'
         stage('Checkout') { // for display purposes
             // Get some code from a GitHub repository
             checkout scm
@@ -17,19 +17,23 @@ def call(Closure body) {
         }
         stage('deploy-integration') {
             echo "Deploying to integration"
-            sh "${deployScript} intgration"
+            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "integration")
+            sh "${deployScript}"
         }
         stage('deploy-qa') {
             echo "Deploying to QA"
-            sh "${deployScript} QA"
+            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "QA")
+            sh "${deployScript}"
         }
         stage('deploy-staging') {
             echo "Deploying to staging"
-            sh "${deployScript} staging"
+            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "staging")
+            sh "${deployScript}"
         }
         stage('deploy-production') {
             echo "Deploying to production"
-            sh "${deployScript} production"
+            def deployScript = rootDeployScript.replace("${ENVIRONMENT}", "production")
+            sh "${deployScript}"
         }
     }
 }

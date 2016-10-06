@@ -9,6 +9,7 @@ def call(Closure body) {
         stage('Build-test-publish') {
             withMaven(maven: 'M3') {
                 // Run the maven build
+                sh "env"
                 sh "echo 'run maven'" //mvn clean install"
             }
         }

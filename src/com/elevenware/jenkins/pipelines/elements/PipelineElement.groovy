@@ -4,7 +4,13 @@ abstract class PipelineElement implements Serializable {
 
     @NonCPS
     void generate(steps) {
-        Closure closure = getDefinition()
+        Closure closure = {
+            node {
+                stage('lol') {
+                    echo "HELLO"
+                }
+            }
+        }
         steps.echo("RUNNING ${closure}")
         closure.setDelegate(steps)
         closure.setResolveStrategy(Closure.DELEGATE_FIRST)

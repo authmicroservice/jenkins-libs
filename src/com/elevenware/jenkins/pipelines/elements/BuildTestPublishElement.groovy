@@ -6,11 +6,11 @@ class BuildTestPublishElement extends PipelineElement {
 //    @NonCPS
     Closure getDefinition() {
        return {
-            node {
-                stage("Build-Test-Publish") {
-                   echo("Hello, world!")
-                }
-            }
+//            node {
+//                stage("Build-Test-Publish") {
+//                   echo("Hello, world!")
+//                }
+//            }
         }
     }
 }

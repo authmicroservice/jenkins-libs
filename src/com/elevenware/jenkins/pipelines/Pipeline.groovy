@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
-abstract class Pipeline {
+class Pipeline {
 
 //    private static Map TYPES = [
 //            'github': GithubPipeline

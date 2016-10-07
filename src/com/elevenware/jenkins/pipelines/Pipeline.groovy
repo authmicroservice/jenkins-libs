@@ -9,7 +9,8 @@ abstract class Pipeline implements Serializable {
     @NonCPS
     void generate(steps) {
 
-        throw new RuntimeException("HELLO ${getElements()}")
+        List pipelineElements = getElements()
+        throw new RuntimeException("HELLO ${pipelineElements}")
         getElements().each { PipelineElement element ->
             element.generate(steps)
         }

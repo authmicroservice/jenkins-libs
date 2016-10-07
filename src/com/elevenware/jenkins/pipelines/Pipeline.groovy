@@ -10,9 +10,9 @@ abstract class Pipeline implements Serializable {
 
     void generate() {
 
-        getElements().each { PipelineElement element ->
+//        getElements().each { PipelineElement element ->
 //            element.generate()
-        }
+//        }
 
     }
 

@@ -6,6 +6,7 @@ abstract class PipelineElement implements Serializable {
     void generate(steps) {
         Closure closure = getDefinition()
         closure.setDelegate(steps)
+        closure.setResolveStrategy(Closure.DELEGATE_ONLY)
         closure.call()
     }
 

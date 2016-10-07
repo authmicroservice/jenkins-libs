@@ -1,8 +1,10 @@
 package com.elevenware.jenkins.pipelines
 
-class Pipeline implements Serializable {
+abstract class Pipeline implements Serializable {
 
     private static Map TYPES = [github: GithubPipeline]
+
+
 
     static Pipeline forType(String type) {
         Class pipelineClass = TYPES[type]

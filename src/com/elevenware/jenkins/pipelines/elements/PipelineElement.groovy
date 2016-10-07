@@ -4,17 +4,26 @@ abstract class PipelineElement implements Serializable {
 
     @NonCPS
     void generate(steps) {
-        Closure closure = {
+
+        steps.with {
             node {
-                stage('lol') {
-                    echo "HELLO"
+                stage('1') {
+                    echo "hello"
                 }
             }
         }
-        steps.echo("RUNNING ${closure}")
-        closure.setDelegate(steps)
-        closure.setResolveStrategy(Closure.DELEGATE_FIRST)
-        closure.call()
+
+//        Closure closure = {
+//            node {
+//                stage('lol') {
+//                    echo "HELLO"
+//                }
+//            }
+//        }
+//        steps.echo("RUNNING ${closure}")
+//        closure.setDelegate(steps)
+//        closure.setResolveStrategy(Closure.DELEGATE_FIRST)
+//        closure.call()
     }
 
     @NonCPS

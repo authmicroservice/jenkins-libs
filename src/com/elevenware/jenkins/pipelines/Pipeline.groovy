@@ -2,9 +2,7 @@ package com.elevenware.jenkins.pipelines
 
 class Pipeline {
 
-    private static def TYPES = [
-            github: GithubPipeline
-    ]
+    private static Map TYPES = new HashMap()
 
     static Pipeline forType(String type) {
 

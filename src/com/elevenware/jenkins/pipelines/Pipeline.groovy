@@ -6,7 +6,7 @@ abstract class Pipeline implements Serializable {
 
     void generate() {}
 
-    List getElements() {[]}
+    abstract List getElements()
 
     static Pipeline forType(String type) {
         Class pipelineClass = TYPES[type]

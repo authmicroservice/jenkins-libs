@@ -10,7 +10,7 @@ class Pipeline {
 
     private static void ensurePopulated() {
         if(!TYPES.isEmpty()) { return }
-        TYPES.put('github', GithubPipeline)
+        TYPES.put('github', GithubPipeline.class)
     }
 
 }

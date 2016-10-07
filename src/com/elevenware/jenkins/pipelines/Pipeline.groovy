@@ -11,14 +11,13 @@ abstract class Pipeline implements Serializable {
     void generate() {
 
         getElements().each { PipelineElement element ->
-            element.generate()
+//            element.generate()
         }
 
     }
 
     abstract List<PipelineElement> getElements()
 
-    @NonCPS
     static Pipeline forType(String type) {
         println "LOOKING YP $type"
 //        Class<? extends Pipeline> pipelineClass = PIPELINES[type]

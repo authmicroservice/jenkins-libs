@@ -16,7 +16,7 @@ abstract class Pipeline implements Serializable {
 
     }
 
-    abstract List<PipelineElement> getElements()
+    abstract List getElements()
 
     static Pipeline forType(String type) {
 //        println "LOOKING YP $type"

@@ -3,10 +3,10 @@ package com.elevenware.jenkins.pipelines
 import com.elevenware.jenkins.pipelines.elements.PipelineElement
 
 abstract class Pipeline implements Serializable {
-
-    private static Map PIPELINES = [
-            'github': GithubPipeline
-    ]
+//
+//    private static Map PIPELINES = [
+//            'github': GithubPipeline
+//    ]
 
     void generate() {
 

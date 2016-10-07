@@ -5,6 +5,7 @@ abstract class PipelineElement implements Serializable {
     @NonCPS
     void generate(steps) {
         Closure closure = getDefinition()
+        steps.echo("RUNNING ${closure}")
         closure.setDelegate(steps)
         closure.setResolveStrategy(Closure.DELEGATE_ONLY)
         closure.call()

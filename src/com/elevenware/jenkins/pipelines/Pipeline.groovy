@@ -2,7 +2,7 @@ package com.elevenware.jenkins.pipelines
 
 import com.elevenware.jenkins.pipelines.elements.PipelineElement
 
-abstract class Pipeline implements Serializable {
+class Pipeline implements Serializable {
 //
 //    private static Map PIPELINES = [
 //            'github': GithubPipeline

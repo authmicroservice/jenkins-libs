@@ -7,14 +7,14 @@ abstract class Pipeline implements Serializable {
 //    private static Map PIPELINES = [
 //            'github': GithubPipeline
 //    ]
-
-    void generate() {
-
-//        getElements().each { PipelineElement element ->
-//            element.generate()
-//        }
-
-    }
+//
+//    void generate() {
+//
+////        getElements().each { PipelineElement element ->
+////            element.generate()
+////        }
+//
+//    }
 
     abstract List getElements()
 

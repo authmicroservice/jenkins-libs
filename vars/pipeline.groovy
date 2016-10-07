@@ -1,5 +1,7 @@
 import com.elevenware.jenkins.pipelines.PipelineBuilder
+import com.elevenware.jenkins.pipelines.Pipeline
 import com.elevenware.jenkins.pipelines.PipelineBuilderDelegate
+
 
 def call(Closure body) {
 //    properties [[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '20', artifactNumToKeepStr: '30', daysToKeepStr: '20', numToKeepStr: '30']]]

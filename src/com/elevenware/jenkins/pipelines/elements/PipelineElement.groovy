@@ -7,7 +7,7 @@ abstract class PipelineElement implements Serializable {
         Closure closure = getDefinition()
         steps.echo("RUNNING ${closure}")
         closure.setDelegate(steps)
-        closure.setResolveStrategy(Closure.DELEGATE_ONLY)
+        closure.setResolveStrategy(Closure.DELEGATE_FIRST)
         closure.call()
     }
 

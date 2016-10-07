@@ -1,5 +1,4 @@
 import com.elevenware.jenkins.pipelines.PipelineBuilder
-import com.elevenware.jenkins.pipelines.Pipeline
 import com.elevenware.jenkins.pipelines.PipelineBuilderDelegate
 
 def call(Closure body) {

@@ -6,6 +6,7 @@ abstract class Pipeline implements Serializable {
 
     void generate() {}
 
+    @NonCPS
     abstract List getElements()
 
     static Pipeline forType(String type) {

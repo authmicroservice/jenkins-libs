@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
-class Pipeline {
+abstract class Pipeline {
+
 
 
 }

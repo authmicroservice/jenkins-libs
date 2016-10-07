@@ -1,10 +1,16 @@
 package com.elevenware.jenkins.pipelines
 
+import com.elevenware.jenkins.pipelines.elements.PipelineElement
+
 abstract class Pipeline implements Serializable {
 
     private static Map TYPES = [github: GithubPipeline]
 
-    void generate() {}
+    void generate() {
+        getElements().each { PipelineElement element ->
+            element.generate()
+        }
+    }
 
     @NonCPS
     abstract List getElements()

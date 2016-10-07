@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
-class GithubPipeline extends Pipeline {
+
+class GithubPipeline extends Pipeline implements Serializable {
 
 
 }

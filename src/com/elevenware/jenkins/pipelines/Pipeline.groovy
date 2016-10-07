@@ -7,7 +7,11 @@ abstract class Pipeline {
     ]
 
     static Pipeline forType(String type) {
-
+        Class pipelineClass = TYPES[type]
+        if(!pipelineClass) {
+            throw new RuntimeException("No defined flow for $type")
+        }
+        pipelineClass.newInstance()
     }
 
 }

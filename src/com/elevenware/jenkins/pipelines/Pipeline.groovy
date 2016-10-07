@@ -10,7 +10,6 @@ abstract class Pipeline implements Serializable {
     void generate(steps) {
 
         List pipelineElements = getElements()
-        throw new RuntimeException("HELLO ${pipelineElements}")
         getElements().each { PipelineElement element ->
             element.generate(steps)
         }

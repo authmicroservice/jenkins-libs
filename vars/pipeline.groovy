@@ -10,7 +10,7 @@ def call(Closure body) {
     body.setResolveStrategy(Closure.DELEGATE_FIRST)
     body()
 
-    Pipeline pipeline = builder.pipeline
+//    Pipeline pipeline = builder.pipeline
 //    pipeline.generate()
 
 }

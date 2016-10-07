@@ -4,8 +4,5 @@ import com.elevenware.jenkins.pipelines.elements.BuildTestPublishElement
 
 class GithubPipeline extends Pipeline {
 
-    @Override
-    List getElements() {
-        [new BuildTestPublishElement()]
-    }
+
 }

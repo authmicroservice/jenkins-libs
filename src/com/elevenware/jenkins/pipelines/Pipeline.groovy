@@ -16,15 +16,15 @@ abstract class Pipeline implements Serializable {
 //
 //    }
 
-    abstract List getElements()
-
-    static Pipeline forType(String type) {
-//        println "LOOKING YP $type"
-//        Class<? extends Pipeline> pipelineClass = PIPELINES[type]
-//        if(!pipelineClass) {
-//            throw new RuntimeException("Unknown pipeline type '${type}'")
-//        }
-//        pipelineClass.newInstance()
-    }
+//    abstract List getElements()
+//
+//    static Pipeline forType(String type) {
+////        println "LOOKING YP $type"
+////        Class<? extends Pipeline> pipelineClass = PIPELINES[type]
+////        if(!pipelineClass) {
+////            throw new RuntimeException("Unknown pipeline type '${type}'")
+////        }
+////        pipelineClass.newInstance()
+//    }
 
 }

@@ -4,7 +4,9 @@ abstract class Pipeline implements Serializable {
 
     private static Map TYPES = [github: GithubPipeline]
 
-
+    void generate() {
+        
+    }
 
     static Pipeline forType(String type) {
         Class pipelineClass = TYPES[type]

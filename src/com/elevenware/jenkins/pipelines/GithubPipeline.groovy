@@ -6,7 +6,7 @@ import com.elevenware.jenkins.pipelines.elements.BuildTestPublishElement
 class GithubPipeline extends Pipeline implements Serializable {
 
 
-//    @Override
+    @Override
     List getElements() {
         [new BuildTestPublishElement()]
     }

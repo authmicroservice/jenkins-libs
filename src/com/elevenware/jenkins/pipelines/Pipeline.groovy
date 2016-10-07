@@ -8,6 +8,7 @@ abstract class Pipeline implements Serializable {
 
     @NonCPS
     void generate(steps) {
+        throw new RuntimeException("HERE")
         getElements().each { PipelineElement element ->
             element.generate(steps)
         }

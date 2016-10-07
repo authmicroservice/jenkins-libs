@@ -9,7 +9,7 @@ class PipelineBuilder implements Serializable {
     }
 
     Pipeline getPipeline() {
-
+        myPipeline
     }
 
 }

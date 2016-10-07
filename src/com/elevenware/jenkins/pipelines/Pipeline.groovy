@@ -2,7 +2,9 @@ package com.elevenware.jenkins.pipelines
 
 abstract class Pipeline {
 
-    static Pipeline getPipeline() {
+
+
+    static Pipeline forType(String flow) {
 
     }
 

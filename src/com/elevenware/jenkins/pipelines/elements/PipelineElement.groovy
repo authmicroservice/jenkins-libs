@@ -11,7 +11,7 @@ abstract class PipelineElement implements Serializable {
         closure.call()
     }
 
-    @NonCPS
+//    @NonCPS
     abstract Closure getDefinition()
 
 }

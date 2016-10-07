@@ -8,4 +8,8 @@ class PipelineBuilder implements Serializable {
 //        this.myPipeline = Pipeline.forType(flowType)
     }
 
+    Pipeline getPipeline() {
+        
+    }
+
 }

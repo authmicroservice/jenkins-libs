@@ -8,5 +8,6 @@ class BuildTestPublishElement extends PipelineElement {
     void generate() {
         def definitions = new BasicDefinitions()
         definitions.checkout()
+
     }
 }

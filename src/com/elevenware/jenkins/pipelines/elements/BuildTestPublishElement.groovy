@@ -11,11 +11,12 @@ class BuildTestPublishElement extends PipelineElement {
 
         basic.inStage('Build') {
             basic.checkout()
+            platform.build()
+            platform.test()
+            platform.publish()
         }
 
-        platform.build()
-        platform.test()
-        platform.publish()
+
 
     }
 

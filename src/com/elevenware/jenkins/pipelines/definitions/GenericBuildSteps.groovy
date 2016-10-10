@@ -1,13 +1,19 @@
 package com.elevenware.jenkins.pipelines.definitions
 
 void build() {
-    sh "./build.sh"
+    node {
+        sh "./build.sh"
+    }
 }
 
 void test() {
-    sh "./test.sh"
+    node {
+        sh "./test.sh"
+    }
 }
 
 void publish() {
-    sh "./publish.sh"
+    node {
+        sh "./publish.sh"
+    }
 }

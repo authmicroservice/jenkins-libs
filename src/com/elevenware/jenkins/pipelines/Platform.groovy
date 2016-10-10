@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
-abstract class Platform {
+abstract class Platform implements Serializable {
 
     private static Map PLATFORMS = [ java: JavaPlatform ]
 

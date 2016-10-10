@@ -16,7 +16,7 @@ abstract class Pipeline implements Serializable {
     void generate() {
 
         getElements().each { PipelineElement element ->
-            element.generate(platform)
+            element.generate(this.platform)
         }
 
     }

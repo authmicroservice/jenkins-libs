@@ -6,7 +6,7 @@ abstract class Pipeline implements Serializable {
 
     private static Map TYPES = [github: GithubPipeline]
 
-    private Platform platform
+    protected Platform platform
 
     Pipeline(Platform platform) {
         this.platform = platform

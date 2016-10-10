@@ -13,8 +13,3 @@ void checkout() {
     }
 }
 
-void buildThing() {
-    node {
-        echo "BUILDING THING"
-    }
-}

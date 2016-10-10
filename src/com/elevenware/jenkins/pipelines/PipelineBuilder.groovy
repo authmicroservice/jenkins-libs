@@ -2,14 +2,20 @@ package com.elevenware.jenkins.pipelines
 
 class PipelineBuilder implements Serializable {
 
-    private Pipeline myPipeline
+    private Class<Pipeline> myPipelineClass
+    private Class<Platform> myPlatformClass
 
     void createFlow(String flowType) {
-        this.myPipeline = Pipeline.forType(flowType)
+        this.myPipelineClass = Pipeline.forType(flowType)
+    }
+
+    void createPlatform(String platform) {
+        this.myPlatformClass = Platform.forType(platform)
     }
 
     Pipeline getPipeline() {
-        myPipeline
+        Platform platform = myPlatformClass.newInstance()
+        myPipelineClass.newInstance(platform)
     }
 
 }

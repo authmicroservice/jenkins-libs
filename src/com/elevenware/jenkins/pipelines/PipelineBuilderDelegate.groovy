@@ -12,4 +12,8 @@ class PipelineBuilderDelegate implements Serializable {
         builder.createFlow(flowType)
     }
 
+    void platform(String platform) {
+        builder.createPlatform(platform)
+    }
+
 }

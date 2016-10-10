@@ -6,11 +6,17 @@ abstract class Pipeline implements Serializable {
 
     private static Map TYPES = [github: GithubPipeline]
 
+    private Platform platform
+
+    Pipeline(Platform platform) {
+        this.platform = platform
+    }
+
     @NonCPS
     void generate() {
 
         getElements().each { PipelineElement element ->
-            element.generate()
+            element.generate(platform)
         }
 
     }
@@ -18,12 +24,12 @@ abstract class Pipeline implements Serializable {
     @NonCPS
     abstract List getElements()
 
-    static Pipeline forType(String type) {
+    static Class<Pipeline> forType(String type) {
         Class pipelineClass = TYPES[type]
         if(!pipelineClass) {
             throw new RuntimeException("No flow for '${type}' defined")
         }
-        pipelineClass.newInstance()
+        pipelineClass
     }
 
 }

@@ -7,7 +7,7 @@ abstract class Platform {
     static Class<Platform> forType(String type) {
         Class platformClass = PLATFORMS[type]
         if(!platformClass) {
-            throw new RuntimeException("No platform for '${type}' defined")
+            return BasicPlatform
         }
         platformClass
     }

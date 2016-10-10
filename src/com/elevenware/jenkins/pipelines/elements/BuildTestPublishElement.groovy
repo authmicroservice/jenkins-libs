@@ -7,7 +7,7 @@ class BuildTestPublishElement extends PipelineElement {
     @Override
     void generate() {
         def definitions = new BasicDefinitions()
-        definitions.stage('Build') {
+        definitions.inStage('Build') {
             definitions.checkout()
         }
 

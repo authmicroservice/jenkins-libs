@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines.definitions
 
-void stage(String stageName, Closure closure) {
+void inStage(String stageName, Closure closure) {
     stage(stageName) {
         closure.call()
     }

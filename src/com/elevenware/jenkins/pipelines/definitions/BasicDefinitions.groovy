@@ -1,6 +1,14 @@
 package com.elevenware.jenkins.pipelines.definitions
 
+void stage(String stageName, Closure closure) {
+    stage(stageName) {
+        closure.call()
+    }
+}
+
 void checkout() {
-    echo "Checking out ${scm.key}"
-    checkout scm
+    node {
+        echo "Checking out ${scm.key}"
+        checkout scm
+    }
 }

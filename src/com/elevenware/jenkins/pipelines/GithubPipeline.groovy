@@ -9,6 +9,8 @@ class GithubPipeline extends Pipeline implements Serializable {
     @Override
     @NonCPS
     List getElements() {
-        [new BuildTestPublishElement()]
+        [
+                new BuildTestPublishElement(),
+        ]
     }
 }

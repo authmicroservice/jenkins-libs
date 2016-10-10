@@ -12,3 +12,9 @@ void checkout() {
         checkout scm
     }
 }
+
+void buildThing() {
+    node {
+        echo "BUILDING THING"
+    }
+}

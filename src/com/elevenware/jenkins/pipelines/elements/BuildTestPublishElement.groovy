@@ -6,10 +6,16 @@ class BuildTestPublishElement extends PipelineElement {
 
     @Override
     void generate() {
-        def definitions = new BasicDefinitions()
-        definitions.inStage('Build') {
-            definitions.checkout()
+        def basic = new BasicDefinitions()
+
+        basic.inStage('Build') {
+            basic.checkout()
         }
+
+        basic.inStage('Build') {
+            basic.buildThing()
+        }
+
 
     }
 }

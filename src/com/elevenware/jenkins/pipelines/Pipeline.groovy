@@ -9,7 +9,6 @@ abstract class Pipeline implements Serializable {
     @NonCPS
     void generate() {
 
-        List pipelineElements = getElements()
         getElements().each { PipelineElement element ->
             element.generate()
         }

@@ -14,7 +14,7 @@ class PipelineBuilder implements Serializable {
     }
 
     Pipeline getPipeline() {
-        Platform platform = myPlatformClass.newInstance()
+        Platform platform = myPlatformClass ? myPlatformClass.newInstance() : new BasicPlatform()
         myPipelineClass.newInstance(platform)
     }
 

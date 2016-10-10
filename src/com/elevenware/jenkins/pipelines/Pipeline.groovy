@@ -7,11 +7,11 @@ abstract class Pipeline implements Serializable {
     private static Map TYPES = [github: GithubPipeline]
 
     @NonCPS
-    void generate(steps) {
+    void generate() {
 
         List pipelineElements = getElements()
         getElements().each { PipelineElement element ->
-            element.generate(steps)
+            element.generate()
         }
 
     }

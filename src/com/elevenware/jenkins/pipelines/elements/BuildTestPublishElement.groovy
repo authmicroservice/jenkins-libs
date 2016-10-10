@@ -1,16 +1,11 @@
 package com.elevenware.jenkins.pipelines.elements
 
+import com.elevenware.jenkins.pipelines.definitions.BasicDefinitions
+
 class BuildTestPublishElement extends PipelineElement {
 
     @Override
-    @NonCPS
-    Closure getDefinition() {
-       return {
-//            node {
-//                stage("Build-Test-Publish") {
-//                   echo("Hello, world!")
-//                }
-//            }
-        }
+    void generate() {
+        BasicDefinitions.checkout()
     }
 }

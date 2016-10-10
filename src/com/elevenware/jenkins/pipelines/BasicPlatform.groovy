@@ -2,6 +2,7 @@ package com.elevenware.jenkins.pipelines
 
 import com.elevenware.jenkins.pipelines.definitions.GenericBuildSteps
 
+@NonCPS
 class BasicPlatform extends Platform {
 
     private def buildSteps

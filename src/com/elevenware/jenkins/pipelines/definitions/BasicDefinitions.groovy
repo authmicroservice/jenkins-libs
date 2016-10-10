@@ -1,5 +1,5 @@
 package com.elevenware.jenkins.pipelines.definitions
 
 void checkout() {
-    echo "Checking out ${scm.repositoryUrl}"
+    echo "Checking out ${scm.scmName}"
 }

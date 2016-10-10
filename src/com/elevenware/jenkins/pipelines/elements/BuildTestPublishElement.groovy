@@ -13,6 +13,10 @@ class BuildTestPublishElement extends PipelineElement {
             basic.checkout()
         }
 
+        platform.build()
+        platform.test()
+        platform.publish()
+
     }
 
 }

@@ -6,6 +6,6 @@ class BuildTestPublishElement extends PipelineElement {
 
     @Override
     void generate() {
-        BasicDefinitions.checkout()
+        new BasicDefinitions().checkout()
     }
 }

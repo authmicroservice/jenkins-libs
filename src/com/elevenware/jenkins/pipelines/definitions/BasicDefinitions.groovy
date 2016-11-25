@@ -2,6 +2,9 @@ package com.elevenware.jenkins.pipelines.definitions
 
 void inStage(String stageName, Closure closure) {
     stage(stageName) {
+        node {
+            echo "HELLO $stageName"
+        }
         closure.call()
     }
 }

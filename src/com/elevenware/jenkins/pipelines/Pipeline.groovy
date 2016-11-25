@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
 import com.cloudbees.groovy.cps.NonCPS
+import com.elevenware.jenkins.pipelines.definitions.BasicDefinitions
 import com.elevenware.jenkins.pipelines.deploy.DeployStrategy
 import com.elevenware.jenkins.pipelines.elements.PipelineElement
 
@@ -19,9 +20,12 @@ abstract class Pipeline implements Serializable {
     @NonCPS
     void generate() {
 
+        BasicDefinitions basicDefinitions = new BasicDefinitions()
         List elements = getElements()
         for(PipelineElement element: elements) {
-
+            basicDefinitions.inStage("pre") {
+                echo "Running ${element}"
+            }
             element.generate(this.platform)
         }
 

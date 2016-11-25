@@ -23,10 +23,10 @@ abstract class Pipeline implements Serializable {
         BasicDefinitions basicDefinitions = new BasicDefinitions()
         List elements = getElements()
         for(PipelineElement element: elements) {
-            basicDefinitions.inStage("pre") {
-                echo "Running ${element}"
+            basicDefinitions.inStage("pre $element") {
+
             }
-            element.generate(this.platform)
+//            element.generate(this.platform)
         }
 
 //        getElements().each { PipelineElement element ->

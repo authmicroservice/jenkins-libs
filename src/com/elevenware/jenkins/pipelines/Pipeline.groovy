@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
 import com.cloudbees.groovy.cps.NonCPS
+import com.elevenware.jenkins.pipelines.deploy.DeployStrategy
 import com.elevenware.jenkins.pipelines.elements.PipelineElement
 
 abstract class Pipeline implements Serializable {
@@ -8,9 +9,11 @@ abstract class Pipeline implements Serializable {
     private static Map TYPES = [github: GithubPipeline]
 
     protected Platform platform
+    protected DeployStrategy deployStrategy
 
-    Pipeline(Platform platform) {
+    Pipeline(Platform platform, DeployStrategy deployStrategy) {
         this.platform = platform
+        this.deployStrategy = deployStrategy
     }
 
     @NonCPS

@@ -3,7 +3,7 @@ package com.elevenware.jenkins.pipelines.elements
 import com.elevenware.jenkins.pipelines.Platform
 import com.elevenware.jenkins.pipelines.definitions.BasicDefinitions
 
-class AutoDeployElement extends PipelineElement {
+class AutoDeployElement extends PipelineElement implements Serializable {
 
     private String environment
 

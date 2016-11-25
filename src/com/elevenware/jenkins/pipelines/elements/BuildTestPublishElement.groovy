@@ -10,6 +10,7 @@ class BuildTestPublishElement extends PipelineElement {
         def basic = new BasicDefinitions()
 
         basic.inStage('Build') {
+            echo "THIS ${this}"
             basic.checkout()
             platform.build()
             platform.test()

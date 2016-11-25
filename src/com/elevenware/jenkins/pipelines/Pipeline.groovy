@@ -20,6 +20,7 @@ abstract class Pipeline implements Serializable {
     void generate() {
 
         getElements().each { PipelineElement element ->
+            println "OHAI"
             element.generate(this.platform)
         }
 

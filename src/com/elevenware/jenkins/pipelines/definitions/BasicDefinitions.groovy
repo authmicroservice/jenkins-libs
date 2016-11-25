@@ -8,7 +8,7 @@ void inStage(String stageName, Closure closure) {
 
 void checkout() {
     node {
-        echo "Checking out ${scm.key}"
+        echo "OHAI Checking out ${scm.key}"
         checkout scm
     }
 }

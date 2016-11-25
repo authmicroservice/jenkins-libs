@@ -21,6 +21,7 @@ abstract class Pipeline implements Serializable {
 
         List elements = getElements()
         for(PipelineElement element: elements) {
+
             element.generate(this.platform)
         }
 

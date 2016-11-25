@@ -17,7 +17,7 @@ class GithubPipeline extends Pipeline implements Serializable {
     @NonCPS
     List getElements() {
         [
-                new BuildTestPublishElement(),
+//                new BuildTestPublishElement(),
                 new AutoDeployElement("Integration"),
                 new AutoDeployElement("QA"),
                 new AutoDeployElement("Staging"),

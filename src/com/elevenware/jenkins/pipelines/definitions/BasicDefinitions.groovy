@@ -13,3 +13,8 @@ void checkout() {
     }
 }
 
+void deploy(String env) {
+    node {
+        echo "Deploying to ${env}"
+    }
+}

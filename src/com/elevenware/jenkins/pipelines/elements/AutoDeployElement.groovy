@@ -15,7 +15,7 @@ class AutoDeployElement extends PipelineElement {
     void generate(Platform platform) {
         def basic = new BasicDefinitions()
 
-        basic.inStage('Build') {
+        basic.inStage("Deploy ${environment}") {
             basic.deploy(environment)
         }
     }

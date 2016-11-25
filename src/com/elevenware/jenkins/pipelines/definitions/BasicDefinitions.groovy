@@ -15,6 +15,6 @@ void checkout() {
 
 void deploy(String env) {
     node {
-        echo "Deploying to ${env}"
+        sh 'echo "Deploying to ${env}"'
     }
 }

@@ -16,8 +16,6 @@ class BuildTestPublishElement extends PipelineElement {
             platform.publish()
         }
 
-
-
     }
 
 }

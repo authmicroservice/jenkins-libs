@@ -9,11 +9,16 @@ class PipelineBuilderDelegate implements Serializable {
     }
 
     void flow(String flowType) {
+        println "RUNNING $flowType"
         builder.createFlow(flowType)
     }
 
     void platform(String platform) {
         builder.createPlatform(platform)
+    }
+
+    void deployStrategy(String deployStrategy) {
+        builder.createDeployStrategy(deployStrategy)
     }
 
 }

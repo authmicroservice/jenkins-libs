@@ -1,5 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
+import com.cloudbees.groovy.cps.NonCPS
+
 abstract class Platform implements Serializable {
 
     private static Map PLATFORMS = [ java: JavaPlatform ]

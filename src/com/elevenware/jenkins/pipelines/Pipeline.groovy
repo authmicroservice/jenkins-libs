@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
+import com.cloudbees.groovy.cps.NonCPS
 import com.elevenware.jenkins.pipelines.elements.PipelineElement
 
 abstract class Pipeline implements Serializable {

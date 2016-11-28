@@ -20,9 +20,9 @@ abstract class Pipeline implements Serializable {
     @NonCPS
     void generate() {
 
-        BasicDefinitions basicDefinitions = new BasicDefinitions()
-        List elements = getElements()
+//        List elements = getElements()
         PipelineElement start = getStart()
+        throw new RuntimeException("FPIND $start")
         start.doGenerate(this.platform)
 //        for(int i = 0; i < elements.size(); i++) {
 //            PipelineElement element = elements.get(i)

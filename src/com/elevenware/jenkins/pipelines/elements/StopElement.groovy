@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.pipelines.elements
 
+import com.cloudbees.groovy.cps.NonCPS
 import com.elevenware.jenkins.pipelines.Platform
 
 class StopElement extends PipelineElement {
@@ -13,6 +14,7 @@ class StopElement extends PipelineElement {
         // nowt
     }
 
+    @NonCPS
     static PipelineElement getInstance() {
         new StopElement()
     }

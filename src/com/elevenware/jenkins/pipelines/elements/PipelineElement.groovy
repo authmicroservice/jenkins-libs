@@ -5,7 +5,7 @@ import com.elevenware.jenkins.pipelines.Platform
 
 abstract class PipelineElement implements Serializable {
 
-    private PipelineElement next
+    protected PipelineElement next
 
     PipelineElement(PipelineElement next) {
         this.next = next

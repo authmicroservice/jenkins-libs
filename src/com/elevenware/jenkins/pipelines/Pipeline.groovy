@@ -22,7 +22,7 @@ abstract class Pipeline implements Serializable {
 
         BasicDefinitions basicDefinitions = new BasicDefinitions()
         List elements = getElements()
-        PipelineElement start = elements.first()
+        PipelineElement start = getStart()
         element.doGenerate(this.platform)
 //        for(int i = 0; i < elements.size(); i++) {
 //            PipelineElement element = elements.get(i)
@@ -37,6 +37,8 @@ abstract class Pipeline implements Serializable {
 //        }
 
     }
+
+    abstract PipelineElement getStart()
 
     @NonCPS
     abstract List getElements()

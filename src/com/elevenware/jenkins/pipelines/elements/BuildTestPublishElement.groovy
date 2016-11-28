@@ -5,6 +5,10 @@ import com.elevenware.jenkins.pipelines.definitions.BasicDefinitions
 
 class BuildTestPublishElement extends PipelineElement {
 
+    BuildTestPublishElement(PipelineElement next) {
+        super(next)
+    }
+
     @Override
     void generate(Platform platform) {
         def basic = new BasicDefinitions()

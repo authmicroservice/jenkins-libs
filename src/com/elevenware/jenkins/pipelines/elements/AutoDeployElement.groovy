@@ -7,7 +7,8 @@ class AutoDeployElement extends PipelineElement implements Serializable {
 
     private String environment
 
-    AutoDeployElement(String environment) {
+    AutoDeployElement(String environment, PipelineElement next) {
+        super(next)
         this.environment = environment
     }
 

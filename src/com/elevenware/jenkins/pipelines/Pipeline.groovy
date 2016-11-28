@@ -22,7 +22,6 @@ abstract class Pipeline implements Serializable {
 
 //        List elements = getElements()
         PipelineElement start = getStart()
-        throw new RuntimeException("FPIND $start")
         start.doGenerate(this.platform)
 //        for(int i = 0; i < elements.size(); i++) {
 //            PipelineElement element = elements.get(i)

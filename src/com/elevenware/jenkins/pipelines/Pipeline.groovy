@@ -38,6 +38,7 @@ abstract class Pipeline implements Serializable {
 
     }
 
+    @NonCPS
     abstract PipelineElement getStart()
 
     @NonCPS

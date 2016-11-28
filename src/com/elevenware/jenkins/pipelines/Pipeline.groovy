@@ -22,13 +22,15 @@ abstract class Pipeline implements Serializable {
 
         BasicDefinitions basicDefinitions = new BasicDefinitions()
         List elements = getElements()
-        for(int i = 0; i < elements.size(); i++) {
-            PipelineElement element = elements.get(i)
-            basicDefinitions.inStage("pre ${element}") {
-
-            }
-//            element.generate(this.platform)
-        }
+        PipelineElement start = elements.first()
+        element.doGenerate(this.platform)
+//        for(int i = 0; i < elements.size(); i++) {
+//            PipelineElement element = elements.get(i)
+//            basicDefinitions.inStage("pre ${element}") {
+//
+//            }
+////            element.generate(this.platform)
+//        }
 
 //        getElements().each { PipelineElement element ->
 //            element.generate(this.platform)

@@ -13,7 +13,7 @@ abstract class PipelineElement implements Serializable {
 
     void doGenerate(Platform platform) {
         generate(platform)
-        next.doGenerate(platform)
+        next?.doGenerate(platform)
     }
 
     @NonCPS

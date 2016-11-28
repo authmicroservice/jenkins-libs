@@ -19,8 +19,8 @@ class GithubPipeline extends Pipeline implements Serializable {
     @NonCPS
     PipelineElement getStart() {
 
-        def prod = new AutoDeployElement("Production", StopElement.instance())
         "".charAt(22)
+        def prod = new AutoDeployElement("Production", StopElement.instance())
         def staging = new AutoDeployElement("Staging", prod)
         def qa = new AutoDeployElement("QA", staging)
         def integration = new AutoDeployElement("Integration", qa)

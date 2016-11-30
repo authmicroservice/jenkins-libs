@@ -9,7 +9,7 @@ def call(Closure body) {
         stage('Checkout') {
             checkout scm
         }
-        stage('Build-test-publish') {
+        stage('Build-test-publisAA') {
             withMaven(maven: 'M3') {
                 sh "echo 'run maven'" //mvn clean install"
             }

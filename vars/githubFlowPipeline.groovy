@@ -1,4 +1,9 @@
 def call(Closure body) {
+    def config = [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = config
+    body()
+
     node {
         String rootDeployScript = libraryResource 'scripts/tracer.sh'
         stage('Checkout') {
@@ -9,8 +14,8 @@ def call(Closure body) {
                 sh "echo 'run maven'" //mvn clean install"
             }
         }
-        stage('deploy-integration') {
-            echo "Deploying to integration"
+        stage("deploy-integration-${config.role}") {
+            echo "Deploying to ${config.role} integration"
             def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "integration")
             sh "${deployScript}"
         }

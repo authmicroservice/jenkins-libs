@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jenkins-ci.modules:launchd-slave-installer:1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/launchd-slave-installer/1.2/8ef06fc2a3d9436aa214e318c66cb6dc274440b8/launchd-slave-installer-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/launchd-slave-installer/1.2/153227e3f0dc3f69e681ff002a1994262bfe81e2/launchd-slave-installer-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jenkins-ci.modules:instance-identity:1.5.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/instance-identity/1.5.1/9226a7e75c3584c618b30c7cc3e691716c532e05/instance-identity-1.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/instance-identity/1.5.1/3be38dddc5387a8df42647c63cbfc2ad281e28d1/instance-identity-1.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jenkins-ci.modules:systemd-slave-installer:1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/systemd-slave-installer/1.1/a9a4adb0480ec8942d031b0fff9005077b889875/systemd-slave-installer-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/systemd-slave-installer/1.1/efa90863d927ce30a9b3eb0c3e819737e5e2e113/systemd-slave-installer-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jenkins-ci.modules:ssh-cli-auth:1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/ssh-cli-auth/1.2/7a5a675da6b91b8b6e03eabef25d4c34fbdb7c94/ssh-cli-auth-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jenkins-ci.modules/ssh-cli-auth/1.2/95d522431c4e6e91a71f8c3b13e2509dab8351a4/ssh-cli-auth-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

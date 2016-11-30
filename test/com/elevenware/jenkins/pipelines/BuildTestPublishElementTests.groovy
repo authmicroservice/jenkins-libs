@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock
 
 class BuildTestPublishElementTests {
 
-    @Rule JenkinsRule jenkins = new JenkinsRule()
+    @Rule public JenkinsRule jenkins = new JenkinsRule()
 
     @Test
     void something() {

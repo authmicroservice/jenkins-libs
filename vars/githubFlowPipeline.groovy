@@ -1,3 +1,4 @@
+@Library
 import com.elevenware.jenkins.pipelines.functions.Deployments
 
 def call(Closure body) {

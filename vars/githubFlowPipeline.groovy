@@ -7,6 +7,8 @@ def call(Closure body) {
     body.delegate = config
     body()
 
+    def d = new com.elevenware.jenkins.pipelines.functions.Deployments()
+
     node {
         String rootDeployScript = libraryResource 'scripts/tracer.sh'
         stage('Checkout') {
@@ -17,10 +19,10 @@ def call(Closure body) {
                 sh "echo 'run maven'" //mvn clean install"
             }
         }
-        deploy('integration')
-        deploy('qa')
-        deploy('staging')
-        deploy('production')
+        d.deploy('integration')
+        d.deploy('qa')
+        d.deploy('staging')
+        d.deploy('production')
 
     }
 }

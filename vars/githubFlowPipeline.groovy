@@ -14,27 +14,16 @@ def call(Closure body) {
                 sh "echo 'run maven'" //mvn clean install"
             }
         }
-        deploy {
+        deploy('integration')
+     
+    }
+}
 
-        }
-        stage("deploy-integration-${config.role}") {
-            echo "Deploying to ${config.role} integration"
-            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "integration")
-            sh "${deployScript}"
-        }
-        stage('deploy-qa') {
-            echo "Deploying to QA"
-            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "QA")
-            sh "${deployScript}"
-        }
-        stage('deploy-staging') {
-            echo "Deploying to staging"
-            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "staging")
-            sh "${deployScript}"
-        }
-        stage('deploy-production') {
-            echo "Deploying to production"
-            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', "production")
+def deploy(String env) {
+    node {
+        stage("deploy-${env}") {
+            echo "Deploying to ${env}"
+            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', env)
             sh "${deployScript}"
         }
     }

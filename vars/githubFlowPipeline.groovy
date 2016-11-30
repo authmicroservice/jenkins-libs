@@ -1,3 +1,5 @@
+import com.levenware.jenkins.pipelines.functions.Deployments
+
 def call(Closure body) {
     def config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
@@ -22,13 +24,3 @@ def call(Closure body) {
     }
 }
 
-def deploy(String env) {
-    node {
-        String rootDeployScript = libraryResource 'scripts/tracer.sh'
-        stage("deploy-${env}") {
-            echo "Deploying to ${env}"
-            def deployScript = rootDeployScript.replace('${ENVIRONMENT}', env)
-            sh "${deployScript}"
-        }
-    }
-}

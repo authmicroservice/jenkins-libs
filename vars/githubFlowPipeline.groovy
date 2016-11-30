@@ -15,6 +15,9 @@ def call(Closure body) {
             }
         }
         deploy('integration')
+        deploy('qa')
+        deploy('staging')
+        deploy('production')
 
     }
 }

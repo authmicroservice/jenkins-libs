@@ -17,11 +17,12 @@ def call(Closure body) {
                 sh "echo 'run maven'" //mvn clean install"
             }
         }
-        d.deploy('integration', config)
-        d.deploy('qa', config)
-        d.deploy('staging', config)
-        d.deploy('production', config)
+
 
     }
+    d.deploy('integration', config)
+    d.deploy('qa', config)
+    d.deploy('staging', config)
+    d.deploy('production', config)
 }
 

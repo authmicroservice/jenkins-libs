@@ -24,5 +24,11 @@ def call(Closure body) {
     d.deploy('qa', config)
     d.deploy('staging', config)
     d.deploy('production', config)
+
+    stage('x') {
+        node {
+            echo 'hello'
+        }
+    }
 }
 

@@ -25,10 +25,6 @@ def call(Closure body) {
     d.deploy('staging', config)
     d.deploy('production', config)
 
-    stage('x') {
-        node {
-            echo 'hello'
-        }
-    }
+
 }
 

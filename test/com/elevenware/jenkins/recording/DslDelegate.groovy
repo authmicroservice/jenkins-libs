@@ -4,7 +4,7 @@ import static org.mockito.Mockito.mock
 
 class DslDelegate {
 
-    private Map recordings = [nodes: [], stages: [:]]
+    private Map recordings = [nodes: 1, stages: [defaultModel: new StageModel('default')]]
 
     private DslStub stub
 
@@ -13,20 +13,25 @@ class DslDelegate {
     }
 
     def node(Closure closure) {
-        NodeDelegate nodeDelegate = new NodeDelegate()
-        closure.setDelegate(nodeDelegate)
-        def nodeList = recordings['nodes']
-        nodeList << nodeDelegate
-        closure.setDirective(Closure.DELEGATE_FIRST)
+        String lookupName = "node_${recordings.nodes}"
+        StageModel stageModel = new StageModel(lookupName)
+        closure.setDelegate(stageModel)
+        def stageList = recordings['stages']
+        stageList[lookupName] = stageModel
+        closure.setDirective(Closure.DELEGATE_ONLY)
+        closure.setProperty("STAGE_NAME", lookupName)
         closure.call()
+        recordings.nodes = recordings.nodes + 1
     }
 
     def stage(String stageName, Closure closure) {
+        String lookupName = "stage_${stageName}"
         StageModel stageModel = new StageModel(stageName)
         closure.setDelegate(stageModel)
         def stageList = recordings['stages']
-        stageList[stageName] = stageModel
-        closure.setDirective(Closure.DELEGATE_FIRST)
+        stageList[lookupName] = stageModel
+        closure.setDirective(Closure.DELEGATE_ONLY)
+        closure.setProperty("STAGE_NAME", lookupName)
         closure.call()
     }
 
@@ -40,9 +45,12 @@ class DslDelegate {
     }
 
     def methodMissing(String name, args) {
-        stub.invokeMethod(
-                name, args
-        )
+        def owner = this.metaClass.owner.binding.properties.variables
+        String stageName = 'defaultModel'
+        if(owner.containsKey('STAGE_NAME')) {
+            stageName = owner.get('STAGE_NAME')
+        }
+        recordings.stages[stageName]."${name}"(*args)
     }
 
 }

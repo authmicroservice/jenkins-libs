@@ -35,14 +35,6 @@ class DeploymentsTests {
 
         assertThat(stage, hadInvocation("sh"))
 
-
-
-//        assert deployments.recordings.size() == 1
-
-//        DslStub stub = deployments.getStub()
-
-//        verify(stub).node(isA(Closure))
-
     }
 
 }

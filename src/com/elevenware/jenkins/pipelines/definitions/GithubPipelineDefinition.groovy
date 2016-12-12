@@ -7,8 +7,18 @@ def buildArtifact(Map config) {
         platform = 'generic'
     }
     switch(platform) {
+        case 'java':
+            buildMavenArtifact(config)
+            break
         default:
             buildGenericArtifact(config)
+    }
+}
+
+def buildMavenArtifact(Map config) {
+    println "Running maven for ${config.appName}"
+    withMaven(maven: 'M3') {
+        sh "echo 'run maven'" //mvn clean install"
     }
 }
 

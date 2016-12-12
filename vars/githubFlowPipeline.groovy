@@ -14,7 +14,7 @@ def call(Closure body) {
         stage('Checkout') {
             checkout scm
         }
-        stage("build-${config.role}") {
+        stage("build-${config.appName}") {
             githubFlow.buildArtifact(config)
         }
     }

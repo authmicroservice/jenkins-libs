@@ -18,7 +18,7 @@ def buildArtifact(Map config) {
 def buildMavenArtifact(Map config) {
     println "Running maven for ${config.appName}"
     withMaven(maven: 'M3') {
-        sh "echo 'run maven'" //mvn clean install"
+        sh "mvn clean install"
     }
 }
 

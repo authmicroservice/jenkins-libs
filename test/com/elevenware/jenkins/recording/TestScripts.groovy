@@ -20,6 +20,19 @@ def inNode() {
     }
 }
 
+def stageInNode() {
+    node {
+        stage('stage1') {
+            echo "Hello, world!"
+        }
+    }
+}
+
+def mockResponse() {
+    String string = libraryResource 'some_path.txt'
+    echo string
+}
+
 
 def simple(String env, Map config) {
     def role = config.role

@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.matchers
 
-import com.elevenware.jenkins.recording.StageModel
+import com.elevenware.jenkins.recording.CodeBlock
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
@@ -13,7 +13,7 @@ class DslMatchersTests {
     @Test
     void hadInvocationFailsToMatchIfNoMatchExists() {
 
-        StageModel model = new StageModel()
+        CodeBlock model = new CodeBlock("default")
 
         assertThat(model, not(hadInvocation("foo")))
 
@@ -22,7 +22,7 @@ class DslMatchersTests {
     @Test
     void hadInvocationPassesIfMatchExists() {
 
-        StageModel model = new StageModel()
+        CodeBlock model = new CodeBlock("default")
         model.foo()
 
         assertThat(model, hadInvocation("foo"))
@@ -32,7 +32,7 @@ class DslMatchersTests {
     @Test
     void hadInvocationPassessIfArgsNotRequested() {
 
-        StageModel model = new StageModel()
+        CodeBlock model = new CodeBlock("default")
         model.foo("bar", "baz")
 
         assertThat(model, hadInvocation("foo"))
@@ -42,7 +42,7 @@ class DslMatchersTests {
     @Test
     void hadInvocationPassessIfArgsMactch() {
 
-        StageModel model = new StageModel()
+        CodeBlock model = new CodeBlock("default")
         model.foo("bar", "baz")
 
         assertThat(model, hadInvocation("foo", "bar", "baz"))
@@ -52,7 +52,7 @@ class DslMatchersTests {
     @Test
     void hadInvocationFailssIfArgsDontMactch() {
 
-        StageModel model = new StageModel()
+        CodeBlock model = new CodeBlock("default")
         model.foo("bar", "baz")
 
         assertThat(model, not(hadInvocation("foo", "bar", "wibble")))
@@ -62,7 +62,7 @@ class DslMatchersTests {
     @Test
     void hadInvocationPassesWithWildcard() {
 
-        StageModel model = new StageModel()
+        CodeBlock model = new CodeBlock("default")
         model.foo("bar", "baz")
 
         assertThat(model, hadInvocation("foo", "bar", isA(String)))

@@ -4,7 +4,7 @@ import static org.mockito.Mockito.mock
 
 class DslDelegate {
 
-    private Map recordings = [nodes: 1, stages: [defaultModel: new StageModel('default')]]
+    private Map recordings = [nodes: 1, stages: [defaultModel: new CodeBlock('default')]]
 
     private DslStub stub
 
@@ -14,7 +14,7 @@ class DslDelegate {
 
     def node(Closure closure) {
         String lookupName = "node_${recordings.nodes}"
-        StageModel stageModel = new StageModel(lookupName)
+        CodeBlock stageModel = new CodeBlock(lookupName)
         closure.setDelegate(stageModel)
         def stageList = recordings['stages']
         stageList[lookupName] = stageModel
@@ -26,7 +26,7 @@ class DslDelegate {
 
     def stage(String stageName, Closure closure) {
         String lookupName = "stage_${stageName}"
-        StageModel stageModel = new StageModel(stageName)
+        CodeBlock stageModel = new CodeBlock(stageName)
         closure.setDelegate(stageModel)
         def stageList = recordings['stages']
         stageList[lookupName] = stageModel
@@ -50,7 +50,8 @@ class DslDelegate {
         if(owner.containsKey('STAGE_NAME')) {
             stageName = owner.get('STAGE_NAME')
         }
-        recordings.stages[stageName]."${name}"(*args)
+        def resp = recordings.stages[stageName]."${name}"(*args)
+        stub.invokeMethod(name, args)
     }
 
 }

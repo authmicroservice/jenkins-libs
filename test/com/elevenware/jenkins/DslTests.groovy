@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue
 
 class DslTests {
 
-    @Rule JenkinsRule jenkins = new JenkinsRule()
+    @Rule public JenkinsRule jenkins = new JenkinsRule()
 
     @Test
     void test() {

@@ -1,12 +1,12 @@
 package com.elevenware.jenkins.matchers
 
 import com.elevenware.jenkins.recording.Invocation
-import com.elevenware.jenkins.recording.StageModel
+import com.elevenware.jenkins.recording.CodeBlock
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 
-class DslMatchers extends BaseMatcher<StageModel>{
+class DslMatchers extends BaseMatcher<CodeBlock>{
 
     private String command
     private Object[] args
@@ -21,7 +21,7 @@ class DslMatchers extends BaseMatcher<StageModel>{
 
         @Override
         boolean matches(Object item) {
-            StageModel model = (StageModel) item
+            CodeBlock model = (CodeBlock) item
             Invocation invocation = model.invocations.find { it.name == command }
             if(!invocation) return false
             if(invocation.args.size() < args?.length) return false
@@ -57,7 +57,7 @@ class DslMatchers extends BaseMatcher<StageModel>{
             description.appendText("was ").appendValue(currentActual);
         }
 
-    static Matcher<StageModel> hadInvocation(String command, Object...args) {
+    static Matcher<CodeBlock> hadInvocation(String command, Object...args) {
         return new DslMatchers(command, args)
     }
 

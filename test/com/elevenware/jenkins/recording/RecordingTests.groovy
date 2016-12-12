@@ -5,8 +5,8 @@ import org.junit.Test
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.recording.DslTestHelper.testable
 import static org.hamcrest.MatcherAssert.assertThat
-import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertNotNull
+import static org.mockito.Mockito.when
 
 class RecordingTests {
 
@@ -19,7 +19,7 @@ class RecordingTests {
         def recordings = scripts.getRecordings()
 
         assertNotNull recordings
-        StageModel stage = recordings.stages['defaultModel']
+        CodeBlock stage = recordings.stages['defaultModel']
 
         assertNotNull stage
 
@@ -37,7 +37,7 @@ class RecordingTests {
         def recordings = scripts.getRecordings()
 
         assertNotNull recordings
-        StageModel stage = recordings.stages['defaultModel']
+        CodeBlock stage = recordings.stages['defaultModel']
 
         assertNotNull stage
 
@@ -54,7 +54,7 @@ class RecordingTests {
         def recordings = scripts.getRecordings()
 
         assertNotNull recordings
-        StageModel stage = recordings.stages['stage_stage1']
+        CodeBlock stage = recordings.stages['stage_stage1']
 
         assertNotNull stage
 
@@ -72,7 +72,7 @@ class RecordingTests {
 
         assertNotNull recordings
 
-        StageModel stage = recordings.stages['node_1']
+        CodeBlock stage = recordings.stages['node_1']
 
         assertNotNull stage
 
@@ -80,5 +80,43 @@ class RecordingTests {
 
     }
 
+    @Test
+    void stageInsideNode() {
+        TestScripts scripts = testable(TestScripts)
+        scripts.stageInNode()
+
+        def recordings = scripts.getRecordings()
+
+        assertNotNull recordings
+
+        CodeBlock stage = recordings.stages['stage_stage1']
+
+        assertNotNull stage
+
+        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+    }
+
+    @Test
+    void mockResponses() {
+
+        String string = 'Hello, World!'
+
+        TestScripts scripts = testable(TestScripts)
+        when(scripts.stub.libraryResource('some_path.txt')).thenReturn(string)
+
+        scripts.mockResponse()
+
+
+        def recordings = scripts.getRecordings()
+
+        assertNotNull recordings
+
+        CodeBlock stage = recordings.stages['defaultModel']
+
+        assertNotNull stage
+
+        assertThat(stage, hadInvocation("echo", string))
+
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines.definitions
 
-def buildArtifact(Map config) {
+def buildAndPublishArtifact(Map config) {
     def platform = config.platform
     if(!platform) {
         println "No platform specified - assuming generic"
@@ -8,21 +8,21 @@ def buildArtifact(Map config) {
     }
     switch(platform) {
         case 'java':
-            buildMavenArtifact(config)
+            buildAndPublishMavenArtifact(config)
             break
         default:
-            buildGenericArtifact(config)
+            buildAndPublishGenericArtifact(config)
     }
 }
 
-def buildMavenArtifact(Map config) {
+def buildAndPublishMavenArtifact(Map config) {
     println "Running maven for ${config.appName}"
     withMaven(maven: 'M3') {
         sh "mvn clean deploy --quiet"
     }
 }
 
-def buildGenericArtifact(Map config) {
+def buildAndPublishGenericArtifact(Map config) {
     println "Running generic build for ${config.appName}"
     new GenericBuildSteps().build()
 

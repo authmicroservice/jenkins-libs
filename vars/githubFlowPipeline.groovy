@@ -18,6 +18,11 @@ def call(Closure body) {
             githubFlow.buildArtifact(config)
         }
     }
+    node {
+        stage("Deploy-${config.appName}-to-int") {
+            echo "deploying to int"
+        }
+    }
 //    node {
 //        stage('Build-test-publish') {
 //            withMaven(maven: 'M3') {

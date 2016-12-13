@@ -15,7 +15,7 @@ def call(Closure body) {
             checkout scm
         }
         stage("build-${config.appName}") {
-            githubFlow.buildArtifact(config)
+            githubFlow.buildAndPublishArtifact(config)
         }
     }
     node {

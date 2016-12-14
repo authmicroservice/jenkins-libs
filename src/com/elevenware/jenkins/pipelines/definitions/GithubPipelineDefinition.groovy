@@ -27,3 +27,7 @@ def buildAndPublishGenericArtifact(Map config) {
     new GenericBuildSteps().build()
 
 }
+
+def deploy(Map config, String environment) {
+    echo "Deploying ${config.role} to ${environment}"
+}

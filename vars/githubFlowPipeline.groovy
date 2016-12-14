@@ -20,7 +20,7 @@ def call(Closure body) {
     }
     node {
         stage("Deploy-${config.appName}-to-int") {
-            echo "deploying to int"
+            githubFlow.deploy(config, 'integration')
         }
     }
 //    node {

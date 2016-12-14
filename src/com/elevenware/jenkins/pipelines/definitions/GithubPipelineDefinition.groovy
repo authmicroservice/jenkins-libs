@@ -29,5 +29,7 @@ def buildAndPublishGenericArtifact(Map config) {
 }
 
 def deploy(Map config, String environment) {
-    echo "Deploying ${config.role} to ${environment}"
+    stage("deploy-${config.appName}-${environment}") {
+        echo "Deploying ${config.role} to ${environment}"
+    }
 }

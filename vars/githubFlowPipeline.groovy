@@ -19,9 +19,16 @@ def call(Closure body) {
         }
     }
     node {
-        stage("Deploy-${config.appName}-to-int") {
-            githubFlow.deploy(config, 'integration')
-        }
+        githubFlow.deploy(config, 'integration')
+    }
+    node {
+        githubFlow.deploy(config, 'QA')
+    }
+    node {
+        githubFlow.deploy(config, 'staging')
+    }
+    node {
+        githubFlow.deploy(config, 'production')
     }
 //    node {
 //        stage('Build-test-publish') {

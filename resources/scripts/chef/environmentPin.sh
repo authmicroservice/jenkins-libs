@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "I shall now deploy"
+echo "I shall now deploy $1"

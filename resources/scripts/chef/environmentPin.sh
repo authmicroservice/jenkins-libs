@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "I shall now deploy $1"
+echo "I shall now deploy ${ROLE}"

@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.pipelines.definitions
 
 def pinEnvironment() {
-    def script = libraryResource('scripts/chef/environmentPin.sh')
-    sh script "(using magic)"
+    String script = libraryResource('scripts/chef/environmentPin.sh')
+    script.replaceAll('${ROLE}', 'fof')
+    sh script
 }

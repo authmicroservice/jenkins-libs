@@ -18,8 +18,7 @@ def call(Closure body) {
             gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 // short SHA, possibly better for chat notifications, etc.
             shortCommit = gitCommit.take(8)
-            config['version'] = shortCommit
-            echo "BULD ${currentBuild.number}"
+            config['version'] = "${currentBuild.number}-${shortCommit}"
         }
         stage("build-${config.appName}") {
             githubFlow.buildAndPublishArtifact(config)

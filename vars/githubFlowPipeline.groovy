@@ -7,12 +7,18 @@ def call(Closure body) {
     body.delegate = config
     body()
 
+
+
     def d = new com.elevenware.jenkins.pipelines.functions.Deployments()
     def githubFlow = new GithubPipelineDefinition()
 
     node {
         stage('Checkout') {
             checkout scm
+            gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+// short SHA, possibly better for chat notifications, etc.
+            shortCommit = gitCommit.take(8)
+            config['version'] = shortCommit
         }
         stage("build-${config.appName}") {
             githubFlow.buildAndPublishArtifact(config)

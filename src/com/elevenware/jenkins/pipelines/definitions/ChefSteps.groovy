@@ -1,8 +1,8 @@
 package com.elevenware.jenkins.pipelines.definitions
 
-def pinEnvironment() {
+def pinEnvironment(Map config) {
+    echo "VERSION = ${config.version}"
     String script = libraryResource('scripts/chef/environmentPin.sh')
     script = script.replace('${ROLE}', 'foo')
-    echo "Script is ${script}"
     sh script
 }

@@ -31,6 +31,6 @@ def buildAndPublishGenericArtifact(Map config) {
 def deploy(Map config, String environment) {
     stage("deploy-${config.appName}-${environment}") {
         echo "Deploying ${config.role} to ${environment}"
-        new ChefSteps().pinEnvironment()
+        new ChefSteps().pinEnvironment(config)
     }
 }

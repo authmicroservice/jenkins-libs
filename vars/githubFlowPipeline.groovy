@@ -19,7 +19,7 @@ def call(Closure body) {
 // short SHA, possibly better for chat notifications, etc.
             shortCommit = gitCommit.take(8)
             config['version'] = shortCommit
-            echo "BULD ${currentBuild}"
+            echo "BULD ${currentBuild.externalizableId}"
         }
         stage("build-${config.appName}") {
             githubFlow.buildAndPublishArtifact(config)

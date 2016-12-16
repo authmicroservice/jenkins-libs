@@ -14,5 +14,5 @@ def pinEnvironment(Map config) {
 def loadChefBundle() {
     String gemfileContent = libraryResource 'scripts/chef/chef_gemfile'
     writeFile file: 'Gemfile', text: gemfileContent
-    sh '/bin/cat Gemfile'
+    sh(libraryResource('scripts/chef/loadDependencies.sh'))
 }

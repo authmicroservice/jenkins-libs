@@ -1,5 +1,7 @@
 package com.elevenware.jenkins.pipelines.definitions
 
+import hudson.FilePath
+
 def pinEnvironment(Map config) {
     loadChefBundle()
     echo "VERSION = ${config.version}"
@@ -10,7 +12,17 @@ def pinEnvironment(Map config) {
 
 def loadChefBundle() {
     String gemfileContent = libraryResource 'scripts/chef/chef_gemfile'
-    def gemfile = new File(envVars.get('WORKSPACE'))
-    gemfile.write gemfileContent
+    if(currentBuild.workspace.isRemote())
+    {
+        def channel = currentBuild.workspace.channel;
+        def fp = new FilePath(channel, currentBuild.workspace.toString() + "/Gemfile")
+    } else {
+        fp = new FilePath(new File(currentBuild.workspace.toString() + "/Gemfile"))
+    }
+
+    if(fp != null)
+    {
+        fp.write(gemfileContent, null); //writing to file
+    }
     sh 'ls'
 }

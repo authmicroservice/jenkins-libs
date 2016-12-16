@@ -12,6 +12,7 @@ def pinEnvironment(Map config) {
 
 def loadChefBundle() {
     String gemfileContent = libraryResource 'scripts/chef/chef_gemfile'
+    echo currentBuild.buildVariables
     if(currentBuild.workspace.isRemote())
     {
         def channel = currentBuild.workspace.channel;

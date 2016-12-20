@@ -8,7 +8,7 @@ def pinEnvironment(Map config) {
     echo "CONFIG = ${config}"
     String script = libraryResource('scripts/chef/environmentPin.sh')
     script = script.replace('${COOKBOOK_VERSION}', config.version)
-    script = script.replace('${CHEF_ENVIRONMENT', config.environment)
+    script = script.replace('${CHEF_ENVIRONMENT}', config.environment)
     sh script
 }
 

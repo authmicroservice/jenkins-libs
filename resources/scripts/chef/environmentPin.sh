@@ -8,6 +8,8 @@
 # use the embedded ruby that ships with chef-client
 export GEM_HOME=/var/lib/jenkins/.rvm/gems/ruby-2.2.6 # hacktastic
 
+gem install bundler
+
 # special syntax for cookbook pins
 APP_SPEC="= ${COOKBOOK_VERSION}"
 

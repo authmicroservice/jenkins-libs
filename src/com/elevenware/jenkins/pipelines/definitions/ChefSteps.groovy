@@ -5,10 +5,10 @@ import org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper
 
 def pinEnvironment(Map config) {
     loadChefBundle()
-    echo "VERSION = ${config.version}"
+    echo "CONFIG = ${config}"
     String script = libraryResource('scripts/chef/environmentPin.sh')
     script = script.replace('${COOKBOOK_VERSION}', config.version)
-    echo "ASCRIT $script"
+    echo "SCRIPT $script"
     sh script
 }
 

@@ -7,7 +7,8 @@ def pinEnvironment(Map config) {
     loadChefBundle()
     echo "VERSION = ${config.version}"
     String script = libraryResource('scripts/chef/environmentPin.sh')
-    script = script.replace('${ROLE}', 'foo')
+    script = script.replace('${COOKBOOK_VERSION}', config.version)
+    echo "ASCRIT $script"
     sh script
 }
 

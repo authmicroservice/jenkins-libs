@@ -2,6 +2,8 @@
 build
 target
 .gradle
+.gradle/**
 *.iml
 .idea
 jenkins-libs.iml
+.idea

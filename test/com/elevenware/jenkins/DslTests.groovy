@@ -17,7 +17,8 @@ class DslTests {
     void test() {
 
         jenkins.jenkins.getInjector().injectMembers(this)
-        CpsFlowDefinition flow = new CpsFlowDefinition("assert evaluate('1+2+3')==6; echo 'lol'");
+        Class.forName("org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition")
+        def flow2 = new CpsFlowDefinition("assert evaluate('1+2+3')==6; echo 'lol'");
 
         createExecution(flow);
         exec.start();

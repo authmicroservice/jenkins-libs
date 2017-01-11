@@ -10,24 +10,25 @@ import static org.hamcrest.MatcherAssert.assertThat
 import static org.junit.Assert.assertNotNull
 import static org.junit.Assert.assertNotNull
 
-class GithubPipelineTests {
+class SimplePipelineTests {
 
     @Test
-    void buildTestPublish() {
+    void runSimplePipeline() {
 
-        GithubPipelineDefinition pipeline = testable(GithubPipelineDefinition)
+        String message = "Hello, world!"
 
-        pipeline.buildAndPublishArtifact([:])
+        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+
+        pipeline.build([message: message])
 
         def recordings = pipeline.getRecordings()
 
         assertNotNull recordings
-        CodeBlock stage = recordings.stages['stage_buildTestPublish']
+        CodeBlock stage = recordings.stages['stage_build']
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage, hadInvocation("echo", message))
 
     }
-
 }

@@ -6,6 +6,7 @@ import com.elevenware.jenkins.recording.CodeBlock
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
+import static com.elevenware.jenkins.recording.DslTestHelper.testable
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.junit.Assert.assertNotNull
 
@@ -14,10 +15,7 @@ class DeploymentsTests {
     @Test
     void withDelegate() {
 
-        Deployments deployments = new Deployments()
-        deployments.metaClass {
-            mixin DslDelegate
-        }
+        Deployments deployments = testable(Deployments) //new Deployments()
 
         deployments.deploy("integration", [role: 'foo'])
 

@@ -45,10 +45,11 @@ class DslDelegate {
     }
 
     def methodMissing(String name, args) {
-        def owner = this.metaClass.owner.binding.properties.variables
+        def owner = this.metaClass.owner
+        def props = owner.binding.properties.variables// : x.properties
         String stageName = 'defaultModel'
-        if(owner.containsKey('STAGE_NAME')) {
-            stageName = owner.get('STAGE_NAME')
+        if(props.containsKey('STAGE_NAME')) {
+            stageName = props.get('STAGE_NAME')
         }
         def resp = recordings.stages[stageName]."${name}"(*args)
         stub.invokeMethod(name, args)

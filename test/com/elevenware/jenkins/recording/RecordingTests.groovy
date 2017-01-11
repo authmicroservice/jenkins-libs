@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.recording
 
+import com.elevenware.jenkins.pipelines.SimplePipelineDefinition
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
@@ -116,6 +117,26 @@ class RecordingTests {
         assertNotNull stage
 
         assertThat(stage, hadInvocation("echo", string))
+
+    }
+
+    @Test
+    void recordInPipeline() {
+
+        String message = "Hello, world!"
+
+        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+
+        pipeline.build([message: message])
+
+        def recordings = pipeline.getRecordings()
+
+        assertNotNull recordings
+        CodeBlock stage = recordings.stages['stage_build']
+
+        assertNotNull stage
+
+        assertThat(stage, hadInvocation("echo", message))
 
     }
 

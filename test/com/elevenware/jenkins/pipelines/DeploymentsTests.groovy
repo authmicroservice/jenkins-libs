@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull
 
 class DeploymentsTests {
 
-//    @Test
+    @Test
     void withDelegate() {
 
         Deployments deployments = new Deployments()
@@ -24,7 +24,7 @@ class DeploymentsTests {
         def recordings = deployments.getRecordings()
 
         assertNotNull recordings
-        CodeBlock stage = recordings.stages['deploy-foo-integration']
+        CodeBlock stage = recordings.stages['stage_deploy-foo-integration']
 
         assertNotNull stage
 

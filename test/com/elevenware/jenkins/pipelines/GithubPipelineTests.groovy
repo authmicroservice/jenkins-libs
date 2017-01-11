@@ -17,7 +17,7 @@ class GithubPipelineTests {
 
         GithubPipelineDefinition pipeline = testable(GithubPipelineDefinition)
 
-        pipeline.buildTestPublish()
+        pipeline.buildAndPublishArtifact([platform: 'java'])
 
         def recordings = pipeline.getRecordings()
 

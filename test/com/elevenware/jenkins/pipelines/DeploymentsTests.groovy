@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull
 
 class DeploymentsTests {
 
-    @Test
+//    @Test
     void withDelegate() {
 
         Deployments deployments = new Deployments()

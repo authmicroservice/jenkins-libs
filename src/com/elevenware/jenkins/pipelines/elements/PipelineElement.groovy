@@ -7,6 +7,10 @@ abstract class PipelineElement implements Serializable {
 
     protected PipelineElement next
 
+    PipelineElement() {
+        this(new StopElement())
+    }
+
     PipelineElement(PipelineElement next) {
         this.next = next
     }

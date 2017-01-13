@@ -69,4 +69,16 @@ class DslMatchersTests {
 
     }
 
+    @Test
+    void multipleInvocations() {
+
+        CodeBlock model = new CodeBlock("")
+        model.foo("bar")
+        model.foo("baz")
+
+        assertThat(model, hadInvocation("foo", "bar"))
+        assertThat(model, hadInvocation("foo", "baz"))
+
+    }
+
 }

@@ -4,6 +4,11 @@ def simplest() {
     echo "Hello, world!"
 }
 
+def multiline() {
+    echo "Hello, world!"
+    echo "Goodbye, world!"
+}
+
 def passParam(String string) {
     echo string
 }

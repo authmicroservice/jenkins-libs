@@ -28,6 +28,21 @@ class RecordingTests {
     }
 
     @Test
+    void multipleLines() {
+        TestScripts scripts = testable(TestScripts)
+        scripts.multiline()
+
+        PipelineRecording recording = scripts.recording
+
+        StageModel stage = recording.defaultStage()
+
+        assertNotNull stage
+
+//        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Goodbye, world!"))
+    }
+
+    @Test
     void passedParams() {
 
         String paramToPass = "This is a string"
@@ -121,14 +136,14 @@ class RecordingTests {
 
         pipeline.build([:])
 
-        def recordings = pipeline.getRecordings()
+        def recordings = pipeline.recording
 
         assertNotNull recordings
-        CodeBlock stage = recordings.stages['stage_build']
+        StageModel stage = recording.getStage('build')
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Building"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Building"))
 
     }
 

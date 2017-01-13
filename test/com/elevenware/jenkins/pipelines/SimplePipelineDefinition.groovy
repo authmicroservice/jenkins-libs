@@ -3,14 +3,15 @@ package com.elevenware.jenkins.pipelines
 
 def build(Map config) {
     stage('build') {
-        node {
+        // TODO: allow for nesting of stages in nodes and nodes in stages
+//        node {
             echo "Building"
-        }
+//        }
     }
     stage('deploy') {
-        node {
+//        node {
             echo "Deploying"
-        }
+//        }
     }
 }
 

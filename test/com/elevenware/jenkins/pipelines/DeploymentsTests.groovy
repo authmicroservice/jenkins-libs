@@ -3,6 +3,7 @@ package com.elevenware.jenkins.pipelines
 import com.elevenware.jenkins.pipelines.functions.Deployments
 import com.elevenware.jenkins.recording.DslDelegate
 import com.elevenware.jenkins.recording.CodeBlock
+import com.elevenware.jenkins.recording.StageModel
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
@@ -19,16 +20,16 @@ class DeploymentsTests {
 
         deployments.deploy("integration", [role: 'foo'])
 
-        def recordings = deployments.getRecordings()
+        def recordings = deployments.getRecording()
 
         assertNotNull recordings
-        CodeBlock stage = recordings.stages['stage_deploy-foo-integration']
+        StageModel stage = recordings.getStage('deploy-foo-integration')
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Deploying foo to integration"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Deploying foo to integration"))
 
-        assertThat(stage, hadInvocation("sh"))
+        assertThat(stage.codeBlock, hadInvocation("sh"))
 
     }
 

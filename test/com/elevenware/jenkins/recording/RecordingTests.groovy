@@ -136,10 +136,10 @@ class RecordingTests {
 
         pipeline.build([:])
 
-        def recordings = pipeline.recording
+        PipelineRecording recordings = pipeline.recording
 
         assertNotNull recordings
-        StageModel stage = recording.getStage('build')
+        StageModel stage = recordings.getStage('build')
 
         assertNotNull stage
 

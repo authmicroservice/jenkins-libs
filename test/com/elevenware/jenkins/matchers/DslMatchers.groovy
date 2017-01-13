@@ -23,9 +23,20 @@ class DslMatchers extends BaseMatcher<StageModel>{
         @Override
         boolean matches(Object item) {
             CodeBlock model = (CodeBlock) item
-            Invocation invocation = model.invocations.find { it.name == command }
-            if(!invocation) return false
+            List<Invocation> invocations = model.invocations.findAll { it.name == command }
+            if(invocations.size() == 0) return false
+            for(Invocation invocation: invocations) {
+                if(assertMatch(invocation)) {
+                    return true
+                }
+            }
+
+            return false
+        }
+
+        private boolean assertMatch(Invocation invocation) {
             if(invocation.args.size() < args?.length) return false
+            if(args?.length == 0) return true
             Iterator iter = invocation.args.iterator()
             for(Object arg: args) {
                 if(!iter.hasNext()) {
@@ -36,9 +47,7 @@ class DslMatchers extends BaseMatcher<StageModel>{
                 currentActual = actualArg
                 if(Matcher.isAssignableFrom(arg.getClass())) {
                     Matcher matcher = (Matcher) arg
-                    if(!matcher.matches(actualArg)) {
-                        return false
-                    }
+                    if(!matcher.matches(actualArg)) return false
                 } else {
                     if(actualArg != arg) {
                         return false
@@ -46,7 +55,7 @@ class DslMatchers extends BaseMatcher<StageModel>{
                 }
 
             }
-            return true
+            true
         }
 
         @Override

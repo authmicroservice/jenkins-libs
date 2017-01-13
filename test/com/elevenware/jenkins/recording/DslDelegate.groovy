@@ -4,7 +4,8 @@ import static org.mockito.Mockito.mock
 
 class DslDelegate {
 
-    private Map recordings = [nodes: 1, orderedStages: [], stages: [defaultModel: new CodeBlock('default')]]
+    private static final String STAGE_NAME = 'STAGE_NAME'
+    private static final String RECORDER_KEY = 'DSL_RECORDER'
 
     private PipelineRecording recording = new PipelineRecording()
 
@@ -15,31 +16,19 @@ class DslDelegate {
     }
 
     def node(Closure closure) {
-        String lookupName = "node_${recordings.nodes}"
-        CodeBlock stageModel = new CodeBlock(lookupName)
-        closure.setDelegate(stageModel)
-        def stageList = recordings['stages']
-        stageList[lookupName] = stageModel
+        NodeModel nodeModel = recording.createNode()
+        closure.setDelegate(nodeModel)
         closure.setDirective(Closure.DELEGATE_ONLY)
-        closure.setProperty("STAGE_NAME", lookupName)
+        closure.setProperty(RECORDER_KEY, nodeModel.codeBlock)
         closure.call()
-        recordings.nodes = recordings.nodes + 1
     }
 
     def stage(String stageName, Closure closure) {
-        String lookupName = "stage_${stageName}"
-        CodeBlock stageModel = new CodeBlock(stageName)
+        StageModel stageModel = recording.createStage(stageName)
         closure.setDelegate(stageModel)
-        def stageList = recordings['stages']
-        stageList[lookupName] = stageModel
         closure.setDirective(Closure.DELEGATE_ONLY)
-        closure.setProperty("STAGE_NAME", lookupName)
+        closure.setProperty(RECORDER_KEY, stageModel.codeBlock)
         closure.call()
-    }
-
-    def getRecordings() {
-
-        recordings
     }
 
     def getRecording() {
@@ -52,12 +41,13 @@ class DslDelegate {
 
     def methodMissing(String name, args) {
         def owner = this.metaClass.owner
-        def props = owner.binding.properties.variables// : x.properties
-        String stageName = 'defaultModel'
-        if(props.containsKey('STAGE_NAME')) {
-            stageName = props.get('STAGE_NAME')
+        def closureBinding = owner.binding.properties.variables
+        if(closureBinding.containsKey(RECORDER_KEY)) {
+            CodeBlock codeBlock = closureBinding.get(RECORDER_KEY)
+            codeBlock."$name"(*args)
+        } else {
+            recording.invokeOnDefaultStage(name, args)
         }
-        def resp = recordings.stages[stageName]."${name}"(*args)
         stub.invokeMethod(name, args)
     }
 

@@ -17,14 +17,13 @@ class RecordingTests {
         TestScripts scripts = testable(TestScripts)
         scripts.simplest()
 
-        def recordings = scripts.getRecordings()
+        PipelineRecording recording = scripts.recording
 
-        assertNotNull recordings
-        CodeBlock stage = recordings.stages['defaultModel']
+        StageModel stage = recording.defaultStage()
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
 
     }
 
@@ -35,14 +34,13 @@ class RecordingTests {
         TestScripts scripts = testable(TestScripts)
         scripts.passParam(paramToPass)
 
-        def recordings = scripts.getRecordings()
+        PipelineRecording recording = scripts.recording
 
-        assertNotNull recordings
-        CodeBlock stage = recordings.stages['defaultModel']
+        StageModel stage = recording.defaultStage()
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", paramToPass))
+        assertThat(stage.codeBlock, hadInvocation("echo", paramToPass))
 
     }
 
@@ -52,16 +50,15 @@ class RecordingTests {
         TestScripts scripts = testable(TestScripts)
         scripts.inStage()
 
-        def recordings = scripts.getRecordings()
+        PipelineRecording recording = scripts.recording
 
-        assertNotNull recordings
-        CodeBlock stage = recordings.stages['stage_stage1']
+        StageModel stage = recording.getStage('stage1')
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
 
-    } // 084488 12135 Kate Taylor
+    }
 
     @Test
     void inANode() {
@@ -69,15 +66,15 @@ class RecordingTests {
         TestScripts scripts = testable(TestScripts)
         scripts.inNode()
 
-        def recordings = scripts.getRecordings()
+        PipelineRecording recording = scripts.recording
 
-        assertNotNull recordings
+        assertNotNull recording
 
-        CodeBlock stage = recordings.stages['node_1']
+        NodeModel node = recording.getNode(0)
 
-        assertNotNull stage
+        assertNotNull node
 
-        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+        assertThat(node.codeBlock, hadInvocation("echo", "Hello, world!"))
 
     }
 
@@ -86,15 +83,15 @@ class RecordingTests {
         TestScripts scripts = testable(TestScripts)
         scripts.stageInNode()
 
-        def recordings = scripts.getRecordings()
+        PipelineRecording recording = scripts.recording
 
-        assertNotNull recordings
+        assertNotNull recording
 
-        CodeBlock stage = recordings.stages['stage_stage1']
+        StageModel stage = recording.getStage('stage1')
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
     }
 
     @Test
@@ -108,15 +105,12 @@ class RecordingTests {
         scripts.mockResponse()
 
 
-        def recordings = scripts.getRecordings()
+        PipelineRecording recording = scripts.recording
 
-        assertNotNull recordings
-
-        CodeBlock stage = recordings.stages['defaultModel']
-
+        StageModel stage = recording.defaultStage()
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", string))
+        assertThat(stage.codeBlock, hadInvocation("echo", string))
 
     }
 

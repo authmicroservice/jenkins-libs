@@ -29,3 +29,7 @@ A word on coding style; jenkins-jobdsl had a heady mix of procedural and object-
 ### Github Organisations
 
 Another great departure from our old way of working is support for Jenkins to observe entire GitHub organisations. The practical upshot of this is that we don't need to explicitly add new repositories to any configuration like projects.txt. Jenkins simply receives notification of a new repository being added to the organisation, and if it has a Jenkinsfile in it, executes it.
+
+## Simple pipeline tutorial
+
+Let's build a simple pipeline.

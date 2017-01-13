@@ -123,11 +123,9 @@ class RecordingTests {
     @Test
     void recordInPipeline() {
 
-        String message = "Hello, world!"
-
         SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
 
-        pipeline.build([message: message])
+        pipeline.build([:])
 
         def recordings = pipeline.getRecordings()
 
@@ -136,7 +134,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", message))
+        assertThat(stage, hadInvocation("echo", "Building"))
 
     }
 

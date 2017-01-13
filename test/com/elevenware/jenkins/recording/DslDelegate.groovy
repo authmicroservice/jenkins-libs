@@ -4,7 +4,9 @@ import static org.mockito.Mockito.mock
 
 class DslDelegate {
 
-    private Map recordings = [nodes: 1, stages: [defaultModel: new CodeBlock('default')]]
+    private Map recordings = [nodes: 1, orderedStages: [], stages: [defaultModel: new CodeBlock('default')]]
+
+    private PipelineRecording recording = new PipelineRecording()
 
     private DslStub stub
 
@@ -38,6 +40,10 @@ class DslDelegate {
     def getRecordings() {
 
         recordings
+    }
+
+    def getRecording() {
+        recording
     }
 
     DslStub getStub() {

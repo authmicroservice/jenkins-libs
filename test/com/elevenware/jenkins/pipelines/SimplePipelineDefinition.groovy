@@ -2,10 +2,14 @@ package com.elevenware.jenkins.pipelines
 
 
 def build(Map config) {
-    def message = config.message
-    node {
-        stage('build') {
-           echo message
+    stage('build') {
+        node {
+            echo "Building"
+        }
+    }
+    stage('deploy') {
+        node {
+            echo "Deploying"
         }
     }
 }

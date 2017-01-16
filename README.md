@@ -111,5 +111,16 @@ Change the test to look like this
     }
 ```
 
-See how we are passing an application name into our pipeline. The test fails, naturally. So TDD up boys, let's go green. Our script now looks likle this
+See how we are passing an application name into our pipeline. The test fails, naturally. So TDD up boys, let's go green. Our script now looks like this
+
+```groovy
+def build(Map config) {
+    String appName = config.appName
+    stage("build $appName") {
+        echo "Building $appName"
+    }
+    stage("deploy $appName") {
+      echo "Deploying $appName"
+}
+```
 

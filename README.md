@@ -121,6 +121,7 @@ def build(Map config) {
     }
     stage("deploy $appName") {
       echo "Deploying $appName"
+    }
 }
 ```
 

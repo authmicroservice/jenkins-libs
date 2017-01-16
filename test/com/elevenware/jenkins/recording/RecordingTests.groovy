@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.recording
 
-import com.elevenware.jenkins.pipelines.SimplePipelineDefinition
+import com.elevenware.jenkins.demo.SimplePipelineDefinition
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation

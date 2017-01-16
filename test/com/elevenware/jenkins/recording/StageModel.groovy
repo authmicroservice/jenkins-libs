@@ -10,6 +10,10 @@ class StageModel {
         codeBlock = new CodeBlock("")
     }
 
+    String getName() {
+        name
+    }
+
     CodeBlock getCodeBlock() {
         codeBlock
     }

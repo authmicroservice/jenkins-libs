@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.isA
 import static org.hamcrest.CoreMatchers.not
 import static org.hamcrest.MatcherAssert.assertThat
 
-class DslMatchersTests {
+class InvocationMatchersTests {
 
     @Test
     void hadInvocationFailsToMatchIfNoMatchExists() {

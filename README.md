@@ -32,4 +32,84 @@ Another great departure from our old way of working is support for Jenkins to ob
 
 ## Simple pipeline tutorial
 
-Let's build a simple pipeline.
+Let's build a simple pipeline, with tests. Our pipeline will consist of two stages, a build and a deploy. Nothing too complex. The entire pipeline and test suite are in the package 'com.elevenware.jenkins.demo' in the test folder.
+
+First, we want a test to ensure that both of these stages exist in the correct order. Write a test that looks like this.
+
+```groovy
+
+import static com.elevenware.jenkins.recording.DslTestHelper.testable
+import com.elevenware.jenkins.recording.PipelineRecording
+
+@Test
+    void correctStagesExist() {
+
+        String appName = 'Foo Application'
+
+        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+        pipeline.build([appName: appName])
+
+        PipelineRecording recording = pipeline.recording
+
+        assertEquals(2, recording.stages.size())
+
+        Iterator iter = recording.stages.entrySet().iterator()
+
+        assertThat(iter.next().value.name, isString("build $appName"))
+        assertThat(iter.next().value.name, isString("deploy $appName"))
+
+    }
+```
+
+The *testable* method is a static import from the test framework provided in this library. It wraps a DSL script in some plumbing to allow us to mock out the DSL and perform assertions on it.
+
+SimplePipelineDefintion is a Groovy *script* (not *class*) which defines our pipeline. The use of scripts rather than classes is a coding style imposed by the DSL plugins which apply a paradigm known as CPS (continuation passing style) to DSL code. It *is* possible to avoid, but some Groovy code is not legal in the CPS style, and this would need annotating as such, which pollutes the code to a huge degree and makes it unreadable. Simplicity being key, we ran with Groovy scripts.
+
+PipelineRecording is a framework class which represents the interactions between our DSL code and our mocked DSL.
+
+This test, of course, will not pass, as we have not yet written the pipeline definition. It's TDD, after all. Let's add the simple pipeline.
+
+Quick note: we've used assertThat/isString, a utility provided by the framework, rather than mere isEqual as a workaround for a Groovy/Junit quirk: isEqual will fail if you try to compare a Java String to a Groovy GString, which is what we end up with if we use interpolation.
+
+```groovy
+def build(Map config) {
+    stage('build') {
+        echo "Building"
+    }
+    stage('deploy') {
+        echo "Deploying"
+    }
+}
+```
+
+This is incredibly simple. The stages do not do anything, they merely echo what they *would* do. Fine for now. Our test should now pass.
+
+Obviously, this is so simple it isn't worth even bothering to test. So let's add a little logic so that it *is*.
+
+Stage names - build and deploy in this example - are actually displayed in the Jenkins UI. Since this pipeline, as with all of ours, are intended to be reusable across applications, let's [make it so](https://s-media-cache-ak0.pinimg.com/736x/dc/df/5b/dcdf5b42acb95fa3551faa23a2f1e9e4.jpg).
+
+Change the test to look like this
+
+```groovy
+@Test
+    void correctStagesExist() {
+
+        String appName = 'Foo Application'
+
+        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+        pipeline.build([appName: appName])
+
+        PipelineRecording recording = pipeline.recording
+
+        assertEquals(2, recording.stages.size())
+
+        Iterator iter = recording.stages.entrySet().iterator()
+
+        assertThat(iter.next().value.name, equalTo("build Foo Application"))
+        assertThat(iter.next().value.name, equalTo("deploy $appName"))
+
+    }
+```
+
+See how we are passing an application name into our pipeline. The test fails, naturally. So TDD up boys, let's go green. Our script now looks likle this
+

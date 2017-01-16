@@ -3,6 +3,7 @@ package com.elevenware.jenkins.pipelines
 import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
 import com.elevenware.jenkins.recording.CodeBlock
 import com.elevenware.jenkins.recording.PipelineRecording
+import com.elevenware.jenkins.recording.StageModel
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
@@ -18,20 +19,15 @@ class SimplePipelineTests {
     @Test
     void runSimplePipeline() {
 
-        String message = "Hello, world!"
-
         SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
 
-        pipeline.build([message: message])
+        pipeline.build([:])
 
-        def recordings = pipeline.getRecordings()
+        PipelineRecording recording = pipeline.recording
 
-        assertNotNull recordings
-        CodeBlock stage = recordings.stages['stage_build']
+        StageModel stage = recording.getStage('build')
 
-        assertNotNull stage
-
-        assertThat(stage, hadInvocation("echo", message))
+        assertThat(stage.codeBlock, hadInvocation("echo", 'Building'))
 
     }
 

@@ -134,16 +134,16 @@ class RecordingTests {
 
         SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
 
-        pipeline.build([:])
+        pipeline.build([appName: 'foo'])
 
         PipelineRecording recordings = pipeline.recording
 
         assertNotNull recordings
-        StageModel stage = recordings.getStage('build')
+        StageModel stage = recordings.getStage('build foo')
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Building"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Building foo"))
 
     }
 

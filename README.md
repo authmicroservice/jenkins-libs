@@ -74,10 +74,8 @@ Quick note: we've used assertThat/isString, a utility provided by the framework,
 ```groovy
 def build(Map config) {
     stage('build') {
-        echo "Building"
     }
     stage('deploy') {
-        echo "Deploying"
     }
 }
 ```
@@ -117,11 +115,55 @@ See how we are passing an application name into our pipeline. The test fails, na
 def build(Map config) {
     String appName = config.appName
     stage("build $appName") {
-        echo "Building $appName"
     }
     stage("deploy $appName") {
-      echo "Deploying $appName"
     }
 }
 ```
 
+So we know that the correct stages exist. Now let's see if they're doing what they're supposed to. This is the real gravy of the test framework.
+
+This test actually examines the interactions in the build stage. Currently, this wil be just to echo something to the effect that we are building the app.
+
+```groovy
+
+import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
+
+@Test
+    void buildStageActsAsExpected() {
+
+        String appName = 'Foo Application'
+
+        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+
+        pipeline.build([appName: appName])
+
+        PipelineRecording recording = pipeline.recording
+
+        StageModel buildStage = recording.getStage("build $appName")
+
+        assertThat(buildStage.codeBlock, hadInvocation("echo", "Building $appName"))
+
+    }
+```
+
+This introduces the *hadInvocation* method, another part of the test framework. The test, of course, fails, so we now implement the step.
+
+
+```groovy
+def build(Map config) {
+    String appName = config.appName
+    stage("build $appName") {
+        echo "Building $appName"
+    }
+    stage("deploy $appName") {
+    }
+}
+```
+
+Simple. As an exercise, write a failing test for the deploy stage, then make it pass.
+
+## The test framework
+
+
+The test framework is still very much a work in progress. It will expand as needed. Part of the job of writing new pipelines and tests for them will often be to add mocking for new parts of the DSL.

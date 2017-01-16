@@ -33,7 +33,7 @@ class SimplePipelineTests {
     }
 
     @Test
-    void runSimplePipeline() {
+    void buildStageActsAsExpected() {
 
         String appName = 'Foo Application'
 
@@ -43,9 +43,26 @@ class SimplePipelineTests {
 
         PipelineRecording recording = pipeline.recording
 
-        StageModel stage = recording.getStage("build $appName")
+        StageModel buildStage = recording.getStage("build $appName")
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Building $appName"))
+        assertThat(buildStage.codeBlock, hadInvocation("echo", "Building $appName"))
+
+    }
+
+    @Test
+    void deployStageActsAsExpected() {
+
+        String appName = 'Foo Application'
+
+        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+
+        pipeline.build([appName: appName])
+
+        PipelineRecording recording = pipeline.recording
+
+        StageModel deployStage = recording.getStage("deploy $appName")
+
+        assertThat(deployStage.codeBlock, hadInvocation("echo", "Deploying $appName"))
 
     }
 

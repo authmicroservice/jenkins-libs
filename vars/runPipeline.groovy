@@ -7,6 +7,10 @@ def call(String pipelineName, Closure body) {
     body.resolveStrategy = Closure.DELEGATE_ONLY
     body()
 
-    context.dump(System.out)
+    echo "Pipeline type: ${ctx.pipeline}"
+    echo "App Name: ${ctx.appName}"
+    echo "Role: ${ctx.role}"
+    echo "Platform: ${ctx.platform}"
+    echo  "Cookbook: ${ctx.cookbookName}"
 
 }

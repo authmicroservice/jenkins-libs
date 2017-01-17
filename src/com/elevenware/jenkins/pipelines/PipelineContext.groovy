@@ -15,7 +15,7 @@ class PipelineContext implements Serializable{
     String pipeline
 
     @NonCPS
-    void dump(PrintWriter out) {
+    void dump(PrintStream out) {
         out.println "Pipeline type: $pipeline"
         out.println "App Name: $appName"
         out.println "Role: $role"

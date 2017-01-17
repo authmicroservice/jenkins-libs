@@ -163,6 +163,12 @@ def build(Map config) {
 
 Simple. As an exercise, write a failing test for the deploy stage, then make it pass.
 
+## Let us actually use this pipeline now
+
+All well and good to have some passing tests. But how do we use this pipeline in a project? Well, that's where the Jenkinsfile comes in. This is similar to the .jenkins.yml file used in our legacy CD framework, although it is Groovy code rather than YAML. While it's possible to simply define a pipeline right in Jenkinsfile, as previously discussed our approach will be to use the file to configure a pre-defined pipeline contained in this library. Let's write a simple Jenkinsfile, with tests first, of course.
+
+### Test for the Jenkinsfile
+
 ## The test framework
 
 

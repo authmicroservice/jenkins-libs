@@ -1,4 +1,4 @@
-import com.elevenware.jenkins.PipelineContext
+import com.elevenware.jenkins.pipelines.PipelineContext
 
 def call(String pipelineName, Closure body) {
 

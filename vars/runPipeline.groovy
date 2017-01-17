@@ -1,3 +1,5 @@
+import com.elevenware.jenkins.PipelineContext
+
 def call(String pipelineName, Closure body) {
 
     PipelineContext context = new PipelineContext()

@@ -1,6 +1,8 @@
 package com.elevenware.jenkins.pipelines
 
-class PipelineContext {
+import com.cloudbees.groovy.cps.NonCPS
+
+class PipelineContext implements Serializable{
 
     PipelineContext(String pipelineType) {
         this.pipeline = pipelineType
@@ -12,6 +14,7 @@ class PipelineContext {
     String cookbookName
     String pipeline
 
+    @NonCPS
     void dump(PrintWriter out) {
         out.println "Pipeline type: $pipeline"
         out.println "App Name: $appName"

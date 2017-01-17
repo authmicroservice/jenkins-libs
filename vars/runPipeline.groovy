@@ -2,7 +2,7 @@ import com.elevenware.jenkins.pipelines.PipelineContext
 
 def call(String pipelineName, Closure body) {
 
-    PipelineContext ctx = new PipelineContext()
+    PipelineContext ctx = new PipelineContext(pipelineName)
     body.delegate = ctx
     body.resolveStrategy = Closure.DELEGATE_ONLY
     body()

@@ -21,6 +21,7 @@ class PipelineContext implements Serializable{
         out.println "Role: $role"
         out.println "Platform: $platform"
         out.println "Cookbook: $cookbookName"
+        out.flush()
     }
 
 }

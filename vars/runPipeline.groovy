@@ -1,4 +1,5 @@
 import com.elevenware.jenkins.pipelines.PipelineContext
+import com.elevenware.jenkins.pipelines.definitions.PipelineRegistry
 
 def call(String pipelineName, Closure body) {
 

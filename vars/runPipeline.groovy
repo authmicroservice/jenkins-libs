@@ -2,6 +2,9 @@ import com.elevenware.jenkins.pipelines.PipelineContext
 
 def call(String pipelineName, Closure body) {
 
+    def pipelineDef = PipelineRegistry.instance.create(pipelineName)
+    echo "GO~t $pipelineDef"
+
     PipelineContext ctx = new PipelineContext(pipelineName)
     body.delegate = ctx
     body.resolveStrategy = Closure.DELEGATE_ONLY

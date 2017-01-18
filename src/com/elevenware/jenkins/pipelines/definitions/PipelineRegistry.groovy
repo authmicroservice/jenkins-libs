@@ -8,6 +8,7 @@ class PipelineRegistry implements Serializable {
 
     private PipelineRegistry() {
         registry['githubflow'] = GithubPipelineDefinition
+        registry['simpleFlow'] = SimpleFlowDefinition
     }
 
     static PipelineRegistry getInstance() {

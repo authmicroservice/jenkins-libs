@@ -4,12 +4,13 @@ import com.elevenware.jenkins.pipelines.definitions.PipelineRegistry
 def call(String pipelineName, Closure body) {
 
     def pipelineDef = PipelineRegistry.instance.create(pipelineName)
-    echo "GO~t $pipelineDef"
 
     PipelineContext ctx = new PipelineContext(pipelineName)
     body.delegate = ctx
     body.resolveStrategy = Closure.DELEGATE_ONLY
     body()
+
+    pipelineDef.run(ctx)
 
     echo "Pipeline type: ${ctx.pipeline}"
     echo "App Name: ${ctx.appName}"

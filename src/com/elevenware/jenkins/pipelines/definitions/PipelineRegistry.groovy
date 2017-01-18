@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.pipelines.definitions
 
-class PipelineRegistry {
+class PipelineRegistry implements Serializable {
 
     private static PipelineRegistry INSTANCE = new PipelineRegistry()
 

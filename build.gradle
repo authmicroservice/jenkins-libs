@@ -13,7 +13,8 @@ repositories {
 
 sourceSets {
     main.groovy.srcDirs = ['src']
-    test.groovy.srcDirs = ['test']
+    test.groovy.srcDirs = ['test/groovy']
+    test.resources.includes = ['test/resources']
 }
 
 dependencies {

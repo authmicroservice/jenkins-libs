@@ -32,22 +32,25 @@ Another great departure from our old way of working is support for Jenkins to ob
 
 ## Simple pipeline tutorial
 
-Let's build a simple pipeline, with tests. Our pipeline will consist of two stages, a build and a deploy. Nothing too complex. The entire pipeline and test suite are in the package 'com.elevenware.jenkins.demo' in the test folder.
+Let's build a simple pipeline, with tests. Our pipeline will consist of two stages, a build and a deploy. Nothing too complex. The pipeline definition is in the source folder, and test suite is in the package 'com.elevenware.jenkins.demo' in the test folder.
 
 First, we want a test to ensure that both of these stages exist in the correct order. Write a test that looks like this.
 
 ```groovy
 
-import static com.elevenware.jenkins.recording.DslTestHelper.testable
+import static testableScript
 import com.elevenware.jenkins.recording.PipelineRecording
+import com.elevenware.jenkins.pipelines.PipelineContext
 
-@Test
+    @Test
     void correctStagesExist() {
 
         String appName = 'Foo Application'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
-        pipeline.build([appName: appName])
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
+        pipeline.run(ctx)
 
         PipelineRecording recording = pipeline.recording
 
@@ -55,13 +58,13 @@ import com.elevenware.jenkins.recording.PipelineRecording
 
         Iterator iter = recording.stages.entrySet().iterator()
 
-        assertThat(iter.next().value.name, isString("build $appName"))
-        assertThat(iter.next().value.name, isString("deploy $appName"))
+        assertThat(iter.next().value.name, isString("build"))
+        assertThat(iter.next().value.name, isString("deploy"))
 
     }
 ```
 
-The *testable* method is a static import from the test framework provided in this library. It wraps a DSL script in some plumbing to allow us to mock out the DSL and perform assertions on it.
+The *testableScript* method is a static import from the test framework provided in this library. It wraps a DSL script in some plumbing to allow us to mock out the DSL and perform assertions on it.
 
 SimplePipelineDefintion is a Groovy *script* (not *class*) which defines our pipeline. The use of scripts rather than classes is a coding style imposed by the DSL plugins which apply a paradigm known as CPS (continuation passing style) to DSL code. It *is* possible to avoid, but some Groovy code is not legal in the CPS style, and this would need annotating as such, which pollutes the code to a huge degree and makes it unreadable. Simplicity being key, we ran with Groovy scripts.
 
@@ -89,13 +92,15 @@ Stage names - build and deploy in this example - are actually displayed in the J
 Change the test to look like this
 
 ```groovy
-@Test
+    @Test
     void correctStagesExist() {
 
         String appName = 'Foo Application'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
-        pipeline.build([appName: appName])
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
+        pipeline.run(ctx)
 
         PipelineRecording recording = pipeline.recording
 
@@ -103,8 +108,8 @@ Change the test to look like this
 
         Iterator iter = recording.stages.entrySet().iterator()
 
-        assertThat(iter.next().value.name, equalTo("build Foo Application"))
-        assertThat(iter.next().value.name, equalTo("deploy $appName"))
+        assertThat(iter.next().value.name, isString("build Foo Application"))
+        assertThat(iter.next().value.name, isString("deploy $appName"))
 
     }
 ```
@@ -129,20 +134,22 @@ This test actually examines the interactions in the build stage. Currently, this
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 
-@Test
+    @Test
     void buildStageActsAsExpected() {
 
         String appName = 'Foo Application'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
 
-        pipeline.build([appName: appName])
+        pipeline.run(ctx)
 
         PipelineRecording recording = pipeline.recording
 
         StageModel buildStage = recording.getStage("build $appName")
 
-        assertThat(buildStage.codeBlock, hadInvocation("echo", "Building $appName"))
+        assertThat(buildStage.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
 
     }
 ```
@@ -154,7 +161,7 @@ This introduces the *hadInvocation* method, another part of the test framework. 
 def build(Map config) {
     String appName = config.appName
     stage("build $appName") {
-        echo "Building $appName"
+        echo "Running build stage for ${context.appName}"
     }
     stage("deploy $appName") {
     }
@@ -169,7 +176,43 @@ All well and good to have some passing tests. But how do we use this pipeline in
 
 ### Test for the Jenkinsfile
 
-## The test framework
+Here is a simple test for a Jenkinsfile which conforms to our proposed framework.
 
+```groovy
+    @Test
+    void jenkinsFileConfiguresCorrectly() {
+
+        JenkinsfileDelegate delegate = DslTestHelper.testableJenkinsfile("Jenkinsfile")
+
+        PipelineContext ctx = delegate.context
+
+        assertThat(delegate.pipelineDefinition, instanceOf(SimplePipelineDefinition))
+        assertThat(ctx.appName, equalTo('basic-app'))
+        assertThat(ctx.role, equalTo('basic'))
+        assertThat(ctx.platform, equalTo('java'))
+        assertThat(ctx.cookbookName, equalTo('tc-basic'))
+
+    }
+```
+
+This loads a file from the test/resources folder called 'Jenkinsfile', wraps it up in a testable delegate and then performs some assertions on it. The Jenkinsfile in question looks like this:
+
+```groovy
+  runPipeline('simplePipeline') {
+  appName = 'basic-app'
+  role = 'basic'
+  platform = 'java'
+  cookbookName = 'tc-basic'
+}
+```
+
+How this fits into a real Jenkins ecosystem is like this:
+
+ * the Jenkinsfile lives in the root of a github project
+ * runPipeline is the name of a Groovy script which lives in the *vars* folder of this library
+ * the name 'simplePipeline' is mapped in the class PipelineRegistry to a Groovy script which is the definition of that pipeline
+ * when the pipeline is run, the runPipeline script populates a PipelineContext object and passes it to the run() method of the pipeline definition, thus executing the pipeline
+
+## The test framework
 
 The test framework is still very much a work in progress. It will expand as needed. Part of the job of writing new pipelines and tests for them will often be to add mocking for new parts of the DSL.

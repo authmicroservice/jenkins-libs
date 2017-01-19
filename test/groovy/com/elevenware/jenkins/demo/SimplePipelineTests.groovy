@@ -1,13 +1,14 @@
 package com.elevenware.jenkins.demo
 
+import com.elevenware.jenkins.pipelines.PipelineContext
+import com.elevenware.jenkins.pipelines.definitions.SimplePipelineDefinition
 import com.elevenware.jenkins.recording.PipelineRecording
 import com.elevenware.jenkins.recording.StageModel
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.matchers.DslMatchers.isString
-import static com.elevenware.jenkins.recording.DslTestHelper.testable
-import static org.hamcrest.CoreMatchers.equalTo
+import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.junit.Assert.*
 
@@ -17,9 +18,11 @@ class SimplePipelineTests {
     void correctStagesExist() {
 
         String appName = 'Foo Application'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
-        pipeline.build([appName: appName])
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
+        pipeline.run(ctx)
 
         PipelineRecording recording = pipeline.recording
 
@@ -36,16 +39,18 @@ class SimplePipelineTests {
     void buildStageActsAsExpected() {
 
         String appName = 'Foo Application'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
 
-        pipeline.build([appName: appName])
+        pipeline.run(ctx)
 
         PipelineRecording recording = pipeline.recording
 
         StageModel buildStage = recording.getStage("build $appName")
 
-        assertThat(buildStage.codeBlock, hadInvocation("echo", "Building $appName"))
+        assertThat(buildStage.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
 
     }
 
@@ -53,16 +58,18 @@ class SimplePipelineTests {
     void deployStageActsAsExpected() {
 
         String appName = 'Foo Application'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
 
-        pipeline.build([appName: appName])
+        pipeline.run(ctx)
 
         PipelineRecording recording = pipeline.recording
 
         StageModel deployStage = recording.getStage("deploy $appName")
 
-        assertThat(deployStage.codeBlock, hadInvocation("echo", "Deploying $appName"))
+        assertThat(deployStage.codeBlock, hadInvocation("echo", "Running deploy stage for $appName"))
 
     }
 

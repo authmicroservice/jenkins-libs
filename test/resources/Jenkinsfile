@@ -1,0 +1,6 @@
+runPipeline('simplePipeline') {
+  appName = 'basic-app'
+  role = 'basic'
+  platform = 'java'
+  cookbookName = 'tc-basic'
+}

@@ -1,10 +1,11 @@
 package com.elevenware.jenkins.recording
 
-import com.elevenware.jenkins.demo.SimplePipelineDefinition
+import com.elevenware.jenkins.pipelines.PipelineContext
+import com.elevenware.jenkins.pipelines.definitions.SimplePipelineDefinition
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
-import static com.elevenware.jenkins.recording.DslTestHelper.testable
+import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.junit.Assert.assertNotNull
 import static org.mockito.Mockito.when
@@ -14,7 +15,7 @@ class RecordingTests {
     @Test
     void simplestPossible() {
 
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         scripts.simplest()
 
         PipelineRecording recording = scripts.recording
@@ -29,7 +30,7 @@ class RecordingTests {
 
     @Test
     void multipleLines() {
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         scripts.multiline()
 
         PipelineRecording recording = scripts.recording
@@ -46,7 +47,7 @@ class RecordingTests {
     void passedParams() {
 
         String paramToPass = "This is a string"
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         scripts.passParam(paramToPass)
 
         PipelineRecording recording = scripts.recording
@@ -62,7 +63,7 @@ class RecordingTests {
     @Test
     void inAStage() {
 
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         scripts.inStage()
 
         PipelineRecording recording = scripts.recording
@@ -78,7 +79,7 @@ class RecordingTests {
     @Test
     void inANode() {
 
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         scripts.inNode()
 
         PipelineRecording recording = scripts.recording
@@ -95,7 +96,7 @@ class RecordingTests {
 
     @Test
     void stageInsideNode() {
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         scripts.stageInNode()
 
         PipelineRecording recording = scripts.recording
@@ -114,7 +115,7 @@ class RecordingTests {
 
         String string = 'Hello, World!'
 
-        TestScripts scripts = testable(TestScripts)
+        TestScripts scripts = testableScript(TestScripts)
         when(scripts.stub.libraryResource('some_path.txt')).thenReturn(string)
 
         scripts.mockResponse()
@@ -132,9 +133,13 @@ class RecordingTests {
     @Test
     void recordInPipeline() {
 
-        SimplePipelineDefinition pipeline = testable(SimplePipelineDefinition)
+        String appName = 'foo'
+        PipelineContext ctx = new PipelineContext("")
+        ctx.appName = appName
 
-        pipeline.build([appName: 'foo'])
+        SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
+
+        pipeline.run(ctx)
 
         PipelineRecording recordings = pipeline.recording
 
@@ -143,7 +148,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Building foo"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Running build stage for foo"))
 
     }
 

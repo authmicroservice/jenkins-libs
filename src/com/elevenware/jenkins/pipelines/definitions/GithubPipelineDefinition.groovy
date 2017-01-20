@@ -1,5 +1,11 @@
 package com.elevenware.jenkins.pipelines.definitions
 
+import com.elevenware.jenkins.pipelines.PipelineContext
+
+def run(PipelineContext context) {
+
+}
+
 def buildAndPublishArtifact(Map config) {
     def platform = config.platform
     if(!platform) {

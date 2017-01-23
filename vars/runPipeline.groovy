@@ -3,8 +3,6 @@ import com.elevenware.jenkins.pipelines.definitions.PipelineRegistry
 
 def call(String pipelineName, Closure body) {
 
-    echo "SCM $scm"
-
     def pipelineDef = PipelineRegistry.instance.create(pipelineName)
 
     PipelineContext ctx = new PipelineContext(pipelineName)

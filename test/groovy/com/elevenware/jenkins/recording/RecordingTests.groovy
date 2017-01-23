@@ -39,7 +39,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-//        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
         assertThat(stage.codeBlock, hadInvocation("echo", "Goodbye, world!"))
     }
 
@@ -134,7 +134,7 @@ class RecordingTests {
     void recordInPipeline() {
 
         String appName = 'foo'
-        PipelineContext ctx = new PipelineContext("")
+        PipelineContext ctx = new PipelineContext()
         ctx.appName = appName
 
         SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)

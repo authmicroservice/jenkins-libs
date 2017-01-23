@@ -18,7 +18,7 @@ class SimplePipelineTests {
     void correctStagesExist() {
 
         String appName = 'Foo Application'
-        PipelineContext ctx = new PipelineContext("")
+        PipelineContext ctx = new PipelineContext()
         ctx.appName = appName
 
         SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
@@ -39,7 +39,7 @@ class SimplePipelineTests {
     void buildStageActsAsExpected() {
 
         String appName = 'Foo Application'
-        PipelineContext ctx = new PipelineContext("")
+        PipelineContext ctx = new PipelineContext()
         ctx.appName = appName
 
         SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)
@@ -58,7 +58,7 @@ class SimplePipelineTests {
     void deployStageActsAsExpected() {
 
         String appName = 'Foo Application'
-        PipelineContext ctx = new PipelineContext("")
+        PipelineContext ctx = new PipelineContext()
         ctx.appName = appName
 
         SimplePipelineDefinition pipeline = testableScript(SimplePipelineDefinition)

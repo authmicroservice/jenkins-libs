@@ -39,6 +39,26 @@ class DslFrameworkTests {
 
     }
 
+    @Test
+    void inlineArgsAndClosure() {
+
+        def block = testableSnippet {
+            withMaven(version: '3.3') {
+                echo "A maven step"
+            }
+        }
+
+        assertThat(block, hadInvocation("withMaven", isA(Closure)))
+        Invocation withMaven = block.getInvocation("withMaven")
+
+        def withMavenClosure = withMaven.args[1]
+
+        block = testableSnippet( withMavenClosure )
+
+        assertThat(block, hadInvocation("echo", "A maven step"))
+
+    }
+
     @Test(expected = MissingMethodException)
     void methodsMustExistOnDslStub() {
 

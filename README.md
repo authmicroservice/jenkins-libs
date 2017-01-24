@@ -236,4 +236,49 @@ First of all, let's write a test for the *echo* component.
     }
 ```
 
-Here, we use the testableSnippet method, which accepts a closure as an argument, and wraps it in a CodeBlock instance which we can then perform assertions on. Here, we are simply asserting that the *echo* command was called, and passed the argument "hello". Under the covers, two things are happening here: we intercept *any* method called inside our DSL code, and record the name of the method and the arguments passed; we then pass the invocation on to a Mockito instance
+Here, we use the testableSnippet method, which accepts a closure as an argument, and wraps it in a CodeBlock instance which we can then perform assertions on. Here, we are simply asserting that the *echo* command was called, and passed the argument "hello". Under the covers, two things are happening here: we intercept *any* method called inside our DSL code, and record the name of the method and the arguments passed; we then pass the invocation on to a Mockito instance in case we want to stub out any responses. The initial plan was to use Mockito to record invocations as well, but this proved problematic when using nested closures, which are inevitable in all but the simplest of examples. A side effet of this is that any calls we want to mock **must** be present on an interface called DslStub. This serves as something for Mockito to proxy, and also as a check for typos. So any method calls from the real DSL we want to add to our mocked DSL **must** be present on that interface.
+
+Let's mock out a response to the Jenkins library call *libraryResource*, which lets us look up text files in our library code.
+
+```@Test
+   void stubbingResponses() {
+   
+       when(DslStub.INSTANCE.libraryResource("foo")).thenReturn("bar")
+   
+       def block = testableSnippet {
+           def foo = libraryResource('foo')
+           echo foo
+       }
+   
+       assertThat(block, hadInvocation("echo", 'bar'))
+   
+   }
+ ```
+   
+This should be pretty self-explanatory. We tell the Dsl stub that when libraryResource is called with the argument 'foo', it should return the string 'bar'.
+
+Earlier we mentioned nested closures. A lot of interactions in the DSL involve these. We can mock them out, and examine them, too.
+
+```groovy
+    @Test
+    void closureCall() {
+
+        def block = testableSnippet {
+            withMaven {
+                echo "A maven step"
+            }
+        }
+
+        assertThat(block, hadInvocation("withMaven", isA(Closure)))
+        Invocation withMaven = block.getInvocation("withMaven")
+
+        block = testableSnippet(withMaven.args.first())
+
+        assertThat(block, hadInvocation("echo", "A maven step"))
+
+    }
+```
+
+Take a moment to digest what's going on here. We pass a closure, which in turn has another closure inside it. Then we pull that closure out, wrap it up and call assertions on it. 
+
+We can also pass arguments inline, along with a closure. That's a very common pattern in the pipeline DSL. In fact, withMaven is a prime example.

@@ -12,7 +12,7 @@ class DslTestHelper {
         return script
     }
 
-    static def testableSnippet(Closure closure) {
+    static def testableSnippet(Map args = [:], Closure closure) {
         SnippetDelegate delegate = new SnippetDelegate()
         closure.setDelegate(delegate)
         closure.setResolveStrategy(Closure.DELEGATE_FIRST)

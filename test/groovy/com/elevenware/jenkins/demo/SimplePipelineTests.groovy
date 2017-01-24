@@ -51,6 +51,7 @@ class SimplePipelineTests {
         StageModel buildStage = recording.getStage("build $appName")
 
         assertThat(buildStage.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
+        assertThat(buildStage.codeBlock, hadInvocation("withMaven"))
 
     }
 

@@ -12,7 +12,7 @@ class DslDelegate {
     private DslStub stub
 
     DslDelegate() {
-        stub = mock(DslStub)
+        stub = DslStub.INSTANCE
     }
 
     def node(Closure closure) {
@@ -35,10 +35,6 @@ class DslDelegate {
         recording
     }
 
-    DslStub getStub() {
-        stub
-    }
-
     def methodMissing(String name, args) {
         def owner = this.metaClass.owner
         def closureBinding = owner.binding.properties.variables
@@ -48,7 +44,7 @@ class DslDelegate {
         } else {
             recording.invokeOnDefaultStage(name, args)
         }
-        stub.invokeMethod(name, args)
+        DslStub.INSTANCE.invokeMethod(name, args)
     }
 
 }

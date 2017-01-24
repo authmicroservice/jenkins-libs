@@ -12,6 +12,14 @@ class DslTestHelper {
         return script
     }
 
+    static def testableSnippet(Closure closure) {
+        SnippetDelegate delegate = new SnippetDelegate()
+        closure.setDelegate(delegate)
+        closure.setResolveStrategy(Closure.DELEGATE_FIRST)
+        closure.call()
+        delegate.recording.defaultStage().codeBlock
+    }
+
     static def testableJenkinsfile(String pathToJenkinsFile) {
         String jenkinsFile = new File("test/resources/$pathToJenkinsFile").text
 

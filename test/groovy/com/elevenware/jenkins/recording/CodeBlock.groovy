@@ -23,6 +23,18 @@ class CodeBlock {
         return innerBlock
     }
 
+    List<Invocation> getInvocations() {
+        invocations
+    }
+
+    List<Invocation> getInvocations(String name) {
+        invocations.findAll { it.name == name }
+    }
+
+    Invocation getInvocation(String name) {
+        getInvocations(name).first()
+    }
+
     def stage(String name, Closure closure) {
         String lookupName = "stage_${name}"
         CodeBlock stageModel = new CodeBlock(name)

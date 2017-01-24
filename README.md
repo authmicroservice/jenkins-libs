@@ -216,3 +216,24 @@ How this fits into a real Jenkins ecosystem is like this:
 ## The test framework
 
 The test framework is still very much a work in progress. It will expand as needed. Part of the job of writing new pipelines and tests for them will often be to add mocking for new parts of the DSL.
+
+### The basics of the framework explained
+
+The test framework provides some classes which allow us to mock out the underlying Jenkins pipeline DSL, to record interactions between our scripts and the DSL, to perform assertions on those interactions and to stub out responses to various library calls. We can mock out the DSL for an entire script, as we have done in our previous examples, or we can mock out just a Jenkinsfile, again, as in our previous examples. Or we can mock out DSL closures right inside our tests, which can be useful when adding extensions to the mocks. Let's examine some simple cases. 
+
+First of all, let's write a test for the *echo* component.
+
+```groovy
+    @Test
+    void echoCallWithHardArgs() {
+
+        def block = testableSnippet {
+            echo "hello"
+        }
+
+        assertThat(block, hadInvocation("echo", "hello"))
+
+    }
+```
+
+Here, we use the testableSnippet method, which accepts a closure as an argument, and wraps it in a CodeBlock instance which we can then perform assertions on. Here, we are simply asserting that the *echo* command was called, and passed the argument "hello". Under the covers, two things are happening here: we intercept *any* method called inside our DSL code, and record the name of the method and the arguments passed; we then pass the invocation on to a Mockito instance

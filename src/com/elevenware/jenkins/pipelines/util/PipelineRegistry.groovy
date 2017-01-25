@@ -1,4 +1,7 @@
-package com.elevenware.jenkins.pipelines.definitions
+package com.elevenware.jenkins.pipelines.util
+
+import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
+import com.elevenware.jenkins.pipelines.definitions.SimplePipelineDefinition
 
 class PipelineRegistry implements Serializable {
 

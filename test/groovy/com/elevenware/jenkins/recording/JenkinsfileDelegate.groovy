@@ -1,7 +1,7 @@
 package com.elevenware.jenkins.recording
 
 import com.elevenware.jenkins.pipelines.PipelineContext
-import com.elevenware.jenkins.pipelines.definitions.PipelineRegistry
+import com.elevenware.jenkins.pipelines.util.PipelineRegistry
 
 class JenkinsfileDelegate {
 

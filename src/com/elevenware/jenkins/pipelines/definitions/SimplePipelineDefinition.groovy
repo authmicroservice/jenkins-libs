@@ -6,17 +6,17 @@ def run(PipelineContext context) {
 println "SCM $scm"
     String name = context.appName
     stage("build $name") {
-//        node {
+        node {
         echo "Running build stage for ${context.appName}"
         withMaven {
 
         }
-//        }
+        }
     }
     stage("deploy $name") {
-//        node {
+        node {
         echo "Running deploy stage for ${context.appName}"
-//        }
+        }
     }
 
 }

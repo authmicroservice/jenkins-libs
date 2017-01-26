@@ -1,0 +1,20 @@
+current directory: /Users/george/work/thomascook/jenkins2-spike/jenkins-libs/vendor/ruby/2.3.0/gems/hitimes-1.2.4/ext/hitimes/c
+/Users/george/.rvm/rubies/ruby-2.3.3/bin/ruby -r ./siteconf20170125-28345-qu6ddr.rb extconf.rb 
+creating Makefile
+
+current directory: /Users/george/work/thomascook/jenkins2-spike/jenkins-libs/vendor/ruby/2.3.0/gems/hitimes-1.2.4/ext/hitimes/c
+make "DESTDIR=" clean
+
+current directory: /Users/george/work/thomascook/jenkins2-spike/jenkins-libs/vendor/ruby/2.3.0/gems/hitimes-1.2.4/ext/hitimes/c
+make "DESTDIR="
+compiling hitimes.c
+compiling hitimes_instant_clock_gettime.c
+compiling hitimes_instant_osx.c
+compiling hitimes_instant_windows.c
+compiling hitimes_interval.c
+compiling hitimes_stats.c
+linking shared-object hitimes/2.3/hitimes.bundle
+
+current directory: /Users/george/work/thomascook/jenkins2-spike/jenkins-libs/vendor/ruby/2.3.0/gems/hitimes-1.2.4/ext/hitimes/c
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 hitimes.bundle ./.gem.20170125-28345-fuxej5/hitimes/2.3

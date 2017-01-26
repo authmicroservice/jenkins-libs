@@ -3,7 +3,13 @@ package com.elevenware.jenkins.pipelines.definitions
 import com.elevenware.jenkins.pipelines.PipelineContext
 
 def run(PipelineContext context) {
+        foo()
 
+}
+
+
+def foo() {
+    echo "Hello"
 }
 
 def buildAndPublishArtifact(Map config) {

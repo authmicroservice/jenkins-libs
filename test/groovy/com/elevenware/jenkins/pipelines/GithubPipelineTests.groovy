@@ -2,6 +2,7 @@ package com.elevenware.jenkins.pipelines
 
 import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
 import com.elevenware.jenkins.recording.CodeBlock
+import com.elevenware.jenkins.recording.PipelineRecording
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
@@ -11,23 +12,25 @@ import static org.junit.Assert.assertNotNull
 
 class GithubPipelineTests {
 
-//    @Test
-    void buildTestPublish() {
+
+
+
+    @Test
+    void buildStage() {
 
         GithubPipelineDefinition pipeline = testableScript(GithubPipelineDefinition)
 
         PipelineContext ctx = new PipelineContext()
 
-        pipeline.buildAndPublishArtifact([:])
+        pipeline.run(ctx)
 
-        def recordings = pipeline.getRecording()
+        PipelineRecording recordings = pipeline.getRecording()
 
-        assertNotNull recordings
-        CodeBlock stage = recordings.getStage('buildTestPublish').codeBlock
+        CodeBlock stage = recordings.defaultStage().codeBlock
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage, hadInvocation("echo", "Hello"))
 
     }
 

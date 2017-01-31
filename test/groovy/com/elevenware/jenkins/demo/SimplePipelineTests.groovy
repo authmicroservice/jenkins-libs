@@ -2,6 +2,7 @@ package com.elevenware.jenkins.demo
 
 import com.elevenware.jenkins.pipelines.PipelineContext
 import com.elevenware.jenkins.pipelines.definitions.SimplePipelineDefinition
+import com.elevenware.jenkins.recording.NodeModel
 import com.elevenware.jenkins.recording.PipelineRecording
 import com.elevenware.jenkins.recording.StageModel
 import org.junit.Test
@@ -48,10 +49,10 @@ class SimplePipelineTests {
 
         PipelineRecording recording = pipeline.recording
 
-        StageModel buildStage = recording.getStage("build $appName")
+        NodeModel node = recording.getNode(0)
 
-        assertThat(buildStage.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
-        assertThat(buildStage.codeBlock, hadInvocation("withMaven"))
+        assertThat(node.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
+        assertThat(node.codeBlock, hadInvocation("withMaven"))
 
     }
 
@@ -68,9 +69,9 @@ class SimplePipelineTests {
 
         PipelineRecording recording = pipeline.recording
 
-        StageModel deployStage = recording.getStage("deploy $appName")
+        NodeModel deploy = recording.getNode(1)
 
-        assertThat(deployStage.codeBlock, hadInvocation("echo", "Running deploy stage for $appName"))
+        assertThat(deploy.codeBlock, hadInvocation("echo", "Running deploy stage for $appName"))
 
     }
 

@@ -6,7 +6,6 @@ class DslDelegate {
 
     private static final String STAGE_NAME = 'STAGE_NAME'
     private static final String RECORDER_KEY = 'DSL_RECORDER'
-
     private PipelineRecording recording = new PipelineRecording()
 
     private DslStub stub

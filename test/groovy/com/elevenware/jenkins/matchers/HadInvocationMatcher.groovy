@@ -38,10 +38,11 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
         if(args?.length == 0) return true
         Iterator iter = invocation.args.iterator()
         for(Object arg: args) {
+            current = arg
             if(!iter.hasNext()) {
                 return false
             }
-            current = arg
+
             Object actualArg = iter.next()
             currentActual = actualArg
             if(Matcher.isAssignableFrom(arg.getClass())) {
@@ -59,10 +60,10 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
 
     @Override
     void describeTo(Description description) {
-        description.appendValue(current)
+        description.appendText("an invocation of '$command' with arguments ${args}")
     }
 
     void describeMismatch(Object item, Description description) {
-        description.appendText("was ").appendValue(currentActual);
+        description.appendText("${command} was not found")
     }
 }

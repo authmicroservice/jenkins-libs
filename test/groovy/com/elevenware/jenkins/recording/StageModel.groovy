@@ -7,7 +7,7 @@ class StageModel {
 
     StageModel(String name) {
         this.name = name
-        codeBlock = new CodeBlock("")
+        codeBlock = new CodeBlock()
     }
 
     String getName() {

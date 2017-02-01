@@ -86,11 +86,9 @@ class RecordingTests {
 
         assertNotNull recording
 
-        NodeModel node = recording.getNode(0)
+        StageModel stage = recording.defaultStage()
 
-        assertNotNull node
-
-        assertThat(node.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
 
     }
 

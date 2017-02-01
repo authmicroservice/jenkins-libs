@@ -2,7 +2,6 @@ package com.elevenware.jenkins.demo
 
 import com.elevenware.jenkins.pipelines.PipelineContext
 import com.elevenware.jenkins.pipelines.definitions.SimplePipelineDefinition
-import com.elevenware.jenkins.recording.NodeModel
 import com.elevenware.jenkins.recording.PipelineRecording
 import com.elevenware.jenkins.recording.StageModel
 import org.junit.Test
@@ -11,7 +10,7 @@ import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.matchers.DslMatchers.isString
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.MatcherAssert.assertThat
-import static org.junit.Assert.*
+import static org.junit.Assert.assertEquals
 
 class SimplePipelineTests {
 
@@ -49,7 +48,7 @@ class SimplePipelineTests {
 
         PipelineRecording recording = pipeline.recording
 
-        NodeModel node = recording.getNode(0)
+        StageModel node = recording.getStage('build Foo Application')
 
         assertThat(node.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
         assertThat(node.codeBlock, hadInvocation("withMaven"))
@@ -69,7 +68,7 @@ class SimplePipelineTests {
 
         PipelineRecording recording = pipeline.recording
 
-        NodeModel deploy = recording.getNode(1)
+        StageModel deploy = recording.getStage('deploy Foo Application')
 
         assertThat(deploy.codeBlock, hadInvocation("echo", "Running deploy stage for $appName"))
 

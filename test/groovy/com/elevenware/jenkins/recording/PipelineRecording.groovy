@@ -3,7 +3,6 @@ package com.elevenware.jenkins.recording
 class PipelineRecording {
 
     private def stages = [:]
-    private def nodes = []
 
     private StageModel defaultStage = new StageModel('defaultStage')
 
@@ -15,21 +14,11 @@ class PipelineRecording {
         stages[stageName]
     }
 
-    NodeModel getNode(int index) {
-        nodes.get(index)
-    }
-
     StageModel createStage(String stageName) {
         StageModel model = new StageModel(stageName)
         stages[stageName] = model
         model
 
-    }
-
-    NodeModel createNode() {
-        NodeModel model = new NodeModel()
-        nodes << model
-        model
     }
 
     def invokeOnDefaultStage(String name, args) {

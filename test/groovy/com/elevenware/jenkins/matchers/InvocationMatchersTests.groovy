@@ -16,7 +16,7 @@ class InvocationMatchersTests {
     @Test
     void hadInvocationFailsToMatchIfNoMatchExists() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
 
         assertThat(model, not(hadInvocation("foo")))
 
@@ -25,7 +25,7 @@ class InvocationMatchersTests {
     @Test
     void failureProvidesCorrectExpectedValue() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
 
         StringBuilder buf = new StringBuilder()
 
@@ -48,7 +48,7 @@ class InvocationMatchersTests {
     @Test
     void failureProvidesCorrectActualValue() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
 
         StringBuilder buf = new StringBuilder()
 
@@ -72,7 +72,7 @@ class InvocationMatchersTests {
     @Test
     void hadInvocationPassesIfMatchExists() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
         model.foo()
 
         assertThat(model, hadInvocation("foo"))
@@ -82,7 +82,7 @@ class InvocationMatchersTests {
     @Test
     void hadInvocationPassessIfArgsNotRequested() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
         assertThat(model, hadInvocation("foo"))
@@ -92,7 +92,7 @@ class InvocationMatchersTests {
     @Test
     void hadInvocationPassessIfArgsMactch() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
         assertThat(model, hadInvocation("foo", "bar", "baz"))
@@ -102,7 +102,7 @@ class InvocationMatchersTests {
     @Test
     void hadInvocationFailssIfArgsDontMactch() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
         assertThat(model, not(hadInvocation("foo", "bar", "wibble")))
@@ -112,7 +112,7 @@ class InvocationMatchersTests {
     @Test
     void hadInvocationPassesWithWildcard() {
 
-        CodeBlock model = new CodeBlock("default")
+        CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
         assertThat(model, hadInvocation("foo", "bar", isA(String)))
@@ -122,7 +122,7 @@ class InvocationMatchersTests {
     @Test
     void multipleInvocations() {
 
-        CodeBlock model = new CodeBlock("")
+        CodeBlock model = new CodeBlock()
         model.foo("bar")
         model.foo("baz")
 

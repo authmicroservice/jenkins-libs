@@ -2,8 +2,6 @@ package com.elevenware.jenkins.recording
 
 class DslDelegate {
 
-    private static final String STAGE_NAME = 'STAGE_NAME'
-    private static final String RECORDER_KEY = 'DSL_RECORDER'
     private PipelineRecording recording
 
     private DslStub stub

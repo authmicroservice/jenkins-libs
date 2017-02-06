@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.matchers
 
 import com.elevenware.jenkins.recording.CodeBlock
+import com.elevenware.jenkins.recording.StageModel
 import org.hamcrest.BaseDescription
 import org.hamcrest.Description
 import org.junit.Test
@@ -11,7 +12,7 @@ import static org.hamcrest.CoreMatchers.isA
 import static org.hamcrest.CoreMatchers.not
 import static org.hamcrest.MatcherAssert.assertThat
 
-class InvocationMatchersTests {
+class HadInvocationMatcherTests {
 
     @Test
     void hadInvocationFailsToMatchIfNoMatchExists() {
@@ -66,6 +67,32 @@ class InvocationMatchersTests {
         matcher.describeMismatch(model, description)
 
         assertThat(buf.toString(), equalTo("foo was not found"))
+
+    }
+
+    @Test
+    void commandButWrongArgs() {
+
+        CodeBlock model = new CodeBlock()
+
+        model.foo("baz")
+
+        StringBuilder buf = new StringBuilder()
+
+        HadInvocationMatcher matcher = new HadInvocationMatcher("foo", "bar")
+
+        matcher.matches(model)
+
+        Description description = new BaseDescription() {
+            @Override
+            protected void append(char c) {
+                buf.append c
+            }
+        }
+
+        matcher.describeMismatch(model, description)
+
+        assertThat(buf.toString(), equalTo("foo was found, but not with the arguments [bar]"))
 
     }
 
@@ -130,5 +157,17 @@ class InvocationMatchersTests {
         assertThat(model, hadInvocation("foo", "baz"))
 
     }
+
+    @Test
+    void hadInvocationAcceptsStageModel() {
+
+        StageModel stageModel = new StageModel("stage")
+        CodeBlock codeBlock = stageModel.codeBlock
+        codeBlock.foo()
+
+        assertThat(stageModel, hadInvocation("foo"))
+
+    }
+
 
 }

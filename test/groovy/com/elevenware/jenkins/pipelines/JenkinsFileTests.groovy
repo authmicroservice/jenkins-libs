@@ -26,5 +26,27 @@ class JenkinsFileTests {
 
     }
 
+    @Test
+    void jenkinsFileAsInlineClosure() {
+
+        JenkinsfileDelegate delegate = DslTestHelper.testableJenkinsfileClosure {
+            runPipeline('simplePipeline') {
+                appName = 'basic-app'
+                role = 'basic'
+                platform = 'java'
+                cookbookName = 'tc-basic'
+            }
+        }
+
+        PipelineContext ctx = delegate.context
+
+        assertThat(delegate.pipelineDefinition, instanceOf(SimplePipelineDefinition))
+        assertThat(ctx.appName, equalTo('basic-app'))
+        assertThat(ctx.role, equalTo('basic'))
+        assertThat(ctx.platform, equalTo('java'))
+        assertThat(ctx.cookbookName, equalTo('tc-basic'))
+
+    }
+
 }
 

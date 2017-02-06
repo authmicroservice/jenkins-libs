@@ -1,15 +1,16 @@
 package com.elevenware.jenkins.pipelines.definitions
 
 import com.elevenware.jenkins.pipelines.PipelineContext
+import com.elevenware.jenkins.pipelines.util.PlatformRegistry
 
 def run(PipelineContext context) {
-        foo()
-
-}
-
-
-def foo() {
-    echo "Hello"
+      String appName = context.appName
+      def platform = PlatformRegistry.instance.create(context.platform)
+      node {
+          stage("Build $appName") {
+             platform.build(context)
+          }
+      }
 }
 
 def buildAndPublishArtifact(Map config) {

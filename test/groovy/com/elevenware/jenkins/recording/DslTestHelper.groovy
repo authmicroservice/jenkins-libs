@@ -35,4 +35,12 @@ class DslTestHelper {
         delegate
     }
 
+    static def testableJenkinsfileClosure(Closure closure) {
+        JenkinsfileDelegate delegate = new JenkinsfileDelegate()
+        closure.setDelegate(delegate)
+        closure.setResolveStrategy(Closure.DELEGATE_ONLY)
+        closure.call()
+        delegate
+    }
+
 }

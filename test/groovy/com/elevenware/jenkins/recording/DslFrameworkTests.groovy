@@ -1,11 +1,18 @@
 package com.elevenware.jenkins.recording
 
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.invocation.InvocationOnMock
+import org.mockito.stubbing.Answer
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.recording.DslTestHelper.testableSnippet
 import static org.junit.Assert.assertThat
+import static org.mockito.Matchers.any
 import static org.mockito.Matchers.isA
+import static org.mockito.Mockito.verify
 import static org.mockito.Mockito.when
 
 class DslFrameworkTests {
@@ -71,7 +78,7 @@ class DslFrameworkTests {
     @Test
     void stubbingResponses() {
 
-        when(DslStub.INSTANCE.libraryResource("foo")).thenReturn("bar")
+        when(DslStub.INSTANCE.libraryResource('foo')).thenReturn('bar')
 
         def block = testableSnippet {
             def foo = libraryResource('foo')
@@ -80,6 +87,33 @@ class DslFrameworkTests {
 
         assertThat(block, hadInvocation("echo", 'bar'))
 
+    }
+
+    @Test
+    void nestedClosures() {
+
+        def block = testableSnippet {
+            node {
+                stage('build') {
+                    withMaven {
+                        echo "A maven step"
+                    }
+                }
+            }
+        }
+
+        assertThat(block, hadInvocation("withMaven", isA(Closure)))
+        Invocation withMaven = block.getInvocation("withMaven")
+
+        block = testableSnippet(withMaven.args.first())
+
+        assertThat(block, hadInvocation("echo", "A maven step"))
+
+    }
+
+    @After
+    void setup() {
+        Mockito.reset(DslStub.INSTANCE);
     }
 
 }

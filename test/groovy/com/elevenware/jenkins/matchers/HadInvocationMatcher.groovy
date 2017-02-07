@@ -48,9 +48,9 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
     private boolean assertMatch(Invocation invocation) {
         if(invocation.args.size() < args?.length) return false
         if(args?.length == 0) return true
-        def other = invocation.args
         Iterator iter = invocation.args.iterator()
         for(Object arg: args) {
+
             current = arg
             if(!iter.hasNext()) {
                 return false

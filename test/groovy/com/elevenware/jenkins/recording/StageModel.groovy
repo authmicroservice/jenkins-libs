@@ -3,9 +3,11 @@ package com.elevenware.jenkins.recording
 class StageModel {
 
     private CodeBlock codeBlock
+    private DslMethodInvocationHandler invocationHandler
     private String name
 
-    StageModel(String name) {
+    StageModel(String name, DslMethodInvocationHandler invocationHandler) {
+        this.invocationHandler = invocationHandler
         this.name = name
         codeBlock = new CodeBlock()
     }
@@ -19,7 +21,8 @@ class StageModel {
     }
 
     def invokeDsl(String name, args) {
-        codeBlock."$name"(*args)
+        invocationHandler.handle(codeBlock, name, args)
+//        codeBlock."$name"(*args)
     }
 
 }

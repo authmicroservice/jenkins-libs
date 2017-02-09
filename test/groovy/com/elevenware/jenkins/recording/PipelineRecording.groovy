@@ -3,8 +3,14 @@ package com.elevenware.jenkins.recording
 class PipelineRecording {
 
     private def stages = [:]
+    private DslMethodInvocationHandler invocationHandler
 
-    private StageModel defaultStage = new StageModel('defaultStage')
+    private StageModel defaultStage
+
+    PipelineRecording() {
+        invocationHandler = new DslMethodInvocationHandler(DslStub)
+        defaultStage = new StageModel('defaultStage', invocationHandler)
+    }
 
     StageModel defaultStage() {
         defaultStage
@@ -15,7 +21,7 @@ class PipelineRecording {
     }
 
     StageModel createStage(String stageName) {
-        StageModel model = new StageModel(stageName)
+        StageModel model = new StageModel(stageName, invocationHandler)
         stages[stageName] = model
         model
 

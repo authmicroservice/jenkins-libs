@@ -8,10 +8,19 @@ import static org.junit.Assert.assertThat
 
 class DslMethodInvocationHandlerTests {
 
+    private DslMethodInvocationHandler handler = new DslMethodInvocationHandler(SimpleInterface)
+
+    @Test(expected = DslParsingException)
+    void methodNotFound() {
+
+        CodeBlock codeBlock = new CodeBlock()
+
+        handler.handle(codeBlock, "nonExistent", "foo")
+
+    }
+
     @Test
     void simpleCaseWorks() {
-
-        DslMethodInvocationHandler handler = new DslMethodInvocationHandler(SimpleInterface)
 
         CodeBlock codeBlock = new CodeBlock()
 
@@ -24,8 +33,6 @@ class DslMethodInvocationHandlerTests {
     @Test
     void multipleArgs() {
 
-        DslMethodInvocationHandler handler = new DslMethodInvocationHandler(SimpleInterface)
-
         CodeBlock codeBlock = new CodeBlock()
 
         handler.handle(codeBlock, "doBoth", "foo", "bar")
@@ -37,8 +44,6 @@ class DslMethodInvocationHandlerTests {
     @Test
     void polymorphismOfSimpleArgs() {
 
-        DslMethodInvocationHandler handler = new DslMethodInvocationHandler(SimpleInterface)
-
         CodeBlock codeBlock = new CodeBlock()
 
         handler.handle(codeBlock, "doSomethingElse", "foo")
@@ -49,8 +54,6 @@ class DslMethodInvocationHandlerTests {
 
     @Test
     void closuresWork() {
-
-        DslMethodInvocationHandler handler = new DslMethodInvocationHandler(SimpleInterface)
 
         CodeBlock codeBlock = new CodeBlock()
 
@@ -67,8 +70,6 @@ class DslMethodInvocationHandlerTests {
 
     @Test
     void closureWithArgs() {
-
-        DslMethodInvocationHandler handler = new DslMethodInvocationHandler(SimpleInterface)
 
         CodeBlock codeBlock = new CodeBlock()
 

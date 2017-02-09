@@ -6,9 +6,9 @@ interface DslStub {
 
     static DslStub INSTANCE = mock(DslStub)
 
-    String libraryResource(String string)
-    void echo(String string)
-    void sh(String script)
+    String libraryResource(CharSequence string)
+    void echo(CharSequence string)
+    void sh(CharSequence script)
     void withMaven(Closure body)
     void withMaven(Map args, Closure body)
 

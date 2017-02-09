@@ -1,6 +1,8 @@
 package com.elevenware.jenkins.matchers
 
 import com.elevenware.jenkins.recording.CodeBlock
+import com.elevenware.jenkins.recording.DslMethodInvocationHandler
+import com.elevenware.jenkins.recording.DslStub
 import com.elevenware.jenkins.recording.StageModel
 import org.hamcrest.BaseDescription
 import org.hamcrest.Description
@@ -161,7 +163,7 @@ class HadInvocationMatcherTests {
     @Test
     void hadInvocationAcceptsStageModel() {
 
-        StageModel stageModel = new StageModel("stage")
+        StageModel stageModel = new StageModel("stage", DslMethodInvocationHandler.forDsl())
         CodeBlock codeBlock = stageModel.codeBlock
         codeBlock.foo()
 

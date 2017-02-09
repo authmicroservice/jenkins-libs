@@ -1,18 +1,14 @@
 package com.elevenware.jenkins.recording
 
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.invocation.InvocationOnMock
-import org.mockito.stubbing.Answer
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.recording.DslTestHelper.testableSnippet
+import static org.hamcrest.CoreMatchers.isA
 import static org.junit.Assert.assertThat
-import static org.mockito.Matchers.any
-import static org.mockito.Matchers.isA
-import static org.mockito.Mockito.verify
+//import static org.mockito.Matchers.isA
 import static org.mockito.Mockito.when
 
 class DslFrameworkTests {
@@ -55,7 +51,7 @@ class DslFrameworkTests {
             }
         }
 
-        assertThat(block, hadInvocation("withMaven", isA(Closure)))
+        assertThat(block, hadInvocation("withMaven", isA(Map), isA(Closure)))
         Invocation withMaven = block.getInvocation("withMaven")
 
         def withMavenClosure = withMaven.args[1]
@@ -66,7 +62,7 @@ class DslFrameworkTests {
 
     }
 
-    @Test(expected = MissingMethodException)
+    @Test(expected = DslParsingException)
     void methodsMustExistOnDslStub() {
 
         testableSnippet {
@@ -94,11 +90,9 @@ class DslFrameworkTests {
 
         def block = testableSnippet {
             node {
-                stage('build') {
                     withMaven {
                         echo "A maven step"
                     }
-                }
             }
         }
 

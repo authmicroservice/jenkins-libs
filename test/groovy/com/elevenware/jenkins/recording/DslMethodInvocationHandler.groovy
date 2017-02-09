@@ -29,8 +29,8 @@ class DslMethodInvocationHandler {
         return new SimpleInvocation(method)
     }
 
-    static DslMethodInvocationHandler getInstance(Class clazz) {
-        new DslMethodInvocationHandler(clazz)
+    static DslMethodInvocationHandler forDsl() {
+        new DslMethodInvocationHandler(DslStub)
     }
 
     def handle(CodeBlock codeBlock, String methodName, Object...args) {
@@ -46,6 +46,6 @@ class DslMethodInvocationHandler {
     }
 
     private void fail(String methodName) {
-        throw new RuntimeException("Don't know how to handle $methodName")
+        throw new DslParsingException("Don't know how to handle $methodName")
     }
 }

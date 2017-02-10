@@ -26,13 +26,15 @@ class GithubPipelineTests {
 
         assertNotNull stage
 
-        assertThat(stage, hadInvocation("println", "BUIULDING"))
+        assertThat(stage, hadInvocation("echo", "building"))
 
     }
 
     @Before
     void setup() {
-        ctx = testableJenkinsfileClosure {
+
+        pipeline = testableScript(GithubPipelineDefinition)
+        ctx = testableJenkinsfileClosure(pipeline.recording) {
             runPipeline('githubflow') {
                 appName = 'basic-app'
                 role = 'basic'
@@ -40,7 +42,8 @@ class GithubPipelineTests {
                 cookbookName = 'tc-basic'
             }
         }.context
-        pipeline = testableScript(GithubPipelineDefinition)
+
+
         pipeline.run(ctx)
         recording = pipeline.getRecording()
     }

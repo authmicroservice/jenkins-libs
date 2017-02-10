@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.recording
 
+import com.elevenware.jenkins.pipelines.util.PlatformRegistry
 import org.codehaus.groovy.control.CompilerConfiguration
 
 class DslTestHelper {
@@ -35,11 +36,20 @@ class DslTestHelper {
         delegate
     }
 
-    static def testableJenkinsfileClosure(Closure closure) {
+    static def testableJenkinsfileClosure(PipelineRecording recording = null, Closure closure) {
         JenkinsfileDelegate delegate = new JenkinsfileDelegate()
         closure.setDelegate(delegate)
         closure.setResolveStrategy(Closure.DELEGATE_ONLY)
         closure.call()
+        def platformName = delegate.context.platform
+        def platform = PlatformRegistry.instance.create(platformName)
+        platform.metaClass {
+            mixin DslDelegate
+        }
+        if(recording) {
+            platform.setRecording(recording)
+        }
+        delegate.context.setPlatformImplementation(platform)
         delegate
     }
 

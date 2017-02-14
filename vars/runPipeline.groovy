@@ -10,6 +10,10 @@ def call(String pipelineName, Closure body) {
     body.resolveStrategy = Closure.DELEGATE_ONLY
     body()
 
+    def platformName = delegate.context.platform
+    def platform = PlatformRegistry.instance.create(platformName)
+    ctx.setPlatformImplementation(platform)
+
     pipelineDef.run(ctx)
 
 }

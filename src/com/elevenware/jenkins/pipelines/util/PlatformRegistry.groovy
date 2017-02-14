@@ -3,7 +3,7 @@ package com.elevenware.jenkins.pipelines.util
 import com.elevenware.jenkins.pipelines.platforms.SimplePlatform
 import com.elevenware.jenkins.pipelines.platforms.JavaPlatform
 
-class PlatformRegistry {
+class PlatformRegistry implements Serializable {
 
     private static PlatformRegistry INSTANCE = new PlatformRegistry()
 

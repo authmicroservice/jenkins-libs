@@ -8,6 +8,8 @@ class PipelineContext implements Serializable{
     String role
     String platform
     String cookbookName
+    String chefRepoUri
+    String cookbookDir
     def platformImplementation
 
     @NonCPS

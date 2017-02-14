@@ -43,6 +43,7 @@ class GithubPipelineTests {
         StageModel deployStage = recording.getStage("Deploy basic-app to integration")
 
         assertThat(deployStage, hadInvocation("echo", "Deploying basic-app to integration"))
+        assertThat(deployStage, hadInvocation("git", "git@github.com:ThomasCookOnline/chef-repo"))
 
     }
 
@@ -56,6 +57,7 @@ class GithubPipelineTests {
                 role = 'basic'
                 platform = 'simple'
                 cookbookName = 'tc-basic'
+                chefRepoUri = 'git@github.com:ThomasCookOnline/chef-repo'
             }
         }.context
 

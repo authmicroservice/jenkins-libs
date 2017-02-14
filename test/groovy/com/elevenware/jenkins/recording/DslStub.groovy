@@ -11,5 +11,6 @@ interface DslStub {
     void sh(CharSequence script)
     void withMaven(Closure body)
     void withMaven(Map args, Closure body)
+    void git(String uri)
 
 }

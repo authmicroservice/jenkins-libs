@@ -29,5 +29,10 @@ def run(PipelineContext context) {
 def deploy(PipelineContext context, String env) {
     stage("Deploy ${context.appName} to $env") {
         echo "Deploying ${context.appName} to $env"
+        def chefUri = context.chefRepoUri
+        def cookbookDir = context.cookbookDir
+        git chefUri
+
+
     }
 }

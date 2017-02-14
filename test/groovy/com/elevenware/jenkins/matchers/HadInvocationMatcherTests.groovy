@@ -2,19 +2,37 @@ package com.elevenware.jenkins.matchers
 
 import com.elevenware.jenkins.recording.CodeBlock
 import com.elevenware.jenkins.recording.DslMethodInvocationHandler
-import com.elevenware.jenkins.recording.DslStub
 import com.elevenware.jenkins.recording.StageModel
 import org.hamcrest.BaseDescription
 import org.hamcrest.Description
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
-import static org.hamcrest.CoreMatchers.equalTo
-import static org.hamcrest.CoreMatchers.isA
-import static org.hamcrest.CoreMatchers.not
+import static org.hamcrest.CoreMatchers.*
 import static org.hamcrest.MatcherAssert.assertThat
 
 class HadInvocationMatcherTests {
+
+    @Test
+    void explicitAboutStageNotExisting() {
+
+        HadInvocationMatcher matcher = new HadInvocationMatcher("foo", "bar", "baz")
+
+        StringBuilder buf = new StringBuilder()
+
+        matcher.matches(null)
+
+        Description description = new BaseDescription() {
+            @Override
+            protected void append(char c) {
+                buf.append c
+            }
+        }
+
+        matcher.describeMismatch(null, description)
+        assertThat(buf.readLines().get(0), equalTo("No CodeBlock or StageModel was passed at all"))
+
+    }
 
     @Test
     void hadInvocationFailsToMatchIfNoMatchExists() {
@@ -94,7 +112,10 @@ class HadInvocationMatcherTests {
 
         matcher.describeMismatch(model, description)
 
-        assertThat(buf.toString(), equalTo("foo was found, but not with the arguments [bar]"))
+        def errorMessage = buf.readLines()
+
+        assertThat(errorMessage.get(0), equalTo("foo was found, but not with the arguments [bar]"))
+        assertThat(errorMessage.get(1), equalTo("Did you mean: foo [baz]?"))
 
     }
 

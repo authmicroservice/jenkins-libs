@@ -11,10 +11,11 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
 
     private static final String NOT_FOUND = "was not found"
     private static final String WRONG_ARGS = "was found, but not with the arguments"
+    private static final String NULL_ITEM = "No CodeBlock or StageModel was passed at all"
 
     private String command
     private Object[] args
-    private String errorMessage
+    private StringBuilder errorMessage = new StringBuilder()
     private Object current
     private Object currentActual
 
@@ -25,6 +26,10 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
 
     @Override
     boolean matches(Object item) {
+        if(!item) {
+            errorMessage.append(NULL_ITEM)
+            return false
+        }
         CodeBlock model
         if(StageModel.isAssignableFrom(item.getClass())) {
             model = ((StageModel) item).codeBlock
@@ -33,15 +38,19 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
         }
         List<Invocation> invocations = model.invocations.findAll { it.name == command }
         if(invocations.size() == 0) {
-            errorMessage = "${command} ${NOT_FOUND}"
+            errorMessage.append("${command} ${NOT_FOUND}")
             return false
         }
+
+        errorMessage.append("${command} $WRONG_ARGS ${args}").append(System.lineSeparator()).append("Did you mean: ")
         for(Invocation invocation: invocations) {
             if(assertMatch(invocation)) {
                 return true
+            } else {
+                errorMessage.append("${command} ${invocation.args}?").append(System.lineSeparator())
             }
         }
-        errorMessage = "${command} $WRONG_ARGS ${args}"
+
         return false
     }
 
@@ -77,6 +86,6 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
     }
 
     void describeMismatch(Object item, Description description) {
-        description.appendText(errorMessage)
+        description.appendText(errorMessage.toString())
     }
 }

@@ -6,6 +6,7 @@ import com.elevenware.jenkins.pipelines.util.PlatformRegistry
 def run(PipelineContext context) {
       String appName = context.appName
       def platform = context.platformImplementation
+      echo "USING PLATFORM $platform"
       node {
           stage("Build $appName") {
              platform.build(context)

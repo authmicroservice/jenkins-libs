@@ -7,9 +7,13 @@ abstract class InvocationHandler {
     protected String name
     protected def expectedArgTypes
 
+    InvocationHandler(String name, Class...argTypes) {
+        this.name = name
+        this.expectedArgTypes = argTypes
+    }
+
     InvocationHandler(Method method) {
-        this.name = method.name
-        this.expectedArgTypes = method.parameterTypes
+        this(method.name, method.parameterTypes)
     }
 
     boolean matches(Object...args) {

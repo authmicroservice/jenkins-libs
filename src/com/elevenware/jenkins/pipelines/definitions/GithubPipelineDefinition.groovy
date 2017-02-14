@@ -11,40 +11,23 @@ def run(PipelineContext context) {
              platform.build(context)
           }
       }
-}
-
-def buildAndPublishArtifact(Map config) {
-    def platform = config.platform
-    if(!platform) {
-        println "No platform specified - assuming generic"
-        platform = 'generic'
+     node {
+        deploy(context, "integration")
+     }
+    node {
+        deploy(context, "QA")
     }
-    switch(platform) {
-        case 'java':
-            buildAndPublishMavenArtifact(config)
-            break
-        default:
-            buildAndPublishGenericArtifact(config)
+    node {
+        deploy(context, "staging")
+    }
+    node {
+        deploy(context, "production")
     }
 }
 
-def buildAndPublishMavenArtifact(Map config) {
-    println "Running maven for ${config.appName}"
-    withMaven(maven: 'M3') {
-        sh "mvn clean deploy --quiet"
-    }
-}
 
-def buildAndPublishGenericArtifact(Map config) {
-    println "Running generic build for ${config.appName}"
-    new GenericBuildSteps().build()
-
-}
-
-def deploy(Map config, String environment) {
-    config['environment'] = environment
-    stage("deploy-${config.appName}-${environment}") {
-        echo "Deploying ${config.role} to ${environment}"
-        new ChefSteps().pinEnvironment(config)
+def deploy(PipelineContext context, String env) {
+    stage("Deploy ${context.appName} to $env") {
+        echo "Deploying ${context.appName} to $env"
     }
 }

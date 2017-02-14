@@ -14,6 +14,7 @@ class PipelineRecording {
 
     PipelineRecording() {
         invocationHandler = new DslMethodInvocationHandler(DslStub)
+        invocationHandler.registerCustomHandler("stage", new StageInvocationHandler(this))
         defaultStage = new StageModel('defaultStage', invocationHandler)
         currentStage = defaultStage
     }
@@ -30,13 +31,16 @@ class PipelineRecording {
         stages[stageName]
     }
 
+    Map getStages() {
+        Collections.unmodifiableMap(stages)
+    }
+
     StageModel createStage(String stageName) {
         LOG.info("Creating new stage $stageName")
         StageModel model = new StageModel(stageName, invocationHandler)
         stages[stageName] = model
         currentStage = model
         model
-
     }
 
     def invokeOnCurrentStage(String name, args) {

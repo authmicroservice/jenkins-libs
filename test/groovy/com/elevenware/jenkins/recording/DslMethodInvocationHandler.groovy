@@ -19,6 +19,10 @@ class DslMethodInvocationHandler {
         }
     }
 
+    void registerCustomHandler(String methodName, InvocationHandler handler) {
+        registry[methodName] = handler
+     }
+
     private def createFor(Method method) {
         String name = method.name
         for(Class type: method.getParameterTypes()) {

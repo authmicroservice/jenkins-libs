@@ -3,6 +3,7 @@ package com.elevenware.jenkins.recording
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
+import static org.hamcrest.CoreMatchers.equalTo
 import static org.hamcrest.CoreMatchers.isA
 import static org.junit.Assert.assertThat
 
@@ -81,6 +82,29 @@ class DslMethodInvocationHandlerTests {
 
         assertThat(codeBlock, hadInvocation("doAllThis", "bar", isA(Closure)))
         assertThat(codeBlock, hadInvocation("doSomething", 'foo'))
+
+    }
+
+    @Test
+    void addCustomHandler() {
+
+        DslMethodInvocationHandler myHandler = new DslMethodInvocationHandler(SimpleInterface)
+
+        StringBuilder buf = new StringBuilder()
+
+        myHandler.registerCustomHandler("notOnInterface", new InvocationHandler("notOnInterface", String) {
+
+            @Override
+            def handle(CodeBlock block, Object... args) {
+                buf.append(args[0])
+            }
+        })
+
+        CodeBlock codeBlock = new CodeBlock()
+
+        myHandler.handle(codeBlock, "notOnInterface", "foo")
+
+        assertThat(buf.toString(), equalTo("foo"))
 
     }
 

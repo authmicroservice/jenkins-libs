@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.pipelines.util
 
+import com.elevenware.jenkins.pipelines.platforms.SimplePlatform
 import com.elevenware.jenkins.pipelines.platforms.JavaPlatform
 
 class PlatformRegistry {
@@ -10,6 +11,7 @@ class PlatformRegistry {
 
     private PlatformRegistry() {
         registry['java'] = JavaPlatform
+        registry['simple'] = SimplePlatform
     }
 
     static PlatformRegistry getInstance() {

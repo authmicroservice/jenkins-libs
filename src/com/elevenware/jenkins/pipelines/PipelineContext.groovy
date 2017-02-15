@@ -41,6 +41,10 @@ class PipelineContext implements Serializable{
             owner.chefRepoUri = uri
         }
 
+        void setUrl(String uri) {
+            owner.chefRepoUri = uri
+        }
+
         void setCredentials(String credentials) {
             owner.chefRepoCredentials = credentials
         }

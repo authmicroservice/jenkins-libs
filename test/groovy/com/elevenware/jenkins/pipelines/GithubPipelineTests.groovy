@@ -12,7 +12,6 @@ import static com.elevenware.jenkins.recording.DslTestHelper.testableJenkinsfile
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.core.IsEqual.equalTo
-import static org.mockito.Matchers.isA
 
 class GithubPipelineTests {
 
@@ -46,7 +45,6 @@ class GithubPipelineTests {
         StageModel deployStage = recording.getStage("Deploy basic-app to integration")
 
         assertThat(deployStage, hadInvocation("echo", "Deploying basic-app to integration"))
-        assertThat(deployStage, hadInvocation("git", isA(Map)))
 
         ArgumentCapture capture = new ArgumentCapture(Map)
 

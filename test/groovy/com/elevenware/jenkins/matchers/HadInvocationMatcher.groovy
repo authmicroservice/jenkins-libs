@@ -70,7 +70,17 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
             if(Matcher.isAssignableFrom(arg.getClass())) {
                 Matcher matcher = (Matcher) arg
                 if(!matcher.matches(actualArg)) return false
-            } else {
+            }
+            else
+                if(ArgumentCaptureWrapper.isAssignableFrom(arg.getClass())) {
+                    ArgumentCaptureWrapper wrapper = (ArgumentCaptureWrapper) arg
+                    if(!wrapper.matches(actualArg)) {
+                        return false
+                    } else {
+                        wrapper.capture(actualArg)
+                    }
+                }
+            else {
                 if(actualArg != arg) {
                     return false
                 }

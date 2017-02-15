@@ -31,4 +31,7 @@ class DslMatchers {
         return inPosition(0)
     }
 
+    static ArgumentCaptureWrapper captureTo(ArgumentCapture capture) {
+        return new ArgumentCaptureWrapper(capture)
+    }
 }

@@ -23,6 +23,7 @@ class JenkinsFileTests {
         assertThat(ctx.role, equalTo('basic'))
         assertThat(ctx.platform, equalTo('java'))
         assertThat(ctx.cookbookName, equalTo('tc-basic'))
+        assertThat(ctx.chefRepoUri, equalTo('git@github.com:ThomasCookOnline/chef-repo'))
 
     }
 

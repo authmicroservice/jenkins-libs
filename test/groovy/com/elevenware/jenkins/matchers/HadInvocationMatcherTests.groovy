@@ -7,6 +7,7 @@ import org.hamcrest.BaseDescription
 import org.hamcrest.Description
 import org.junit.Test
 
+import static com.elevenware.jenkins.matchers.DslMatchers.captureTo
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static org.hamcrest.CoreMatchers.*
 import static org.hamcrest.MatcherAssert.assertThat
@@ -189,6 +190,22 @@ class HadInvocationMatcherTests {
         codeBlock.foo()
 
         assertThat(stageModel, hadInvocation("foo"))
+
+    }
+
+    @Test
+    void capturingArguments() {
+
+        CodeBlock block = new CodeBlock()
+        block.doSomething(arg1: 'foo', arg2: 'bar')
+
+        ArgumentCapture capture = new ArgumentCapture(Map)
+        assertThat(block, hadInvocation("doSomething", captureTo(capture)))
+
+        Map args = capture.value()
+
+        assertThat(args['arg1'], equalTo('foo'))
+        assertThat(args['arg2'], equalTo('bar'))
 
     }
 

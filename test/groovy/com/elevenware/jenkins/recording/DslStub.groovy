@@ -12,5 +12,6 @@ interface DslStub {
     void withMaven(Closure body)
     void withMaven(Map args, Closure body)
     void git(String uri)
+    void git(Map config)
 
 }

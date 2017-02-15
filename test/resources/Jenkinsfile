@@ -3,4 +3,9 @@ runPipeline('simplePipeline') {
   role = 'basic'
   platform = 'java'
   cookbookName = 'tc-basic'
+  chefRepoUri = 'git@github.com:ThomasCookOnline/chef-repo'
+  chefRepo {
+     uri = 'git@github.com:ThomasCookOnline/chef-repo'
+     credentials = 'abc123'
+  }
 }

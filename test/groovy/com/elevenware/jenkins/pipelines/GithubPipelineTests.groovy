@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
+import com.elevenware.jenkins.matchers.ArgumentCapture
 import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
 import com.elevenware.jenkins.recording.PipelineRecording
 import com.elevenware.jenkins.recording.StageModel
@@ -10,6 +11,8 @@ import static com.elevenware.jenkins.matchers.DslMatchers.*
 import static com.elevenware.jenkins.recording.DslTestHelper.testableJenkinsfileClosure
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.core.IsEqual.equalTo
+import static org.mockito.Matchers.isA
 
 class GithubPipelineTests {
 
@@ -43,7 +46,16 @@ class GithubPipelineTests {
         StageModel deployStage = recording.getStage("Deploy basic-app to integration")
 
         assertThat(deployStage, hadInvocation("echo", "Deploying basic-app to integration"))
-        assertThat(deployStage, hadInvocation("git", "git@github.com:ThomasCookOnline/chef-repo"))
+        assertThat(deployStage, hadInvocation("git", isA(Map)))
+
+        ArgumentCapture capture = new ArgumentCapture(Map)
+
+        assertThat(deployStage, hadInvocation("git", captureTo(capture)))
+
+        Map args = capture.value()
+
+        assertThat(args.get("url"), equalTo("git@github.com:ThomasCookOnline/chef-repo"))
+        assertThat(args.get("credentialsId"), equalTo("abc123"))
 
     }
 
@@ -57,7 +69,10 @@ class GithubPipelineTests {
                 role = 'basic'
                 platform = 'simple'
                 cookbookName = 'tc-basic'
-                chefRepoUri = 'git@github.com:ThomasCookOnline/chef-repo'
+                chefRepo {
+                    uri = 'git@github.com:ThomasCookOnline/chef-repo'
+                    credentials = 'abc123'
+                }
             }
         }.context
 

@@ -29,7 +29,7 @@ class PipelineContext implements Serializable{
         out.flush()
     }
 
-    private static class ChefRepoDelegate {
+    private static class ChefRepoDelegate implements Serializable {
 
         private PipelineContext owner
 

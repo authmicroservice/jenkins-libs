@@ -10,6 +10,7 @@ def run(PipelineContext context) {
       node {
           stage("Build $appName") {
              platform.build(context)
+              sh 'ls'
           }
       }
      node {

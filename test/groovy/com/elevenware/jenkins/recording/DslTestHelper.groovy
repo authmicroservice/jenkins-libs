@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.recording
 
+import com.elevenware.jenkins.pipelines.definitions.ChefSteps
 import com.elevenware.jenkins.pipelines.util.PlatformRegistry
 import org.codehaus.groovy.control.CompilerConfiguration
 
@@ -43,14 +44,22 @@ class DslTestHelper {
         closure.call()
         def platformName = delegate.context.platform
         def platform = PlatformRegistry.instance.create(platformName)
-        platform.metaClass {
+        wrapUp(platform, recording)
+        delegate.context.setPlatformImplementation(platform)
+        ChefSteps chefSteps = new ChefSteps()
+        delegate.context.chefSteps = chefSteps
+        wrapUp(chefSteps, recording)
+        delegate
+    }
+
+    static void wrapUp(parent, PipelineRecording recording) {
+        parent.metaClass {
             mixin DslDelegate
         }
         if(recording) {
-            platform.setRecording(recording)
+            parent.setRecording(recording)
         }
-        delegate.context.setPlatformImplementation(platform)
-        delegate
     }
+
 
 }

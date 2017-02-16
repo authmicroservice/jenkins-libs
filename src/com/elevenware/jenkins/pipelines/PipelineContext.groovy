@@ -11,7 +11,11 @@ class PipelineContext implements Serializable{
     String chefRepoUri
     String chefRepoCredentials
     String cookbookDir
+    int buildNumber
     def platformImplementation
+    def chefSteps
+
+
 
     @NonCPS
     void chefRepo(Closure chefClosure) {

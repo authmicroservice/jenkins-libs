@@ -44,11 +44,24 @@ class GithubPipelineTests {
 
         StageModel deployStage = recording.getStage("Deploy basic-app to integration")
 
-        assertThat(deployStage, hadInvocation("echo", "Deploying basic-app to integration"))
+        assertDeploySteps(deployStage, 'integration')
+
+        assertThat(deployStage, hadInvocation("echo", "Build number: 123"))
+        assertThat(deployStage, hadInvocation("echo", "Metadata: 0123-xxxxxxxx"))
+
+    }
+
+    void assertDeploySteps(StageModel stageModel, String env) {
 
         ArgumentCapture capture = new ArgumentCapture(Map)
 
-        assertThat(deployStage, hadInvocation("git", captureTo(capture)))
+        assertThat(stageModel, hadInvocation("echo", "Deploying basic-app to $env"))
+
+        assertThat(stageModel, hadInvocation("git", captureTo(capture)))
+        assertThat(stageModel, hadInvocation("dir", 'cookbook'))
+        assertThat(stageModel, hadInvocation('sh'))
+
+        assertThat(stageModel, hadInvocation('echo', "Pinning basic-app to version <x> in environment ${env}"))
 
         Map args = capture.value()
 
@@ -67,6 +80,7 @@ class GithubPipelineTests {
                 role = 'basic'
                 platform = 'simple'
                 cookbookName = 'tc-basic'
+                cookbookDir = "cookbook"
                 chefRepo {
                     uri = 'git@github.com:ThomasCookOnline/chef-repo'
                     credentials = 'abc123'
@@ -74,6 +88,7 @@ class GithubPipelineTests {
             }
         }.context
 
+        ctx.buildNumber = 123
 
         pipeline.run(ctx)
         recording = pipeline.getRecording()

@@ -1,20 +1,16 @@
 package com.elevenware.jenkins.pipelines.definitions
 
-import hudson.FilePath
-import org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper
+import com.elevenware.jenkins.pipelines.PipelineContext
 
-def pinEnvironment(Map config) {
-    loadChefBundle()
-    echo "CONFIG = ${config}"
-    String script = libraryResource('scripts/chef/environmentPin.sh')
-    script = script.replace('${COOKBOOK_VERSION}', config.version)
-    script = script.replace('${CHEF_ENVIRONMENT}', config.environment)
-    script = script.replace('${COOKBOOK_NAME}', config.cookbookName)
-    sh script
+def installChefDependencies(PipelineContext ctx) {
+    echo'Installing cookbook dependencies'
+    dir ctx.cookbookDir
+    sh "bundle install --path \"~/.gem\""
 }
 
-def loadChefBundle() {
-    String gemfileContent = libraryResource 'scripts/chef/chef_gemfile'
-    writeFile file: 'Gemfile', text: gemfileContent
-    sh(libraryResource('scripts/chef/loadDependencies.sh'))
+def environmentPin(PipelineContext ctx, String env) {
+    echo "Pinning ${ctx.appName} to version <x> in environment ${env}"
+    echo "Build number: ${ctx.buildNumber}"
+    def metadata = String.format("%04d", ctx.buildNumber)
+    echo "Metadata: ${metadata}"
 }

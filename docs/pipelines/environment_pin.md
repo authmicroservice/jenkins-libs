@@ -4,7 +4,9 @@ This is an analysis of what goes on when pinning environments using Chef
 
 ## inputa
 
-This phase needs to be aware of the app name ${APP_NAME}, Chef environment and desired version to pin, also known as APP_SPEC
+This phase needs to be aware of the app name ${APP_NAME}, Chef environment and desired version to pin, also known as APP_SPEC.
+
+This is computed differently per-platform. 
 
 ## Steps
 

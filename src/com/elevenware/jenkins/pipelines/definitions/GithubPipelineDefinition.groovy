@@ -34,7 +34,8 @@ def deploy(PipelineContext context, String env) {
         def credentials = context.chefRepoCredentials
         def cookbookDir = context.cookbookDir
         git url: chefUri, credentialsId: credentials
-
-
+        ChefSteps chefSteps = context.chefSteps
+        chefSteps.installChefDependencies(context)
+        chefSteps.environmentPin(context, env)
     }
 }

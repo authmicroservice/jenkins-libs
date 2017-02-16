@@ -47,7 +47,7 @@ class GithubPipelineTests {
         assertDeploySteps(deployStage, 'integration')
 
         assertThat(deployStage, hadInvocation("echo", "Build number: 123"))
-        assertThat(deployStage, hadInvocation("echo", "Metadata: 0123-xxxxxxxx"))
+        assertThat(deployStage, hadInvocation("echo", "Metadata: 0123-af61a6c9"))
 
     }
 
@@ -81,6 +81,7 @@ class GithubPipelineTests {
                 platform = 'simple'
                 cookbookName = 'tc-basic'
                 cookbookDir = "cookbook"
+                shortCommit = 'af61a6c9'
                 chefRepo {
                     uri = 'git@github.com:ThomasCookOnline/chef-repo'
                     credentials = 'abc123'

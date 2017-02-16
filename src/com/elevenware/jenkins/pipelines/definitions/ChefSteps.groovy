@@ -11,6 +11,6 @@ def installChefDependencies(PipelineContext ctx) {
 def environmentPin(PipelineContext ctx, String env) {
     echo "Pinning ${ctx.appName} to version <x> in environment ${env}"
     echo "Build number: ${ctx.buildNumber}"
-    def metadata = String.format("%04d", ctx.buildNumber)
+    def metadata = String.format("%04d-%s", ctx.buildNumber, ctx.shortCommit)
     echo "Metadata: ${metadata}"
 }

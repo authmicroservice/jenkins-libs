@@ -6,8 +6,8 @@ import com.elevenware.jenkins.pipelines.definitions.ChefSteps
 def call(String pipelineName, Closure body) {
 
     node {
-        gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-        shortCommit = gitCommit.take(6)
+//        gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+//        shortCommit = gitCommit.take(6)
     }
 
     def pipelineDef = PipelineRegistry.instance.create(pipelineName)

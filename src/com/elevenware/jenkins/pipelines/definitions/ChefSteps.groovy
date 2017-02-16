@@ -6,7 +6,7 @@ def installChefDependencies(PipelineContext ctx) {
     echo'Installing cookbook dependencies'
     echo "I AM IN ${env.WORKSPACE} ${ctx.cookbookDir}"
     sh 'ls'
-    dir ctx.cookbookDir {
+    dir("{ctx.cookbookDir}") {
         sh "bundle install --path \"~/.gem\""
     }
 }

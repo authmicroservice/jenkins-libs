@@ -4,10 +4,8 @@ import com.elevenware.jenkins.pipelines.util.PlatformRegistry
 
 def call(String pipelineName, Closure body) {
 
-    node {
-        def  gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
         def shortCommit = gitCommit.take(6)
-    }
 
 
     def pipelineDef = PipelineRegistry.instance.create(pipelineName)

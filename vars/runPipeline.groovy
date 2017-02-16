@@ -17,8 +17,8 @@ def call(String pipelineName, Closure body) {
     body.resolveStrategy = Closure.DELEGATE_ONLY
     body()
 
-    ctx.gitCommit = gitCommit
-    ctx.shortCommit = shortCommit
+//    ctx.gitCommit = gitCommit
+//    ctx.shortCommit = shortCommit
 
     def platformName = ctx.platform
     def platform = PlatformRegistry.instance.create(platformName)

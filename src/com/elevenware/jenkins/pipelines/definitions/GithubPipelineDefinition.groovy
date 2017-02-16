@@ -33,6 +33,7 @@ def deploy(PipelineContext context, String env) {
         def chefUri = context.chefRepoUri
         def credentials = context.chefRepoCredentials
         def cookbookDir = context.cookbookDir
+        echo "URI $chefUri"
         git url: chefUri, credentialsId: credentials
         ChefSteps chefSteps = context.chefSteps
         chefSteps.installChefDependencies(context)

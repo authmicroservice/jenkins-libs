@@ -5,9 +5,8 @@ import com.elevenware.jenkins.pipelines.util.PlatformRegistry
 def call(String pipelineName, Closure body) {
 
     node {
-        gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-        shortCommit = gitCommit.take(6)
-        echo "SHORT $shortCommit"
+        def  gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        def shortCommit = gitCommit.take(6)
     }
 
 
@@ -17,6 +16,9 @@ def call(String pipelineName, Closure body) {
     body.delegate = ctx
     body.resolveStrategy = Closure.DELEGATE_ONLY
     body()
+
+    ctx.gitCommit = gitCommit
+    ctx.shortCommit = shortCommit
 
     def platformName = ctx.platform
     def platform = PlatformRegistry.instance.create(platformName)

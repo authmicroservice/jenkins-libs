@@ -12,6 +12,8 @@ class PipelineContext implements Serializable{
     String chefRepoCredentials
     String cookbookDir
     int buildNumber
+    String gitCommit
+    String shortCommit
     def platformImplementation
     def chefSteps
 

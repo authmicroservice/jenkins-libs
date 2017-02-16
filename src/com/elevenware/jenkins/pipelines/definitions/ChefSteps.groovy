@@ -4,6 +4,7 @@ import com.elevenware.jenkins.pipelines.PipelineContext
 
 def installChefDependencies(PipelineContext ctx) {
     echo'Installing cookbook dependencies'
+    echo "I AM IN ${env.WORKSPACE}"
     dir ctx.cookbookDir
     sh "bundle install --path \"~/.gem\""
 }

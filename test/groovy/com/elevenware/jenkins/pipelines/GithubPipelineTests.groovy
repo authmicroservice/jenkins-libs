@@ -62,7 +62,7 @@ class GithubPipelineTests {
 
         assertThat(stageModel, hadInvocation("git", captureTo(capture)))
         assertThat(stageModel, hadInvocation("dir", 'cookbook', isA(Closure)))
-        assertThat(stageModel, hadInvocation('sh', ShellSnippets.GEM_INSTALL))
+        assertThat(stageModel, hadInvocation('sh', ShellSnippets.GEM_INSTALL.code))
 
         assertThat(stageModel, hadInvocation('echo', "Pinning basic-app to version <x> in environment ${env}"))
 

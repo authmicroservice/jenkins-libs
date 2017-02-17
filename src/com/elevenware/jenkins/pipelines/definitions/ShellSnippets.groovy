@@ -3,10 +3,9 @@ package com.elevenware.jenkins.pipelines.definitions
 /**
  * ShellSnippets
  *
- * Wraps short, one-line shell scripts and also makes them
- * usable anywhere a String might be used
+ * Wraps short, one-line shell scripts
  */
-enum ShellSnippets implements CharSequence {
+enum ShellSnippets {
 
     GEM_INSTALL('bundle install --path "~/.gem"')
 
@@ -15,21 +14,6 @@ enum ShellSnippets implements CharSequence {
     }
 
     String code
-
-    @Override
-    int length() {
-        return code.length()
-    }
-
-    @Override
-    char charAt(int index) {
-        return code.charAt(index)
-    }
-
-    @Override
-    CharSequence subSequence(int start, int end) {
-        return code.subSequence(start, end)
-    }
 
     @Override
     String toString() {

@@ -6,7 +6,7 @@ def installChefDependencies(PipelineContext ctx) {
     echo'Installing cookbook dependencies'
     sh 'ls'
     dir("${ctx.cookbookDir}") {
-        sh ShellSnippets.GEM_INSTALL
+        sh ShellSnippets.GEM_INSTALL.code
     }
 }
 

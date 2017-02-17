@@ -1,7 +1,9 @@
 package com.elevenware.jenkins.pipelines
 
 import com.elevenware.jenkins.matchers.ArgumentCapture
+import com.elevenware.jenkins.pipelines.definitions.ChefSteps
 import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
+import com.elevenware.jenkins.pipelines.definitions.ShellSnippets
 import com.elevenware.jenkins.recording.PipelineRecording
 import com.elevenware.jenkins.recording.StageModel
 import org.junit.Before
@@ -10,6 +12,7 @@ import org.junit.Test
 import static com.elevenware.jenkins.matchers.DslMatchers.*
 import static com.elevenware.jenkins.recording.DslTestHelper.testableJenkinsfileClosure
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
+import static org.hamcrest.CoreMatchers.isA
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.core.IsEqual.equalTo
 
@@ -58,8 +61,8 @@ class GithubPipelineTests {
         assertThat(stageModel, hadInvocation("echo", "Deploying basic-app to $env"))
 
         assertThat(stageModel, hadInvocation("git", captureTo(capture)))
-        assertThat(stageModel, hadInvocation("dir", 'cookbook'))
-        assertThat(stageModel, hadInvocation('sh'))
+        assertThat(stageModel, hadInvocation("dir", 'cookbook', isA(Closure)))
+        assertThat(stageModel, hadInvocation('sh', ShellSnippets.GEM_INSTALL))
 
         assertThat(stageModel, hadInvocation('echo', "Pinning basic-app to version <x> in environment ${env}"))
 

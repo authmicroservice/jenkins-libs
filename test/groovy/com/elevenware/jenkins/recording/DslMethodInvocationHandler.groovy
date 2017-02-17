@@ -44,12 +44,13 @@ class DslMethodInvocationHandler {
         }
         InvocationHandler handler = handlers.find { InvocationHandler h -> h.matches(args)}
         if(!handler) {
-            fail(methodName)
+            fail(methodName, args)
         }
         handler.handle(codeBlock, *args)
     }
 
-    private void fail(String methodName) {
-        throw new DslParsingException("Don't know how to handle $methodName")
+    private void fail(String methodName, args = null) {
+        def message = ( args == null ? '' : " with arguments ${args*.getClass()}")
+        throw new DslParsingException("Don't know how to handle $message}")
     }
 }

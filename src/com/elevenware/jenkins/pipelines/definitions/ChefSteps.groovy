@@ -4,15 +4,14 @@ import com.elevenware.jenkins.pipelines.PipelineContext
 
 def installChefDependencies(PipelineContext ctx) {
     echo'Installing cookbook dependencies'
-    echo "I AM IN ${env.WORKSPACE} ${ctx.cookbookDir}"
     sh 'ls'
-    dir("{ctx.cookbookDir}") {
-        sh "bundle install --path \"~/.gem\""
+    dir("${ctx.cookbookDir}") {
+        sh ShellSnippets.GEM_INSTALL
     }
 }
 
-def environmentPin(PipelineContext ctx, String env) {
-    echo "Pinning ${ctx.appName} to version <x> in environment ${env}"
+def environmentPin(PipelineContext ctx, String targetEnvironment) {
+    echo "Pinning ${ctx.appName} to version <x> in environment ${targetEnvironment}"
     echo "Build number: ${ctx.buildNumber}"
     def metadata = String.format("%04d-%s", ctx.buildNumber, ctx.shortCommit)
     echo "Metadata: ${metadata}"

@@ -18,12 +18,13 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
 
     sh ShellSnippets.KNIFE_CHECK_ENV.format(targetEnvironment)
 
-    StringBuilder pinCmdBuilder = new StringBuilder().append("bundle exec knife exec -E")
+    StringBuilder pinCmdBuilder = new StringBuilder().append("bundle exec knife exec -E ")
             .append("\"env = environments.find('name:${targetEnvironment}').first;")
             .append("env.default_attributes['apps'] ||= {};")
             .append("env.default_attributes['apps']['${ctx.appName}'] = '${ctx.appSpec}';")
             .append("env.savep;\"")
 
+    echo "RUNNING ${pinCmdBuilder.toString()}"
     sh pinCmdBuilder.toString()
 
 }

@@ -8,7 +8,7 @@ package com.elevenware.jenkins.pipelines.definitions
 enum ShellSnippets {
 
     GEM_INSTALL('bundle install --path "~/.gem"'),
-    KNIFE_CHECK_ENV('bundle exec knife %s')
+    KNIFE_CHECK_ENV('bundle exec knife environment show %s --attribute name > /dev/null')
 
     ShellSnippets(String code) {
         this.code = code

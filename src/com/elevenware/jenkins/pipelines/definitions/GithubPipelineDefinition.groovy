@@ -16,7 +16,7 @@ def run(PipelineContext context) {
         deploy(context, "integration")
      }
     node {
-        deploy(context, "qa")
+        deploy(context, "qa1")
     }
     node {
         deploy(context, "staging")

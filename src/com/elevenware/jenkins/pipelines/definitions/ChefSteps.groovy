@@ -22,7 +22,7 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
             .append("\"env = environments.find('name:${targetEnvironment}').first;")
             .append("env.default_attributes['apps'] ||= {};")
             .append("env.default_attributes['apps']['${ctx.appName}'] = '${ctx.appSpec}';")
-            .append("env.savep;\"")
+            .append("env.save;\"")
 
     echo "RUNNING ${pinCmdBuilder.toString()}"
     sh pinCmdBuilder.toString()

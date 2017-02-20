@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when
 
 class ChefStepsTests {
 
-    @Test//( expected = FailedStepException)
+    @Test( expected = FailedStepException)
     void environmentPinDoesNotHappenIfEnvironmentDoesntExist() {
 
        ChefSteps chefSteps = testableScript(ChefSteps)
@@ -28,7 +28,7 @@ class ChefStepsTests {
             '1.0.1-0894-1abbbbae'
         }}
 
-        when(DslStub.INSTANCE.sh(ShellSnippets.KNIFE_CHECK_ENV.format('integration'))).thenReturn(-1) // thenThrow(new FailedStepException("cannot proceed"))
+        when(DslStub.INSTANCE.sh(ShellSnippets.KNIFE_CHECK_ENV.format('integration'))).thenThrow(new FailedStepException("cannot proceed"))
 
         context.appName = 'foo-app'
         context.appVersion = '1.0.1-0894-1abbbbae'

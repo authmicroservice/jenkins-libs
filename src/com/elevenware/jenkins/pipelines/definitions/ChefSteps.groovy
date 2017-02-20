@@ -16,12 +16,14 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
     def metadata = String.format("%04d-%s", ctx.buildNumber, ctx.shortCommit)
     echo "Metadata: ${metadata}"
 
-    def ret = sh ShellSnippets.KNIFE_CHECK_ENV.format(targetEnvironment)
-    echo "RET : $ret"
-    if(ret != 0) {
-        echo "Could not find environment ${targetEnvironment}"
-        return -1
-    }
+    sh ShellSnippets.KNIFE_CHECK_ENV.format(targetEnvironment)
 
-    echo "now let's pin"
+    StringBuilder pinCmdBuilder = new StringBuilder().append("bundle exec knife exec -E")
+            .append("\"env = environments.find('name:${targetEnvironment}').first;")
+            .append("env.default_attributes['apps'] ||= {};")
+            .append("env.default_attributes['apps']['${ctx.appName}'] = '${ctx.appSpec}';")
+            .append("env.savep;\"")
+
+    sh pinCmdBuilder.toString()
+
 }

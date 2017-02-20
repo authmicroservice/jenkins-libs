@@ -16,7 +16,11 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
     def metadata = String.format("%04d-%s", ctx.buildNumber, ctx.shortCommit)
     echo "Metadata: ${metadata}"
 
-    sh ShellSnippets.KNIFE_CHECK_ENV.format(targetEnvironment)
+    def ret = sh ShellSnippets.KNIFE_CHECK_ENV.format(targetEnvironment)
+    if(ret != 0) {
+        echo "Could not find environment ${targetEnvironment}"
+        return -1
+    }
 
     echo "now let's pin"
 }

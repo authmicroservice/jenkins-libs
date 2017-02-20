@@ -6,6 +6,6 @@ def build(PipelineContext context) {
     echo "building with maven"
 }
 
-getVersion() {
+def getVersion() {
     '1.0.1'
 }

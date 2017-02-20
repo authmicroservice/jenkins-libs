@@ -1,6 +1,7 @@
 package com.elevenware.jenkins.pipelines.definitions
 
 import com.elevenware.jenkins.pipelines.PipelineContext
+import groovy.json.JsonSlurper
 
 def installChefDependencies(PipelineContext ctx) {
     echo'Installing cookbook dependencies'
@@ -36,6 +37,10 @@ def currentVersion(PipelineContext ctx, String targetEnvironment) {
                 .append("--attribute \"cookbook_versions.${ctx.cookbookName}\" --format json")
 
     def ret = sh(returnStdout: true, script: buf.toString())
-    echo "CURRENT APP SPEC is '${ret}'"
+    JsonSlurper slurper = new JsonSlurper()
+    def data = slurper.parseText(ret)
+    def currentVersion = data[targetEnvironment]["cookbook_versions.${ctx.cookbookName}"]
+    echo "current version is '${currentVersion}'"
+    return currentVersion
 
 }

@@ -9,9 +9,12 @@ import com.elevenware.jenkins.recording.PipelineRecording
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
+import static com.elevenware.jenkins.matchers.MapMatchers.hasValues
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
+import static org.hamcrest.CoreMatchers.equalTo
 import static org.hamcrest.Matchers.not
 import static org.junit.Assert.assertThat
+import static org.mockito.ArgumentMatchers.argThat
 import static org.mockito.Mockito.when
 
 class ChefStepsTests {
@@ -42,9 +45,11 @@ class ChefStepsTests {
     }
 
     @Test
-    void environmentPinDoeWorks() {
+    void environmentPinDoesWorks() {
 
         ChefSteps chefSteps = testableScript(ChefSteps)
+
+        mockCurrentAppSpec()
 
         PipelineRecording recording = chefSteps.recording
 
@@ -62,6 +67,31 @@ class ChefStepsTests {
         assertThat(recording.defaultStage(), hadInvocation("echo", "Pinning foo-app to version foo-app@1.0.1-0894-1abbbbae in environment integration"))
         assertThat(recording.defaultStage(), hadInvocation("sh", ShellSnippets.KNIFE_CHECK_ENV.format('integration')))
 
+    }
+
+    @Test
+    void currentVersionWorks() {
+
+       ChefSteps chefSteps = testableScript(ChefSteps)
+
+       mockCurrentAppSpec()
+
+       PipelineContext ctx = new PipelineContext()
+       ctx.appName = 'foo-app'
+       ctx.cookbookName = 'tc-foo'
+
+       def currentVersion = chefSteps.currentVersion(ctx, 'integration')
+
+       assertThat(currentVersion, equalTo("= 1.2.3"))
+
+    }
+
+    void mockCurrentAppSpec() {
+        when(DslStub.INSTANCE.sh((Map) argThat(hasValues([returnStdout: true])))).thenReturn("""
+  { "integration": {
+    "cookbook_versions.tc-foo": "= 1.2.3"
+  }
+}""")
     }
 
 }

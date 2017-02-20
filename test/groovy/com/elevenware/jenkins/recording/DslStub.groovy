@@ -21,6 +21,7 @@ interface DslStub {
     String libraryResource(CharSequence string)
     void echo(CharSequence string)
     def sh(CharSequence script)
+    def sh(Map args)
     void withMaven(Closure body)
     void withMaven(Map args, Closure body)
     void git(String uri)

@@ -10,7 +10,7 @@ class PlatformRegistry implements Serializable {
     private def registry = [:]
 
     private PlatformRegistry() {
-        registry['java'] = MavenPlatform
+        registry['maven'] = MavenPlatform
         registry['simple'] = SimplePlatform
     }
 

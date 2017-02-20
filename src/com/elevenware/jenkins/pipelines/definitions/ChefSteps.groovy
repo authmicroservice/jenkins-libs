@@ -17,6 +17,7 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
     echo "Metadata: ${metadata}"
 
     def ret = sh ShellSnippets.KNIFE_CHECK_ENV.format(targetEnvironment)
+    echo "RET : $ret"
     if(ret != 0) {
         echo "Could not find environment ${targetEnvironment}"
         return -1

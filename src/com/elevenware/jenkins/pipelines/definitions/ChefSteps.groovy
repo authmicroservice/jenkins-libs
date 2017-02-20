@@ -25,6 +25,17 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
             .append("env.save;\"")
 
     echo "RUNNING ${pinCmdBuilder.toString()}"
+    currentVersion(ctx, targetEnvironment)
     sh pinCmdBuilder.toString()
+
+}
+
+def currentVersion(PipelineContext ctx, String targetEnvironment) {
+
+    StringBuilder buf = new StringBuilder().append("bundle exec knife environment show ${targetEnvironment}")
+                .append("--attribute \"cookbook_versions.${ctx.cookbookName}\" --format json")
+
+    def ret = sh(returnStdout: true, script: buf.toString())
+    echo "CURRENT APP SPEC is '${ret}'"
 
 }

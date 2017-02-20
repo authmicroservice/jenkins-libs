@@ -39,7 +39,7 @@ class DslDelegate {
 
     def run(Closure closure) {
         closure.setDelegate(this)
-        closure.setResolveStrategy(Closure.DELEGATE_ONLY)
+        closure.setResolveStrategy(Closure.DELEGATE_FIRST)
         closure.call()
     }
 

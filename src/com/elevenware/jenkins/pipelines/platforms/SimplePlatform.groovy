@@ -5,3 +5,7 @@ import com.elevenware.jenkins.pipelines.PipelineContext
 def build(PipelineContext context) {
     echo "building ${context.appName} on simple platform"
 }
+
+def currentVersion() {
+
+}

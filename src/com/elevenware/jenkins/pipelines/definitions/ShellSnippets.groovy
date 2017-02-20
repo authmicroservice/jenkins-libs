@@ -7,7 +7,8 @@ package com.elevenware.jenkins.pipelines.definitions
  */
 enum ShellSnippets {
 
-    GEM_INSTALL('bundle install --path "~/.gem"')
+    GEM_INSTALL('bundle install --path "~/.gem"'),
+    KNIFE_CHECK_ENV('bundle exec knife %s')
 
     ShellSnippets(String code) {
         this.code = code
@@ -19,4 +20,9 @@ enum ShellSnippets {
     String toString() {
         return code
     }
+
+    String format(args) {
+        return String.format(code, args)
+    }
+
 }

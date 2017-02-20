@@ -14,7 +14,7 @@ class DeploymentsTests {
     @Test
     void withDelegate() {
 
-        Deployments deployments = testableScript(Deployments) //new Deployments()
+        Deployments deployments = testableScript(Deployments)
 
         deployments.deploy("integration", [role: 'foo'])
 

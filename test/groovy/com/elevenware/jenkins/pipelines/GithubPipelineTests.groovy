@@ -1,7 +1,6 @@
 package com.elevenware.jenkins.pipelines
 
 import com.elevenware.jenkins.matchers.ArgumentCapture
-import com.elevenware.jenkins.pipelines.definitions.ChefSteps
 import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
 import com.elevenware.jenkins.pipelines.definitions.ShellSnippets
 import com.elevenware.jenkins.recording.PipelineRecording

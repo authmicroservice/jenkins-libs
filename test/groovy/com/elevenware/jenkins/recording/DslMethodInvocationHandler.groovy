@@ -24,7 +24,6 @@ class DslMethodInvocationHandler {
      }
 
     private def createFor(Method method) {
-        String name = method.name
         for(Class type: method.getParameterTypes()) {
             if(Closure.isAssignableFrom(type)) {
                 return new NestableInvocation(method)
@@ -50,7 +49,7 @@ class DslMethodInvocationHandler {
     }
 
     private void fail(String methodName, args = null) {
-        def message = ( args == null ? '' : " with arguments ${args*.getClass()}")
-        throw new DslParsingException("Don't know how to handle $message}")
+        def message = ( args == null ? methodName : "${methodName} with arguments ${args*.getClass()}")
+        throw new DslParsingException("Don't know how to handle ${message}")
     }
 }

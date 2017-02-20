@@ -11,19 +11,24 @@ class PipelineContext implements Serializable{
     String chefRepoUri
     String chefRepoCredentials
     String cookbookDir
+    String appVersion
     int buildNumber
     String gitCommit
     String shortCommit
     def platformImplementation
     def chefSteps
 
-
-
     @NonCPS
     void chefRepo(Closure chefClosure) {
         chefClosure.setDelegate(new ChefRepoDelegate(this))
         chefClosure.setResolveStrategy(Closure.DELEGATE_FIRST)
         chefClosure.call()
+    }
+
+    @NonCPS
+    String getAppSpec() {
+        String version = platformImplementation.getVersion()
+        "${appName}@${version}"
     }
 
     @NonCPS
@@ -34,6 +39,8 @@ class PipelineContext implements Serializable{
         out.println "Cookbook: $cookbookName"
         out.flush()
     }
+
+
 
     private static class ChefRepoDelegate implements Serializable {
 

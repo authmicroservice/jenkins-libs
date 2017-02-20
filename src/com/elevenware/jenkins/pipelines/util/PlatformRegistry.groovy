@@ -1,7 +1,7 @@
 package com.elevenware.jenkins.pipelines.util
 
 import com.elevenware.jenkins.pipelines.platforms.SimplePlatform
-import com.elevenware.jenkins.pipelines.platforms.JavaPlatform
+import com.elevenware.jenkins.pipelines.platforms.MavenPlatform
 
 class PlatformRegistry implements Serializable {
 
@@ -10,7 +10,7 @@ class PlatformRegistry implements Serializable {
     private def registry = [:]
 
     private PlatformRegistry() {
-        registry['java'] = JavaPlatform
+        registry['java'] = MavenPlatform
         registry['simple'] = SimplePlatform
     }
 

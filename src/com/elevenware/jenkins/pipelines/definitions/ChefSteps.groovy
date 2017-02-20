@@ -32,7 +32,7 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
 
 def currentVersion(PipelineContext ctx, String targetEnvironment) {
 
-    StringBuilder buf = new StringBuilder().append("bundle exec knife environment show ${targetEnvironment}")
+    StringBuilder buf = new StringBuilder().append("bundle exec knife environment show ${targetEnvironment} ")
                 .append("--attribute \"cookbook_versions.${ctx.cookbookName}\" --format json")
 
     def ret = sh(returnStdout: true, script: buf.toString())

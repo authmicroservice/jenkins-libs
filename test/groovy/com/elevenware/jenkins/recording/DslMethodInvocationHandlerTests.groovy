@@ -108,6 +108,17 @@ class DslMethodInvocationHandlerTests {
 
     }
 
+    @Test
+    void customHandlerAnnotationWorks() {
+
+        CodeBlock codeBlock = new CodeBlock()
+
+        handler.handle(codeBlock, "customHandler", "foo")
+
+        assertThat(codeBlock, hadInvocation("wibble", "foo"))
+
+    }
+
 }
 
 interface SimpleInterface {
@@ -117,5 +128,19 @@ interface SimpleInterface {
     void doSomethingElse(Object args)
     void doTheseThings(Closure closure)
     void doAllThis(String s, Closure closure)
+    @CustomHandler(SimpleHandler)
+    void customHandler(String s)
 
+}
+
+class SimpleHandler extends InvocationHandler {
+
+    SimpleHandler() {
+        super("customHandler", String)
+    }
+
+    @Override
+    def handle(CodeBlock block, Object... args) {
+        block."wibble"(*args)
+    }
 }

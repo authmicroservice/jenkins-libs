@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.*
+import static com.elevenware.jenkins.recording.CommonMocks.mockCurrentAppSpec
 import static com.elevenware.jenkins.recording.DslTestHelper.testableJenkinsfileClosure
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.CoreMatchers.isA
@@ -74,6 +75,8 @@ class GithubPipelineTests {
 
     @Before
     void setup() {
+
+        mockCurrentAppSpec('tc-basic', '= 1.2.3')
 
         pipeline = testableScript(GithubPipelineDefinition)
         ctx = testableJenkinsfileClosure(pipeline.recording) {

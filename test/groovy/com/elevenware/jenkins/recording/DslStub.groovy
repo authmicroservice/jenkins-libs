@@ -27,5 +27,7 @@ interface DslStub {
     void git(String uri)
     void git(Map config)
     void dir(CharSequence dir, Closure body)
+    @CustomHandler(StageInvocationHandler)
+    void stage(String name, Closure body)
 
 }

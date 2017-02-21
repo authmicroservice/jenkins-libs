@@ -22,7 +22,6 @@ class StageModel {
 
     def invokeDsl(String name, args) {
         invocationHandler.handle(codeBlock, name, args)
-//        codeBlock."$name"(*args)
     }
 
 }

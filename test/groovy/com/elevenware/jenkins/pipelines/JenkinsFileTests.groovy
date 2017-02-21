@@ -34,7 +34,7 @@ class JenkinsFileTests {
             runPipeline('simplePipeline') {
                 appName = 'basic-app'
                 role = 'basic'
-                platform = 'java'
+                platform = 'maven'
                 cookbookName = 'tc-basic'
             }
         }
@@ -44,7 +44,7 @@ class JenkinsFileTests {
         assertThat(delegate.pipelineDefinition, instanceOf(SimplePipelineDefinition))
         assertThat(ctx.appName, equalTo('basic-app'))
         assertThat(ctx.role, equalTo('basic'))
-        assertThat(ctx.platform, equalTo('java'))
+        assertThat(ctx.platform, equalTo('maven'))
         assertThat(ctx.cookbookName, equalTo('tc-basic'))
 
     }

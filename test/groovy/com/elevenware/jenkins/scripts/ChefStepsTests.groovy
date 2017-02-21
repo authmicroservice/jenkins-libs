@@ -6,10 +6,14 @@ import com.elevenware.jenkins.pipelines.definitions.ShellSnippets
 import com.elevenware.jenkins.recording.DslStub
 import com.elevenware.jenkins.recording.FailedStepException
 import com.elevenware.jenkins.recording.PipelineRecording
+import org.junit.Before
 import org.junit.Test
+
+import javax.enterprise.inject.spi.BeforeShutdown
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.matchers.MapMatchers.hasValues
+import static com.elevenware.jenkins.recording.CommonMocks.mockCurrentAppSpec
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.CoreMatchers.equalTo
 import static org.hamcrest.Matchers.not
@@ -49,8 +53,6 @@ class ChefStepsTests {
 
         ChefSteps chefSteps = testableScript(ChefSteps)
 
-        mockCurrentAppSpec()
-
         PipelineRecording recording = chefSteps.recording
 
         PipelineContext context = new PipelineContext()
@@ -74,8 +76,6 @@ class ChefStepsTests {
 
        ChefSteps chefSteps = testableScript(ChefSteps)
 
-       mockCurrentAppSpec()
-
        PipelineContext ctx = new PipelineContext()
        ctx.appName = 'foo-app'
        ctx.cookbookName = 'tc-foo'
@@ -86,12 +86,12 @@ class ChefStepsTests {
 
     }
 
-    void mockCurrentAppSpec() {
-        when(DslStub.INSTANCE.sh((Map) argThat(hasValues([returnStdout: true])))).thenReturn("""
-  { "integration": {
-    "cookbook_versions.tc-foo": "= 1.2.3"
-  }
-}""")
+    @Before
+    void setup() {
+
+        mockCurrentAppSpec('tc-foo', '= 1.2.3')
+
     }
+
 
 }

@@ -24,6 +24,11 @@ class DslMethodInvocationHandler {
      }
 
     private def createFor(Method method) {
+        CustomHandler customHandlerAnnotation = method.getAnnotation(CustomHandler)
+        if(customHandlerAnnotation) {
+            Class customHandler = customHandlerAnnotation.value()
+            return customHandler.newInstance()
+        }
         for(Class type: method.getParameterTypes()) {
             if(Closure.isAssignableFrom(type)) {
                 return new NestableInvocation(method)

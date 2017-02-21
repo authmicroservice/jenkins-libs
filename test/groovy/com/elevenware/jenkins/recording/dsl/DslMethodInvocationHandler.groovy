@@ -1,4 +1,7 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
+
+import com.elevenware.jenkins.recording.DslParsingException
+import com.elevenware.jenkins.recording.NestableInvocation
 
 import java.lang.reflect.Method
 

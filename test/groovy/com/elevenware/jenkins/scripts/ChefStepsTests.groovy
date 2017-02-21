@@ -3,22 +3,18 @@ package com.elevenware.jenkins.scripts
 import com.elevenware.jenkins.pipelines.PipelineContext
 import com.elevenware.jenkins.pipelines.definitions.ChefSteps
 import com.elevenware.jenkins.pipelines.definitions.ShellSnippets
-import com.elevenware.jenkins.recording.DslStub
+import com.elevenware.jenkins.recording.dsl.DslStub
 import com.elevenware.jenkins.recording.FailedStepException
-import com.elevenware.jenkins.recording.PipelineRecording
+import com.elevenware.jenkins.recording.dsl.PipelineRecording
 import org.junit.Before
 import org.junit.Test
 
-import javax.enterprise.inject.spi.BeforeShutdown
-
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
-import static com.elevenware.jenkins.matchers.MapMatchers.hasValues
 import static com.elevenware.jenkins.recording.CommonMocks.mockCurrentAppSpec
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.CoreMatchers.equalTo
 import static org.hamcrest.Matchers.not
 import static org.junit.Assert.assertThat
-import static org.mockito.ArgumentMatchers.argThat
 import static org.mockito.Mockito.when
 
 class ChefStepsTests {

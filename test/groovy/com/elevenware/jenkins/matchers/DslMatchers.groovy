@@ -1,8 +1,8 @@
 package com.elevenware.jenkins.matchers
 
 import com.elevenware.jenkins.matchers.HasStageMatcher.PositionMatcher
-import com.elevenware.jenkins.recording.PipelineRecording
-import com.elevenware.jenkins.recording.StageModel
+import com.elevenware.jenkins.recording.dsl.PipelineRecording
+import com.elevenware.jenkins.recording.dsl.StageModel
 import org.hamcrest.Matcher
 
 class DslMatchers {

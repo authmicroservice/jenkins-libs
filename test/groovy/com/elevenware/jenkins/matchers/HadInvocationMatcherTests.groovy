@@ -1,8 +1,8 @@
 package com.elevenware.jenkins.matchers
 
-import com.elevenware.jenkins.recording.CodeBlock
-import com.elevenware.jenkins.recording.DslMethodInvocationHandler
-import com.elevenware.jenkins.recording.StageModel
+import com.elevenware.jenkins.recording.dsl.CodeBlock
+import com.elevenware.jenkins.recording.dsl.DslMethodInvocationHandler
+import com.elevenware.jenkins.recording.dsl.StageModel
 import org.hamcrest.BaseDescription
 import org.hamcrest.Description
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
 
 import java.lang.annotation.ElementType
 import java.lang.annotation.Retention

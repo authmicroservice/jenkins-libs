@@ -1,6 +1,6 @@
 package com.elevenware.jenkins.matchers
 
-import com.elevenware.jenkins.recording.PipelineRecording
+import com.elevenware.jenkins.recording.dsl.PipelineRecording
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hasStage

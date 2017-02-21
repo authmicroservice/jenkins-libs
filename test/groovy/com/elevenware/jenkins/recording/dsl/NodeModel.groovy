@@ -1,4 +1,6 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
+
+import com.elevenware.jenkins.recording.dsl.CodeBlock
 
 class NodeModel {
 

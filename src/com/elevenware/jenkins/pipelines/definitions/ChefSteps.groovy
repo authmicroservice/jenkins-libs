@@ -25,7 +25,6 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
             .append("env.default_attributes['apps']['${ctx.appName}'] = '${ctx.appSpec}';")
             .append("env.save;\"")
 
-    echo "RUNNING ${pinCmdBuilder.toString()}"
     currentVersion(ctx, targetEnvironment)
     sh pinCmdBuilder.toString()
 

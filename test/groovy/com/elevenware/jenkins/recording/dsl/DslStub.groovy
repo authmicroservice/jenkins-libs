@@ -1,4 +1,4 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
 
 import static org.mockito.Mockito.mock
 /**

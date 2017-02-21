@@ -1,5 +1,7 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
 
+import com.elevenware.jenkins.recording.StageCreationEvent
+import com.elevenware.jenkins.recording.events.EventBroker
 import com.kenai.jffi.Closure
 
 class StageInvocationHandler extends InvocationHandler {

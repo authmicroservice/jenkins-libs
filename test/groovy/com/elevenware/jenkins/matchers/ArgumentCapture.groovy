@@ -1,7 +1,5 @@
 package com.elevenware.jenkins.matchers
 
-import com.elevenware.jenkins.recording.Invocation
-
 class ArgumentCapture {
 
     private Class clazz

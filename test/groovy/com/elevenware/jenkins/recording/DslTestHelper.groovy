@@ -2,6 +2,9 @@ package com.elevenware.jenkins.recording
 
 import com.elevenware.jenkins.pipelines.definitions.ChefSteps
 import com.elevenware.jenkins.pipelines.util.PlatformRegistry
+import com.elevenware.jenkins.recording.dsl.CodeBlock
+import com.elevenware.jenkins.recording.dsl.DslDelegate
+import com.elevenware.jenkins.recording.dsl.PipelineRecording
 import org.codehaus.groovy.control.CompilerConfiguration
 
 class DslTestHelper {

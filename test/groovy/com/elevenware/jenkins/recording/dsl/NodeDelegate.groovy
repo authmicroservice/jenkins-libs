@@ -1,6 +1,4 @@
-package com.elevenware.jenkins.recording
-
-import org.mockito.Mockito
+package com.elevenware.jenkins.recording.dsl
 
 class NodeDelegate {
 

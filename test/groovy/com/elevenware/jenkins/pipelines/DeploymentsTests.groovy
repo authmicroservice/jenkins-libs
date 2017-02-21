@@ -1,7 +1,7 @@
 package com.elevenware.jenkins.pipelines
 
 import com.elevenware.jenkins.pipelines.functions.Deployments
-import com.elevenware.jenkins.recording.StageModel
+import com.elevenware.jenkins.recording.dsl.StageModel
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation

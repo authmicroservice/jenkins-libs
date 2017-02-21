@@ -1,5 +1,7 @@
 package com.elevenware.jenkins.recording
 
+import com.elevenware.jenkins.recording.dsl.DslStub
+
 import static com.elevenware.jenkins.matchers.MapMatchers.hasValues
 import static org.mockito.ArgumentMatchers.argThat
 import static org.mockito.Mockito.when

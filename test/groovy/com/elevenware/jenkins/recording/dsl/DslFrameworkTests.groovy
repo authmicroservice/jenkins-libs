@@ -1,5 +1,6 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
 
+import com.elevenware.jenkins.recording.DslParsingException
 import org.junit.After
 import org.junit.Test
 import org.mockito.Mockito

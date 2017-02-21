@@ -2,9 +2,8 @@ package com.elevenware.jenkins.demo
 
 import com.elevenware.jenkins.pipelines.PipelineContext
 import com.elevenware.jenkins.pipelines.definitions.SimplePipelineDefinition
-import com.elevenware.jenkins.recording.PipelineRecording
-import com.elevenware.jenkins.recording.StageModel
-import org.codehaus.groovy.runtime.GStringImpl
+import com.elevenware.jenkins.recording.dsl.PipelineRecording
+import com.elevenware.jenkins.recording.dsl.StageModel
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
@@ -12,7 +11,6 @@ import static com.elevenware.jenkins.matchers.DslMatchers.isString
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.junit.Assert.assertEquals
-import static org.junit.Assert.assertTrue
 
 class SimplePipelineTests {
 

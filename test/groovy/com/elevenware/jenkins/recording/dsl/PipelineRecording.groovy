@@ -1,4 +1,9 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
+
+import com.elevenware.jenkins.recording.StageCreationEvent
+import com.elevenware.jenkins.recording.events.DslEvent
+import com.elevenware.jenkins.recording.events.DslEventListener
+import com.elevenware.jenkins.recording.events.EventBroker
 
 import java.util.logging.Logger
 

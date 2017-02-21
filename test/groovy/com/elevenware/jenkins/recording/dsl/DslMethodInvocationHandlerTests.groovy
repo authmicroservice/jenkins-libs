@@ -1,5 +1,6 @@
-package com.elevenware.jenkins.recording
+package com.elevenware.jenkins.recording.dsl
 
+import com.elevenware.jenkins.recording.DslParsingException
 import org.junit.Test
 
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation

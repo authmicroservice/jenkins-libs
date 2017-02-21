@@ -1,5 +1,8 @@
 package com.elevenware.jenkins.recording
 
+import com.elevenware.jenkins.recording.dsl.CodeBlock
+import com.elevenware.jenkins.recording.dsl.InvocationHandler
+
 import java.lang.reflect.Method
 
 class NestableInvocation extends InvocationHandler{

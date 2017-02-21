@@ -1,8 +1,8 @@
 package com.elevenware.jenkins.matchers
 
-import com.elevenware.jenkins.recording.CodeBlock
-import com.elevenware.jenkins.recording.Invocation
-import com.elevenware.jenkins.recording.StageModel
+import com.elevenware.jenkins.recording.dsl.CodeBlock
+import com.elevenware.jenkins.recording.dsl.Invocation
+import com.elevenware.jenkins.recording.dsl.StageModel
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 

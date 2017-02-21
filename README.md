@@ -39,7 +39,7 @@ First, we want a test to ensure that both of these stages exist in the correct o
 ```groovy
 
 import static testableScript
-import com.elevenware.jenkins.recording.PipelineRecording
+import com.elevenware.jenkins.recording.dsl.PipelineRecording
 import com.elevenware.jenkins.pipelines.PipelineContext
 
     @Test

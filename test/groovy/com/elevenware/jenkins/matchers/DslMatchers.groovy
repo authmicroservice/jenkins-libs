@@ -7,6 +7,10 @@ import org.hamcrest.Matcher
 
 class DslMatchers {
 
+    static Matcher matchesRegex(String regex) {
+        return new RegexMatcher(regex)
+    }
+
     static Matcher<StageModel> hadInvocation(String command, Object...args) {
         return new HadInvocationMatcher(command, args)
     }

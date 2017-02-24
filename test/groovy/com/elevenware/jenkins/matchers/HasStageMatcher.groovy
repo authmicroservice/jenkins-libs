@@ -24,7 +24,6 @@ class HasStageMatcher extends BaseMatcher<PipelineRecording> {
 
         exists && inPosition
 
-
     }
 
     @Override

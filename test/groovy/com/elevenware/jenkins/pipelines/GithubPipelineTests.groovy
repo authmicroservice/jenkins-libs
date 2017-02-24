@@ -3,10 +3,13 @@ package com.elevenware.jenkins.pipelines
 import com.elevenware.jenkins.matchers.ArgumentCapture
 import com.elevenware.jenkins.pipelines.definitions.GithubPipelineDefinition
 import com.elevenware.jenkins.pipelines.definitions.ShellSnippets
+import com.elevenware.jenkins.recording.dsl.DslStub
 import com.elevenware.jenkins.recording.dsl.PipelineRecording
 import com.elevenware.jenkins.recording.dsl.StageModel
+import org.hamcrest.collection.IsMapContaining
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Matchers
 
 import static com.elevenware.jenkins.matchers.DslMatchers.*
 import static com.elevenware.jenkins.recording.CommonMocks.mockCurrentAppSpec
@@ -15,6 +18,8 @@ import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.CoreMatchers.isA
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.core.IsEqual.equalTo
+import static org.mockito.Mockito.when
+import static org.mockito.hamcrest.MockitoHamcrest.argThat
 
 class GithubPipelineTests {
 
@@ -27,7 +32,7 @@ class GithubPipelineTests {
 
         assertThat(recording, hasStage('Build basic-app', inFirstPosition()))
         assertThat(recording, hasStage('Deploy basic-app to integration', inPosition(1)))
-        assertThat(recording, hasStage('Deploy basic-app to qa', inPosition(2)))
+        assertThat(recording, hasStage('Deploy basic-app to qa1', inPosition(2)))
         assertThat(recording, hasStage('Deploy basic-app to staging', inPosition(3)))
         assertThat(recording, hasStage('Deploy basic-app to production', inPosition(4)))
 
@@ -64,7 +69,7 @@ class GithubPipelineTests {
         assertThat(stageModel, hadInvocation("dir", 'cookbook', isA(Closure)))
         assertThat(stageModel, hadInvocation('sh', ShellSnippets.GEM_INSTALL.code))
 
-        assertThat(stageModel, hadInvocation('echo', "Pinning basic-app to version <x> in environment ${env}"))
+        assertThat(stageModel, hadInvocation('echo', "Pinning basic-app to version basic-app@1.0.1 in environment ${env}"))
 
         Map args = capture.value()
 
@@ -76,7 +81,9 @@ class GithubPipelineTests {
     @Before
     void setup() {
 
-        mockCurrentAppSpec('tc-basic', '= 1.2.3')
+        ['integration', 'qa', 'qa1', 'staging', 'production'].each {
+            mockCurrentAppSpec('tc-basic', '= 1.2.3', it)
+        }
 
         pipeline = testableScript(GithubPipelineDefinition)
         ctx = testableJenkinsfileClosure(pipeline.recording) {
@@ -98,6 +105,7 @@ class GithubPipelineTests {
 
         pipeline.run(ctx)
         recording = pipeline.getRecording()
+
     }
 
 }

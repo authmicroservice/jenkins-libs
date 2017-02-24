@@ -13,6 +13,7 @@ import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static com.elevenware.jenkins.recording.CommonMocks.mockCurrentAppSpec
 import static com.elevenware.jenkins.recording.DslTestHelper.testableScript
 import static org.hamcrest.CoreMatchers.equalTo
+import static org.hamcrest.Matchers.hasProperty
 import static org.hamcrest.Matchers.not
 import static org.junit.Assert.assertThat
 import static org.mockito.Mockito.when
@@ -85,7 +86,7 @@ class ChefStepsTests {
     @Before
     void setup() {
 
-        mockCurrentAppSpec('tc-foo', '= 1.2.3')
+        mockCurrentAppSpec('tc-foo', '= 1.2.3', 'integration')
 
     }
 

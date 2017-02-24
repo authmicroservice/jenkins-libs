@@ -66,7 +66,7 @@ class PipelineRecording implements DslEventListener {
     }
 
     private void handle(DslEvent event){
-
+        // NOOP
     }
 
 

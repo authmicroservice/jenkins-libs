@@ -28,7 +28,6 @@ class DslDelegate {
     def stage(String stageName, Closure closure) {
         LOG.info("New stage $stageName")
         recording.createStage(stageName)
-        LOG.info("CURRENT STAG $stageName")
         run(closure)
     }
 

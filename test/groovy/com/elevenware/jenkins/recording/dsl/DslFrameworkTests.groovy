@@ -21,7 +21,7 @@ class DslFrameworkTests {
             echo "hello"
         }
 
-        assertThat(block, hadInvocation("echo", "hello"))
+        assertThat(block, hadInvocation("echo").withArgs("hello"))
 
     }
 
@@ -34,12 +34,12 @@ class DslFrameworkTests {
             }
         }
 
-        assertThat(block, hadInvocation("withMaven", isA(Closure)))
+        assertThat(block, hadInvocation("withMaven").withArgs(isA(Closure)))
         Invocation withMaven = block.getInvocation("withMaven")
 
         block = testableSnippet(withMaven.args.first())
 
-        assertThat(block, hadInvocation("echo", "A maven step"))
+        assertThat(block, hadInvocation("echo").withArgs("A maven step"))
 
     }
 
@@ -52,14 +52,14 @@ class DslFrameworkTests {
             }
         }
 
-        assertThat(block, hadInvocation("withMaven", isA(Map), isA(Closure)))
+        assertThat(block, hadInvocation("withMaven").withArgs(isA(Map), isA(Closure)))
         Invocation withMaven = block.getInvocation("withMaven")
 
         def withMavenClosure = withMaven.args[1]
 
         block = testableSnippet( withMavenClosure )
 
-        assertThat(block, hadInvocation("echo", "A maven step"))
+        assertThat(block, hadInvocation("echo").withArgs("A maven step"))
 
     }
 
@@ -82,7 +82,7 @@ class DslFrameworkTests {
             echo foo
         }
 
-        assertThat(block, hadInvocation("echo", 'bar'))
+        assertThat(block, hadInvocation("echo").withArgs('bar'))
 
     }
 
@@ -97,12 +97,12 @@ class DslFrameworkTests {
             }
         }
 
-        assertThat(block, hadInvocation("withMaven", isA(Closure)))
+        assertThat(block, hadInvocation("withMaven").withArgs(isA(Closure)))
         Invocation withMaven = block.getInvocation("withMaven")
 
         block = testableSnippet(withMaven.args.first())
 
-        assertThat(block, hadInvocation("echo", "A maven step"))
+        assertThat(block, hadInvocation("echo").withArgs("A maven step"))
 
     }
 

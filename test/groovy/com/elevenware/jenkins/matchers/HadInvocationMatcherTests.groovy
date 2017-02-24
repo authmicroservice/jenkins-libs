@@ -4,6 +4,7 @@ import com.elevenware.jenkins.recording.dsl.CodeBlock
 import com.elevenware.jenkins.recording.dsl.DslMethodInvocationHandler
 import com.elevenware.jenkins.recording.dsl.StageModel
 import org.hamcrest.BaseDescription
+import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.junit.Test
 
@@ -11,17 +12,18 @@ import static com.elevenware.jenkins.matchers.DslMatchers.captureTo
 import static com.elevenware.jenkins.matchers.DslMatchers.hadInvocation
 import static org.hamcrest.CoreMatchers.*
 import static org.hamcrest.MatcherAssert.assertThat
+import static org.junit.Assert.assertFalse
 
 class HadInvocationMatcherTests {
 
     @Test
     void explicitAboutStageNotExisting() {
 
-        HadInvocationMatcher matcher = new HadInvocationMatcher("foo", "bar", "baz")
+        HadInvocationMatcher matcher = new HadInvocationMatcher("foo")
 
         StringBuilder buf = new StringBuilder()
 
-        matcher.matches(null)
+        assertFalse(matcher.matches(null))
 
         Description description = new BaseDescription() {
             @Override
@@ -51,9 +53,9 @@ class HadInvocationMatcherTests {
 
         StringBuilder buf = new StringBuilder()
 
-        HadInvocationMatcher matcher = new HadInvocationMatcher("foo", "bar", "baz")
+        HadInvocationMatcher matcher = new HadInvocationMatcher("foo").withArgs("bar", "baz")
 
-        matcher.matches(model)
+        assertFalse(matcher.matches(model))
 
         Description description = new BaseDescription() {
             @Override
@@ -100,7 +102,7 @@ class HadInvocationMatcherTests {
 
         StringBuilder buf = new StringBuilder()
 
-        HadInvocationMatcher matcher = new HadInvocationMatcher("foo", "bar")
+        HadInvocationMatcher matcher = new HadInvocationMatcher("foo").withArgs("bar")
 
         matcher.matches(model)
 
@@ -146,7 +148,7 @@ class HadInvocationMatcherTests {
         CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
-        assertThat(model, hadInvocation("foo", "bar", "baz"))
+        assertThat(model, hadInvocation("foo").withArgs("bar", "baz"))
 
     }
 
@@ -156,7 +158,7 @@ class HadInvocationMatcherTests {
         CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
-        assertThat(model, not(hadInvocation("foo", "bar", "wibble")))
+        assertThat(model, not(hadInvocation("foo").withArgs("bar", "wibble")))
 
     }
 
@@ -166,7 +168,7 @@ class HadInvocationMatcherTests {
         CodeBlock model = new CodeBlock()
         model.foo("bar", "baz")
 
-        assertThat(model, hadInvocation("foo", "bar", isA(String)))
+        assertThat(model, hadInvocation("foo").withArgs("bar", isA(String)))
 
     }
 
@@ -177,8 +179,8 @@ class HadInvocationMatcherTests {
         model.foo("bar")
         model.foo("baz")
 
-        assertThat(model, hadInvocation("foo", "bar"))
-        assertThat(model, hadInvocation("foo", "baz"))
+        assertThat(model, hadInvocation("foo").withArgs("bar"))
+        assertThat(model, hadInvocation("foo").withArgs("baz"))
 
     }
 
@@ -200,7 +202,7 @@ class HadInvocationMatcherTests {
         block.doSomething(arg1: 'foo', arg2: 'bar')
 
         ArgumentCapture capture = new ArgumentCapture(Map)
-        assertThat(block, hadInvocation("doSomething", captureTo(capture)))
+        assertThat(block, hadInvocation("doSomething").withArgs(captureTo(capture)))
 
         Map args = capture.value()
 
@@ -209,5 +211,14 @@ class HadInvocationMatcherTests {
 
     }
 
+    @Test
+    void anyTimesInvocation() {
+
+        CodeBlock model = new CodeBlock()
+        model.foo()
+
+        assertThat(model, hadInvocation("foo"))
+
+    }
 
 }

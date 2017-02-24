@@ -25,7 +25,7 @@ class DeploymentsTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Deploying foo to integration"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Deploying foo to integration"))
 
         assertThat(stage.codeBlock, hadInvocation("sh"))
 

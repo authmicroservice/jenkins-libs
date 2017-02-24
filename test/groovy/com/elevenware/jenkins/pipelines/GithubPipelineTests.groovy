@@ -39,7 +39,7 @@ class GithubPipelineTests {
 
         StageModel buildStage = recording.getStage("Build basic-app")
 
-        assertThat(buildStage, hadInvocation("echo", "building basic-app on simple platform"))
+        assertThat(buildStage, hadInvocation("echo").withArgs("building basic-app on simple platform"))
 
     }
 
@@ -57,13 +57,13 @@ class GithubPipelineTests {
 
         ArgumentCapture capture = new ArgumentCapture(Map)
 
-        assertThat(stageModel, hadInvocation("echo", "Deploying basic-app to $env"))
+        assertThat(stageModel, hadInvocation("echo").withArgs("Deploying basic-app to $env"))
 
-        assertThat(stageModel, hadInvocation("git", captureTo(capture)))
-        assertThat(stageModel, hadInvocation("dir", 'cookbook', isA(Closure)))
-        assertThat(stageModel, hadInvocation('sh', CommonShellCommands.GEM_INSTALL.code))
+        assertThat(stageModel, hadInvocation("git").withArgs(captureTo(capture)))
+        assertThat(stageModel, hadInvocation("dir").withArgs('cookbook', isA(Closure)))
+        assertThat(stageModel, hadInvocation('sh').withArgs(CommonShellCommands.GEM_INSTALL.code))
 
-        assertThat(stageModel, hadInvocation('echo', "Pinning basic-app to version basic-app@1.0.1 in environment ${env}"))
+        assertThat(stageModel, hadInvocation('echo').withArgs("Pinning basic-app to version basic-app@1.0.1 in environment ${env}"))
 
         Map args = capture.value()
 

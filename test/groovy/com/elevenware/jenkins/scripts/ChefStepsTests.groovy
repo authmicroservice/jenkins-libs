@@ -41,8 +41,8 @@ class ChefStepsTests {
 
         chefSteps.environmentPin(context, 'integration')
 
-        assertThat(recording.defaultStage(), hadInvocation("echo", "Pinning foo-app to version foo-app@1.0.1-0894-1abbbbae in environment integration"))
-        assertThat(recording.defaultStage(), not(hadInvocation("echo", "Now let's pin")))
+        assertThat(recording.defaultStage(), hadInvocation("echo").withArgs("Pinning foo-app to version foo-app@1.0.1-0894-1abbbbae in environment integration"))
+        assertThat(recording.defaultStage(), not(hadInvocation("echo").withArgs("Now let's pin")))
 
     }
 
@@ -66,9 +66,9 @@ class ChefStepsTests {
 
         StageModel stageModel = recording.defaultStage()
 
-        assertThat(stageModel, hadInvocation("echo", "Pinning foo-app to version foo-app@1.0.1-0894-1abbbbae in environment integration"))
-        assertThat(stageModel, hadInvocation("sh", KnifeCommands.checkEnvExists('integration')))
-        assertThat(stageModel, hadInvocation("sh", KnifeCommands.pinEnvironment(context, 'integration')))
+        assertThat(stageModel, hadInvocation("echo").withArgs("Pinning foo-app to version foo-app@1.0.1-0894-1abbbbae in environment integration"))
+        assertThat(stageModel, hadInvocation("sh").withArgs(KnifeCommands.checkEnvExists('integration')))
+        assertThat(stageModel, hadInvocation("sh").withArgs(KnifeCommands.pinEnvironment(context, 'integration')))
 
     }
 

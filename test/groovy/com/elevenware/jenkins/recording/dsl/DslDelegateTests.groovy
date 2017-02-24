@@ -17,7 +17,7 @@ class DslDelegateTests {
             echo "hello"
         }
 
-        assertThat(delegate.recording.defaultStage().codeBlock, hadInvocation("echo", "hello"))
+        assertThat(delegate.recording.defaultStage().codeBlock, hadInvocation("echo").withArgs("hello"))
 
     }
 
@@ -29,7 +29,7 @@ class DslDelegateTests {
             echo "hello"
         }
 
-        assertThat(delegate.recording.getStage("stage1").codeBlock, hadInvocation("echo", "hello"))
+        assertThat(delegate.recording.getStage("stage1").codeBlock, hadInvocation("echo").withArgs("hello"))
     }
 
     @Test
@@ -44,7 +44,7 @@ class DslDelegateTests {
             }
         }
 
-        assertThat(delegate.recording.getStage('stage1').codeBlock, hadInvocation("echo", "hello"))
+        assertThat(delegate.recording.getStage('stage1').codeBlock, hadInvocation("echo").withArgs("hello"))
     }
 
     @Test
@@ -59,7 +59,7 @@ class DslDelegateTests {
             }
         }
 
-        assertThat(delegate.recording.getStage('stage1').codeBlock, hadInvocation("echo", "hello"))
+        assertThat(delegate.recording.getStage('stage1').codeBlock, hadInvocation("echo").withArgs("hello"))
     }
 
 }

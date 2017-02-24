@@ -50,7 +50,7 @@ class SimplePipelineTests {
 
         StageModel node = recording.getStage('build Foo Application')
 
-        assertThat(node.codeBlock, hadInvocation("echo", "Running build stage for $appName"))
+        assertThat(node.codeBlock, hadInvocation("echo").withArgs("Running build stage for $appName"))
         assertThat(node.codeBlock, hadInvocation("withMaven"))
 
     }
@@ -70,7 +70,7 @@ class SimplePipelineTests {
 
         StageModel deploy = recording.getStage('deploy Foo Application')
 
-        assertThat(deploy.codeBlock, hadInvocation("echo", "Running deploy stage for $appName"))
+        assertThat(deploy.codeBlock, hadInvocation("echo").withArgs("Running deploy stage for $appName"))
 
     }
 

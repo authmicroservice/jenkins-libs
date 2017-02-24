@@ -11,8 +11,8 @@ class DslMatchers {
         return new RegexMatcher(regex)
     }
 
-    static Matcher<StageModel> hadInvocation(String command, Object...args) {
-        return new HadInvocationMatcher(command, args)
+    static HadInvocationMatcher hadInvocation(String command) {
+        return new HadInvocationMatcher(command)
     }
 
     static Matcher<CharSequence> isString(String expected) {

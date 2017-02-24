@@ -12,16 +12,19 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
     private static final String NOT_FOUND = "was not found"
     private static final String WRONG_ARGS = "was found, but not with the arguments"
     private static final String NULL_ITEM = "No CodeBlock or StageModel was passed at all"
+    private static final Matcher NOOP_MATCHER = new NoopMatcher()
 
     private String command
     private Object[] args
     private StringBuilder errorMessage = new StringBuilder()
     private Object current
     private Object currentActual
+    private Matcher delegate = NOOP_MATCHER
 
-    HadInvocationMatcher(String command, Object...args) {
+
+
+    HadInvocationMatcher(String command) {
         this.command = command
-        this.args = args
     }
 
     @Override
@@ -42,16 +45,23 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
             return false
         }
 
-        errorMessage.append("${command} $WRONG_ARGS ${args}").append(System.lineSeparator()).append("Did you mean: ")
-        for(Invocation invocation: invocations) {
-            if(assertMatch(invocation)) {
-                return true
-            } else {
-                errorMessage.append("${command} ${invocation.args}?").append(System.lineSeparator())
-            }
-        }
+//        errorMessage.append("${command} $WRONG_ARGS ${args}").append(System.lineSeparator()).append("Did you mean: ")
+//        for(Invocation invocation: invocations) {
+//            if(assertMatch(invocation)) {
+//                return true
+//            } else {
+//                errorMessage.append("${command} ${invocation.args}?").append(System.lineSeparator())
+//            }
+//        }
 
-        return false
+        boolean hasArguments = delegate.matches(invocations)
+
+        return hasArguments
+    }
+
+    HadInvocationMatcher withArgs(Object...args) {
+        this.delegate = new HasArgumentsMatcher(this.command, args)
+        return this
     }
 
     private boolean assertMatch(Invocation invocation) {
@@ -92,10 +102,30 @@ class HadInvocationMatcher extends BaseMatcher<CodeBlock> {
 
     @Override
     void describeTo(Description description) {
-        description.appendText("an invocation of '$command' with arguments ${args}")
+        description.appendText("an invocation of '$command'")
+        delegate.describeTo(description)
     }
 
     void describeMismatch(Object item, Description description) {
         description.appendText(errorMessage.toString())
+        delegate.describeMismatch(item, description)
+    }
+
+    private static class NoopMatcher extends BaseMatcher {
+
+        @Override
+        boolean matches(Object item) {
+            return true
+        }
+
+        @Override
+        void describeTo(Description description) {
+
+        }
+
+        @Override
+        void describeMismatch(Object item, Description description) {
+
+        }
     }
 }

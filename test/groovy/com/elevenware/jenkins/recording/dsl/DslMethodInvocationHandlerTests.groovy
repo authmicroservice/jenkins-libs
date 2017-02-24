@@ -28,7 +28,7 @@ class DslMethodInvocationHandlerTests {
 
         handler.handle(codeBlock, "doSomething", "foo")
 
-        assertThat(codeBlock, hadInvocation("doSomething", "foo"))
+        assertThat(codeBlock, hadInvocation("doSomething").withArgs("foo"))
 
     }
 
@@ -39,7 +39,7 @@ class DslMethodInvocationHandlerTests {
 
         handler.handle(codeBlock, "doBoth", "foo", "bar")
 
-        assertThat(codeBlock, hadInvocation("doBoth", "foo", "bar"))
+        assertThat(codeBlock, hadInvocation("doBoth").withArgs("foo", "bar"))
 
     }
 
@@ -50,7 +50,7 @@ class DslMethodInvocationHandlerTests {
 
         handler.handle(codeBlock, "doSomethingElse", "foo")
 
-        assertThat(codeBlock, hadInvocation("doSomethingElse", "foo"))
+        assertThat(codeBlock, hadInvocation("doSomethingElse").withArgs("foo"))
 
     }
 
@@ -65,8 +65,8 @@ class DslMethodInvocationHandlerTests {
 
         handler.handle(codeBlock, "doTheseThings", closure)
 
-        assertThat(codeBlock, hadInvocation("doTheseThings", isA(Closure)))
-        assertThat(codeBlock, hadInvocation("doSomething", 'foo'))
+        assertThat(codeBlock, hadInvocation("doTheseThings").withArgs(isA(Closure)))
+        assertThat(codeBlock, hadInvocation("doSomething").withArgs('foo'))
 
     }
 
@@ -81,8 +81,8 @@ class DslMethodInvocationHandlerTests {
 
         handler.handle(codeBlock, "doAllThis", "bar", closure)
 
-        assertThat(codeBlock, hadInvocation("doAllThis", "bar", isA(Closure)))
-        assertThat(codeBlock, hadInvocation("doSomething", 'foo'))
+        assertThat(codeBlock, hadInvocation("doAllThis").withArgs("bar", isA(Closure)))
+        assertThat(codeBlock, hadInvocation("doSomething").withArgs('foo'))
 
     }
 
@@ -116,7 +116,7 @@ class DslMethodInvocationHandlerTests {
 
         handler.handle(codeBlock, "customHandler", "foo")
 
-        assertThat(codeBlock, hadInvocation("wibble", "foo"))
+        assertThat(codeBlock, hadInvocation("wibble").withArgs("foo"))
 
     }
 

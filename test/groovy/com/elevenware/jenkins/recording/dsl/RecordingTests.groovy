@@ -25,7 +25,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Hello, world!"))
 
     }
 
@@ -40,8 +40,8 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
-        assertThat(stage.codeBlock, hadInvocation("echo", "Goodbye, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Goodbye, world!"))
     }
 
     @Test
@@ -57,7 +57,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", paramToPass))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs(paramToPass))
 
     }
 
@@ -73,7 +73,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Hello, world!"))
 
     }
 
@@ -89,7 +89,7 @@ class RecordingTests {
 
         StageModel stage = recording.defaultStage()
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Hello, world!"))
 
     }
 
@@ -106,7 +106,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Hello, world!"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Hello, world!"))
     }
 
     @Test
@@ -125,7 +125,7 @@ class RecordingTests {
         StageModel stage = recording.defaultStage()
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", string))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs(string))
 
     }
 
@@ -147,7 +147,7 @@ class RecordingTests {
 
         assertNotNull stage
 
-        assertThat(stage.codeBlock, hadInvocation("echo", "Running build stage for foo"))
+        assertThat(stage.codeBlock, hadInvocation("echo").withArgs("Running build stage for foo"))
 
     }
 

@@ -38,6 +38,7 @@ def deploy(PipelineContext context, String env) {
         ChefSteps chefSteps = context.chefSteps
         chefSteps.installChefDependencies(context)
         chefSteps.environmentPin(context, env)
+        echo 'HERE'
         chefSteps.runChefClient(context, env)
     }
 }

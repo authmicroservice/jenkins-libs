@@ -1,4 +1,4 @@
-package com.elevenware.jenkins.pipelines.definitions
+ package com.elevenware.jenkins.pipelines.definitions
 
 import com.elevenware.jenkins.pipelines.PipelineContext
 import com.elevenware.jenkins.pipelines.util.PlatformRegistry
@@ -38,5 +38,6 @@ def deploy(PipelineContext context, String env) {
         ChefSteps chefSteps = context.chefSteps
         chefSteps.installChefDependencies(context)
         chefSteps.environmentPin(context, env)
+        chefSteps.runChefClient(context, env)
     }
 }

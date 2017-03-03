@@ -22,6 +22,21 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
 
 }
 
+def runChefClient(PipelineContext ctx, String targetEnvironment) {
+
+    sh "bundle exec knife search \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
+            "             -a name -a ipaddress | \\\n" +
+            "             grep -e name -e ipaddress"
+
+    sh "bundle exec knife ssh \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
+            "                        --attribute ipaddress \\\n" +
+            "                        --no-host-key-verify \\\n" +
+            "                        --ssh-user jenkins \\\n" +
+            "                        -i /home/jenkins/.ssh/cloud-user \\\n" +
+            "                       'sudo chef-client'"
+
+}
+
 def grabCurrentVersion(PipelineContext ctx, String targetEnvironment) {
 
     StringBuilder buf = new StringBuilder().append("bundle exec knife environment show ${targetEnvironment} ")

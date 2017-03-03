@@ -15,8 +15,8 @@ The Github flow pipeline consists of a number of steps
   * CHeck out chef-repo (using thomascookonline-jenkins creds)
   * run bundle install inside the configured cookbook
   * environment-pin (detailed below)
-  * deploy (detailed below)
-  * environment-pin (detailed below)
+  * run chef client on all nodes with role
+  * roll back environment pin if necessary
   * (do JIRA updates etc. TODO later once pipeline working)
  
  

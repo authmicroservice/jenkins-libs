@@ -212,9 +212,11 @@ class HadInvocationMatcherTests {
     }
 
     @Test
-    void anyTimesInvocation() {
+    void notSpecifyingTimesWorks() {
 
         CodeBlock model = new CodeBlock()
+        model.foo()
+        model.foo()
         model.foo()
 
         assertThat(model, hadInvocation("foo"))

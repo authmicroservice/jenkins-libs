@@ -24,6 +24,8 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
 
 def runChefClient(PipelineContext ctx, String targetEnvironment) {
 
+    echo "Running Chef client on all nodes with role ${ctx.role} in environment ${targetEnvironment}"
+
     sh "bundle exec knife search \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
             "             -a name -a ipaddress | \\\n" +
             "             grep -e name -e ipaddress"

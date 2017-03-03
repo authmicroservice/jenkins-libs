@@ -19,6 +19,7 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
 
     ctx.priorAppSpec = grabCurrentVersion(ctx, targetEnvironment)
     sh KnifeCommands.pinEnvironment(ctx, targetEnvironment)
+    echo "PIUNNED"
 
 }
 

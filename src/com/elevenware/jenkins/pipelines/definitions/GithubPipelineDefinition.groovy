@@ -12,9 +12,9 @@ def run(PipelineContext context) {
           }
       }
         deploy(context, "integration")
-        deploy(context, "qa")
+        deploy(context, "qa", true)
         deploy(context, "staging")
-        deploy(context, "production")
+        deploy(context, "production", true)
 }
 
 

@@ -16,10 +16,10 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
     def metadata = String.format("%04d-%s", ctx.buildNumber, ctx.shortCommit)
 
     sh KnifeCommands.checkEnvExists(targetEnvironment)
-
+    echo "EXiSTS"
     ctx.priorAppSpec = grabCurrentVersion(ctx, targetEnvironment)
     sh KnifeCommands.pinEnvironment(ctx, targetEnvironment)
-    echo "PIUNNED"
+    echo "PINNED"
 
 }
 

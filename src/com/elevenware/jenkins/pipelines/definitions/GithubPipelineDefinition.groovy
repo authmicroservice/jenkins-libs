@@ -23,7 +23,11 @@ def deploy(PipelineContext context, String env, boolean manuallyPromote = false)
     if(manuallyPromote) {
 
         stage("Promote ${appName} to ${env}") {
-            input(id: 'promote', message: "Promote to ${env}?")
+            def userInput = input(
+                    id: 'userInput', message: 'Let\'s promote?', parameters: [
+                    [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                    [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+            ])
         }
     }
     node {

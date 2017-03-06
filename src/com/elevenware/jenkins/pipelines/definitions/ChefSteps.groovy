@@ -16,10 +16,8 @@ def environmentPin(PipelineContext ctx, String targetEnvironment) {
     def metadata = String.format("%04d-%s", ctx.buildNumber, ctx.shortCommit)
 
     sh KnifeCommands.checkEnvExists(targetEnvironment)
-    echo "EXiSTS"
     ctx.priorAppSpec = grabCurrentVersion(ctx, targetEnvironment)
     sh KnifeCommands.pinEnvironment(ctx, targetEnvironment)
-    echo "PINNED"
 
 }
 
@@ -30,6 +28,8 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
     sh "bundle exec knife search \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
             "             -a name -a ipaddress | \\\n" +
             "             grep -e name -e ipaddress"
+
+    echo "FOUND SOME NODES"
 
     sh "bundle exec knife ssh \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
             "                        --attribute ipaddress \\\n" +

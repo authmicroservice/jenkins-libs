@@ -19,9 +19,13 @@ def run(PipelineContext context) {
 
 
 def deploy(PipelineContext context, String env) {
+    def appName = context.appName
+    stage("Promote ${appName} to ${env}") {
+        input(id:'promote', message: "Promote to ${env}?")
+    }
     node {
-        stage("Deploy ${context.appName} to $env") {
-            echo "Deploying ${context.appName} to $env"
+        stage("Deploy ${appName} to $env") {
+            echo "Deploying ${appName} to $env"
             def chefUri = context.chefRepoUri
             def credentials = context.chefRepoCredentials
             def cookbookDir = context.cookbookDir

@@ -29,8 +29,6 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
             "             -a name -a ipaddress | \\\n" +
             "             grep -e name -e ipaddress"
 
-    echo "FOUND SOME NODES"
-
     sh "bundle exec knife ssh \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
             "                        --attribute ipaddress \\\n" +
             "                        --no-host-key-verify \\\n" +

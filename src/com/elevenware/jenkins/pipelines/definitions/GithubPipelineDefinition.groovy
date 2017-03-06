@@ -16,7 +16,7 @@ def run(PipelineContext context) {
         deploy(context, "integration")
      }
     node {
-        deploy(context, "qa1")
+        deploy(context, "qa")
     }
     node {
         deploy(context, "staging")
@@ -33,12 +33,10 @@ def deploy(PipelineContext context, String env) {
         def chefUri = context.chefRepoUri
         def credentials = context.chefRepoCredentials
         def cookbookDir = context.cookbookDir
-        echo "URI $chefUri"
         git url: chefUri, credentialsId: credentials
         ChefSteps chefSteps = context.chefSteps
         chefSteps.installChefDependencies(context)
         chefSteps.environmentPin(context, env)
-        echo 'HERE'
         chefSteps.runChefClient(context, env)
     }
 }

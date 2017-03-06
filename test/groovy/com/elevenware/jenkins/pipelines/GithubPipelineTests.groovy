@@ -28,7 +28,7 @@ class GithubPipelineTests {
 
         assertThat(recording, hasStage('Build basic-app', inFirstPosition()))
         assertThat(recording, hasStage('Deploy basic-app to integration', inPosition(1)))
-        assertThat(recording, hasStage('Deploy basic-app to qa1', inPosition(2)))
+        assertThat(recording, hasStage('Deploy basic-app to qa', inPosition(2)))
         assertThat(recording, hasStage('Deploy basic-app to staging', inPosition(3)))
         assertThat(recording, hasStage('Deploy basic-app to production', inPosition(4)))
 

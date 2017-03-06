@@ -18,10 +18,13 @@ def run(PipelineContext context) {
 }
 
 
-def deploy(PipelineContext context, String env) {
+def deploy(PipelineContext context, String env, boolean manuallyPromote = false) {
     def appName = context.appName
-    stage("Promote ${appName} to ${env}") {
-        input(id:'promote', message: "Promote to ${env}?")
+    if(manuallyPromote) {
+
+        stage("Promote ${appName} to ${env}") {
+            input(id: 'promote', message: "Promote to ${env}?")
+        }
     }
     node {
         stage("Deploy ${appName} to $env") {

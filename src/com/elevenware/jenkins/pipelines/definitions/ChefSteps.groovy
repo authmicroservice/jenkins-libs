@@ -29,7 +29,7 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
 
     def nodes = new JsonSlurper().parseText(nodesList)
 
-    if(nodesList.results == 0) {
+    if(nodes.results == 0) {
         echo "No nodes with role ${ctx.role} exist in environment ${targetEnvironment} -  continuing"
         return
     }

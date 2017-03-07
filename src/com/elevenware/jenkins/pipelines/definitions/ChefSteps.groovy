@@ -1,5 +1,6 @@
 package com.elevenware.jenkins.pipelines.definitions
 
+import com.cloudbees.groovy.cps.NonCPS
 import com.elevenware.jenkins.pipelines.PipelineContext
 import groovy.json.JsonSlurper
 
@@ -27,7 +28,7 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
 
     def nodesList = sh(returnStdout: true, script: KnifeCommands.lookUpNodes(ctx.role, targetEnvironment))
 
-    def nodes = new JsonSlurper().parseText(nodesList)
+    def nodes = parseJson(nodesList)
 
     if(nodes.results == 0) {
         echo "No nodes with role ${ctx.role} exist in environment ${targetEnvironment} -  continuing"
@@ -49,11 +50,15 @@ def grabCurrentVersion(PipelineContext ctx, String targetEnvironment) {
                 .append("--attribute \"cookbook_versions.${ctx.cookbookName}\" --format json")
 
     def ret = sh(returnStdout: true, script: buf.toString())
-    JsonSlurper slurper = new JsonSlurper()
-    def data = slurper.parseText(ret)
+    def data = parseJson(ret)
     def currentVersion = data[targetEnvironment]["cookbook_versions.${ctx.cookbookName}"]
     echo "current version is '${currentVersion}'"
 
     return currentVersion
 
+}
+
+@NonCPS
+def parseJson(String text) {
+    new groovy.json.JsonSlurperClassic().parseText(text)
 }

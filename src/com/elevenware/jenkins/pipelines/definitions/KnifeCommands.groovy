@@ -27,4 +27,14 @@ class KnifeCommands {
                         .append('"\\\n --attribute ipaddress --format json').toString()
     }
 
+    static String runChefClient(String role, String targetEnvironment) {
+        new StringBuilder('bundle exec knife ssh "')
+            .append("role:${role} AND chef_environment:${targetEnvironment}").append('"\\\n"')
+            .append("                        --attribute ipaddress \\\n")
+            .append("                        --no-host-key-verify \\\n")
+            .append("                        --ssh-user jenkins \\\n")
+            .append("                        -i /home/jenkins/.ssh/cloud-user \\\n")
+            .append("                       'sudo chef-client'").toString()
+    }
+
 }

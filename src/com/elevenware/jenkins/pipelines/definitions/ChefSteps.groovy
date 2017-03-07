@@ -35,12 +35,14 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
         return
     }
 
-    sh "bundle exec knife ssh \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
-            "                        --attribute ipaddress \\\n" +
-            "                        --no-host-key-verify \\\n" +
-            "                        --ssh-user jenkins \\\n" +
-            "                        -i /home/jenkins/.ssh/cloud-user \\\n" +
-            "                       'sudo chef-client'"
+//    sh "bundle exec knife ssh \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
+//            "                        --attribute ipaddress \\\n" +
+//            "                        --no-host-key-verify \\\n" +
+//            "                        --ssh-user jenkins \\\n" +
+//            "                        -i /home/jenkins/.ssh/cloud-user \\\n" +
+//            "                       'sudo chef-client'"
+
+    sh KnifeCommands.runChefClient(ctx.role, targetEnvironment)
 
 }
 

@@ -25,11 +25,10 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
 
     echo "Running Chef client on all nodes with role ${ctx.role} in environment ${targetEnvironment}"
 
-    def nodesExist = sh(returnStatus: true, script: "bundle exec knife search \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
-            "             -a name -a ipaddress | \\\n" +
-            "             grep -e name -e ipaddress")
+    def nodesList = sh(returnStdout: true, script: KnifeCommands.lookUpNodes(ctx.role, targetEnvironment))
+    echo "NODES $nodesList"
 
-    if(nodesExist != 0) {
+    if(nodesList != 0) {
         echo "No nodes with role ${ctx.role} exist in environment ${targetEnvironment} -  continuing"
         return
     }

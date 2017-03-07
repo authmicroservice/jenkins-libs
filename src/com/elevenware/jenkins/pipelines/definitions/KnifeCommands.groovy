@@ -22,4 +22,9 @@ class KnifeCommands {
         return pinCmdBuilder.toString()
     }
 
+    static String lookUpNodes(String role, String targetEnvironment) {
+        new StringBuilder('bundle exec knife search "').append("role:${role} AND chef_environment:${targetEnvironment}")
+                        .append('"\\\n --format json').toString()
+    }
+
 }

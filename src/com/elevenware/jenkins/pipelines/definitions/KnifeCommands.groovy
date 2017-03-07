@@ -29,7 +29,7 @@ class KnifeCommands {
 
     static String runChefClient(String role, String targetEnvironment) {
         new StringBuilder('bundle exec knife ssh "')
-            .append("role:${role} AND chef_environment:${targetEnvironment}").append('"\\\n"')
+            .append("role:${role} AND chef_environment:${targetEnvironment}").append('"\\\n')
             .append("                        --attribute ipaddress \\\n")
             .append("                        --no-host-key-verify \\\n")
             .append("                        --ssh-user jenkins \\\n")

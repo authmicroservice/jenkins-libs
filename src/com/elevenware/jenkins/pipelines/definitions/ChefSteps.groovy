@@ -42,6 +42,10 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
 //            "                        -i /home/jenkins/.ssh/cloud-user \\\n" +
 //            "                       'sudo chef-client'"
 
+    def cmd = KnifeCommands.runChefClient(ctx.role, targetEnvironment)
+
+    echo "CMD $cmd"
+
     sh KnifeCommands.runChefClient(ctx.role, targetEnvironment)
 
 }

@@ -25,9 +25,14 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
 
     echo "Running Chef client on all nodes with role ${ctx.role} in environment ${targetEnvironment}"
 
-    sh "bundle exec knife search \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
+    def nodesExist = sh(returnStatus: true, script: "bundle exec knife search \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
             "             -a name -a ipaddress | \\\n" +
-            "             grep -e name -e ipaddress"
+            "             grep -e name -e ipaddress")
+
+    if(nodesExist != 0) {
+        echo "No nodes with role ${ctx.role} exist in environment ${targetEnvironment} -  continuing"
+        return
+    }
 
     sh "bundle exec knife ssh \"role:${ctx.role} AND chef_environment:${targetEnvironment}\" \\\n" +
             "                        --attribute ipaddress \\\n" +

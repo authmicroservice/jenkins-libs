@@ -28,6 +28,9 @@ def runChefClient(PipelineContext ctx, String targetEnvironment) {
     def nodesList = sh(returnStdout: true, script: KnifeCommands.lookUpNodes(ctx.role, targetEnvironment))
     echo "NODES $nodesList"
 
+    def nodes = new JsonSlurper().parseText(nodesList)
+    echo "NODE COUNT ${nodes.results}"
+
     if(nodesList != 0) {
         echo "No nodes with role ${ctx.role} exist in environment ${targetEnvironment} -  continuing"
         return

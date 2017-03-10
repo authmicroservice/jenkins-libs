@@ -11,10 +11,10 @@ def run(PipelineContext context) {
              platform.build(context)
           }
       }
-        deploy(context, "integration")
-        deploy(context, "qa", true)
-        deploy(context, "staging")
-        deploy(context, "production", true)
+      deploy(context, "integration")
+      deploy(context, "qa", true)
+      deploy(context, "staging")
+      deploy(context, "production", true)
 }
 
 
@@ -26,7 +26,7 @@ def deploy(PipelineContext context, String env, boolean manuallyPromote = false)
             def userInput = input(
                     id: 'userInput', message: 'Let\'s promote?', parameters: [
                     [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                    [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                    [$gclass: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
             ])
         }
     }

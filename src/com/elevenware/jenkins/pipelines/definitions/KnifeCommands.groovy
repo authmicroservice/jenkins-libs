@@ -10,11 +10,11 @@ import com.elevenware.jenkins.pipelines.PipelineContext
 class KnifeCommands {
 
     static String checkEnvExists(String environment) {
-        return "bundle exec knife environment show ${environment} --attribute name > /dev/null"
+        return "chef exec bundle exec knife environment show ${environment} --attribute name > /dev/null"
     }
 
     static String pinEnvironment(PipelineContext ctx, String targetEnvironment) {
-        StringBuilder pinCmdBuilder = new StringBuilder().append("bundle exec knife exec -E ")
+        StringBuilder pinCmdBuilder = new StringBuilder().append("chef exec bundle exec knife exec -E ")
                 .append("\"env = environments.find('name:${targetEnvironment}').first;")
                 .append("env.default_attributes['apps'] ||= {};")
                 .append("env.default_attributes['apps']['${ctx.appName}'] = '${ctx.appSpec}';")
@@ -23,12 +23,12 @@ class KnifeCommands {
     }
 
     static String lookUpNodes(String role, String targetEnvironment) {
-        new StringBuilder('bundle exec knife search "').append("role:${role} AND chef_environment:${targetEnvironment}")
+        new StringBuilder('chef exec bundle exec knife search "').append("role:${role} AND chef_environment:${targetEnvironment}")
                         .append('"\\\n --attribute ipaddress --format json').toString()
     }
 
     static String runChefClient(String role, String targetEnvironment) {
-        new StringBuilder('bundle exec knife ssh "')
+        new StringBuilder('chef exec bundle exec knife ssh "')
             .append("role:${role} AND chef_environment:${targetEnvironment}").append('"\\\n')
             .append("                        --attribute ipaddress \\\n")
             .append("                        --no-host-key-verify \\\n")

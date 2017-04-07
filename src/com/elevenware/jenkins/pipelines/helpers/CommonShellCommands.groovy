@@ -1,4 +1,4 @@
-package com.elevenware.jenkins.pipelines.definitions
+package com.elevenware.jenkins.pipelines.helpers
 
 enum CommonShellCommands {
 

@@ -34,10 +34,16 @@ def test(PipelineContext context) {
 
     echo "Linting test"
 
+    // Exclude foodcritic fules during check
+    sh "printf '~FC003\n' > .foodcritic" // deprecated for Chef > 12.11
+    sh "printf '~FC064\n' >> .foodcritic" // ussues_url not used for us
+    sh "printf '~FC065\n' > .foodcritic" // source_url not used for us
+
     foodcriticResult = sh(returnStdout: true, script: "foodcritic .").trim()
     if (foodcriticResult.contains("FC")) {
         error 'cookbook didnt pass foodcritic check'
     }
+
     // fails only on Errors and checks only linting rules
     sh "cookstyle --except Style/TrailingCommaInLiteral --display-cop-names -f s --fail-level E ."
 

@@ -26,14 +26,14 @@ def publish(PipelineContext context) {
 def deploy(PipelineContext context, String env) {
     echo "deploy ${context.appName}"
     echo "Deploying ${appName} to $env"
-    def chefUri = context.chefRepoUri
-    def credentials = context.chefRepoCredentials
-    def cookbookDir = context.cookbookDir
-    git url: chefUri, credentialsId: credentials
-    ChefSteps chefSteps = context.chefSteps
-    chefSteps.installChefDependencies(context)
-    chefSteps.environmentPin(context, env)
-    chefSteps.runChefClient(context, env)
+//    def chefUri = context.chefRepoUri
+//    def credentials = context.chefRepoCredentials
+//    def cookbookDir = context.cookbookDir
+//    git url: chefUri, credentialsId: credentials
+//    ChefSteps chefSteps = context.chefSteps
+//    chefSteps.installChefDependencies(context)
+//    chefSteps.environmentPin(context, env)
+//    chefSteps.runChefClient(context, env)
 }
 
 def getVersion() {

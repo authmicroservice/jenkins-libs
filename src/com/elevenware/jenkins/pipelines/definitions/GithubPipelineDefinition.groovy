@@ -40,7 +40,7 @@ def deploy(PipelineContext context, String env, boolean manuallyPromote = false)
                     [$gclass: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
             ])
         }
-        platform.deploy(context, env)
+//        platform.deploy(context, env)
     }
 
 }

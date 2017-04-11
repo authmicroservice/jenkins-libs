@@ -5,10 +5,11 @@ import com.elevenware.jenkins.pipelines.helpers.ChefSteps
 
 def build(PipelineContext context) {
     echo "building ${context.appName}"
-    sh "cd ${context.appName}"
-    sh "cd ${context.appName} && dotnet restore"
-    sh "cd ${context.appName} && dotnet publish --output ${workspace}/app --configuration Release"
-    sh "cd ${context.appName} && dotnet pack --output ${workspace}/package --configuration Release"
+    dir(context.appName) {
+        sh "dotnet restore"
+        sh "dotnet publish --output ${workspace}/app --configuration Release"
+        sh "dotnet pack --output ${workspace}/package --configuration Release" 
+    }
 }
 
 def test(PipelineContext context) {
@@ -16,11 +17,24 @@ def test(PipelineContext context) {
 }
 
 def publish(PipelineContext context) {
-    zip([
-	  'zipFile': "${context.appName}-1.0.0.zip",
-	 'archive': true,
-	 'glob' : 'app/'
-	])
+    echo "Publish ${context.appName} to Nexus: ${workspace}/app"
+    archiveArtifacts artifacts: 'app/**'
+    nexusPublisher nexusInstanceId: 'ThomasCookNexus',
+	    	   nexusRepositoryId: "${context.appName}", 
+	           packages: [
+			[$class: 'MavenPackage', 
+			 mavenAssetList: [
+				       [classifier: '', 
+					extension: '', 
+					filePath: "${context.appName}.zip"]
+			       ],
+			       mavenCoordinate: [
+				       artifactId: "${context.appName}", 
+				       groupId: "com.thomascook.${context.appName}", 
+				       packaging: 'zip', 
+				       version: context.appVersion]
+			      ]
+		  ] // packages
 }
 
 def deploy(PipelineContext context, String env) {
